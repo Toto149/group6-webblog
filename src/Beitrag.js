@@ -23,5 +23,5 @@ export let beitrag = {
 
 
 
-export let beitraege = [];
+export let beitraege = [beitrag];
 export let kommentare = [];

@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {administrator} from "./Benutzer";
 import {kommentar, beitrag } from "./Beitrag";
+import Kommentare from "./components/Kommentare";
 
 function App() {
 
@@ -38,10 +39,7 @@ function App() {
 
   return (
       <div>
-
-          <p>{localStorage.getItem("benutzers")}</p>
-          <p>{beitraege[0].inhalt}</p>
-          <p>{localStorage.getItem("kommentare")}</p>
+            <Kommentare id="1"/>
       </div>
   );
 }
