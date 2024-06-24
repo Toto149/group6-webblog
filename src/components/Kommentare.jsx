@@ -15,7 +15,7 @@ const Kommentare = (props) => {
     //(read more button und vorher nur 3 zeigen?)
     //auch wieder einklappbar
 
-    const beitrag = beitraege.filter((beitrag)=> beitrag.id===props);
+    const beitrag = beitraege.filter((beitrag)=> beitrag.id===props.id);
 
     return (
         <div>
