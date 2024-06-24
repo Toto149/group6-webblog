@@ -4,9 +4,7 @@ import KommentarBearbeitungsMenue from "./KommentarBearbeitungsMenue";
 const Kommentar = (props) => {
 
 
-    //3 punkte menü oben rechts? drop down
-    //edit
-    //delete funktion
+    //menü unterschiedlich
 
 
     return (
@@ -19,10 +17,10 @@ const Kommentar = (props) => {
             {/*<p className={kommentarInhalt}>{props.inhalt}</p>*/}
             <div >
                 <h3>{props.kommentar.nutzer.name}</h3>
-                <p>Verfasst am: {props.datum}</p>
+                <p>Verfasst am: {props.kommentar.datum.toString()}</p>
                 <KommentarBearbeitungsMenue/>
             </div>
-            <p >{props.inhalt}</p>
+            <p >{props.kommentar.inhalt}</p>
         </div>
     );
 };

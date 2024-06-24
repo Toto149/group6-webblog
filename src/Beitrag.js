@@ -3,7 +3,7 @@ import {administrator, benutzer} from "./Benutzer";
 
 export let kommentar = {
     "id": "234234",
-    "nutzer": {administrator},
+    "nutzer": administrator,
     "inhalt": "Hallo ich bin ein Kommentar",
     "datum" : new Date(),
     "editDatum" : {},
