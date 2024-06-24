@@ -10,12 +10,15 @@ const KommentarBearbeitungsMenue = () => {
     return (
         <div>
             <button onClick={wechsleAnzeige}>...</button>
-            <menue show={zeigeMenue}>
+            {zeigeMenue &&
                 <ul>
-                    <li><button>bearbeiten</button></li>
-                    <li><button>löschen</button></li>
-                </ul>
-            </menue>
+                    <li>
+                        <button>bearbeiten</button>
+                    </li>
+                    <li>
+                        <button>löschen</button>
+                    </li>
+                </ul>}
         </div>
     );
 };

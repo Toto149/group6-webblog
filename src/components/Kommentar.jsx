@@ -18,8 +18,8 @@ const Kommentar = (props) => {
             {/*</div>*/}
             {/*<p className={kommentarInhalt}>{props.inhalt}</p>*/}
             <div >
-                <h3 >{props.nutzer}</h3>
-                <p >Verfasst am: {props.datum}</p>
+                <h3>{props.kommentar.nutzer.name}</h3>
+                <p>Verfasst am: {props.datum}</p>
                 <KommentarBearbeitungsMenue/>
             </div>
             <p >{props.inhalt}</p>

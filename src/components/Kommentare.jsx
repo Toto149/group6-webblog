@@ -1,5 +1,5 @@
 import React from 'react';
-import {beitraege} from '../Beitrag'
+import {beitrag} from '../Beitrag'
 import Kommentar from "./Kommentar";
 import KommentarErstellen from "./KommentarErstellen";
 
@@ -15,11 +15,12 @@ const Kommentare = (props) => {
     //(read more button und vorher nur 3 zeigen?)
     //auch wieder einklappbar
 
-    const beitrag = beitraege.filter((beitrag)=> beitrag.id===props.id);
+
+    //const beitragGewählt = beitrag.filter((beitrag)=> beitrag.id===props.id);
 
     return (
         <div>
-            {beitrag.kommentare.map((kommentar)=><Kommentar key={kommentar.id} props={kommentar}/>)}
+            {beitrag.kommentare.map((kommentar)=><Kommentar key={kommentar.id} kommentar={kommentar}/>)}
             <KommentarErstellen/>
 
         </div>
