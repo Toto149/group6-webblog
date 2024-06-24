@@ -1,23 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+
 
 function App() {
+
+
+
+  const admin = {
+    kannKommentieren: true,
+    kannKommentareLöschen: true,
+    kannBeitragLöschen: true,
+    kannBeitragVerfassen: true,
+    kannBeitragVerändern: true,
+    kannRolleÄndern: true
+  }
+
+  const registrierterBenutzer = {
+    kannKommentieren: true,
+    kannKommentareLöschen: false,
+    kannBeitragLöschen: false,
+    kannBeitragVerfassen: false,
+    kannBeitragVerändern: false,
+    kannRolleÄndern: false
+  }
+
+  const moderator = {
+    kannKommentieren: true,
+    kannKommentareLöschen: true,
+    kannBeitragLöschen: false,
+    kannBeitragVerfassen: false,
+    kannBeitragVerändern: false,
+    kannRolleÄndern: false
+  }
+
+  let benutzers = [];
+
+  let benutzer = {
+    id: 1,
+    name: "Admin",
+    passwort: "0000",
+    avatar: "",
+    role: admin
+  }
+
+  benutzers.push(benutzer);
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+
+
     </div>
   );
 }
