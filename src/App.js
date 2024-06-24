@@ -20,7 +20,29 @@ function App() {
   return (
       <div>
 
-          <p>{localStorage.getItem("benutzers")}</p>
+          <MeinHeader/>
+          <AnmeldeLeiste/>
+          <Beitraege>
+
+              <BeitragErstellen>
+
+              </BeitragErstellen>
+
+              <Beitrag>
+
+                  <Kommentare>
+                      <KommentarErstellen>
+
+                      </KommentarErstellen>
+                      <Kommentar>
+
+                      </Kommentar>
+                  </Kommentare>
+              </Beitrag>
+
+          </Beitraege>
+
+          <MeinFooter/>
 
       </div>
   );
