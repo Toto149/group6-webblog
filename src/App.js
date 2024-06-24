@@ -1,55 +1,28 @@
+import {useState, useEffect} from 'react';
+import {administrator} from "./Benutzer";
 
 
 function App() {
 
+    const [benutzers, setBenutzers] = useState([administrator]);
 
+    useEffect(() => {
+        localStorage.setItem('benutzers', JSON.stringify(benutzers));
+    }, [benutzers]);
 
-  const admin = {
-    kannKommentieren: true,
-    kannKommentareLöschen: true,
-    kannBeitragLöschen: true,
-    kannBeitragVerfassen: true,
-    kannBeitragVerändern: true,
-    kannRolleÄndern: true
-  }
-
-  const registrierterBenutzer = {
-    kannKommentieren: true,
-    kannKommentareLöschen: false,
-    kannBeitragLöschen: false,
-    kannBeitragVerfassen: false,
-    kannBeitragVerändern: false,
-    kannRolleÄndern: false
-  }
-
-  const moderator = {
-    kannKommentieren: true,
-    kannKommentareLöschen: true,
-    kannBeitragLöschen: false,
-    kannBeitragVerfassen: false,
-    kannBeitragVerändern: false,
-    kannRolleÄndern: false
-  }
-
-  let benutzers = [];
-
-  let benutzer = {
-    id: 1,
-    name: "Admin",
-    passwort: "0000",
-    avatar: "",
-    role: admin
-  }
-
-  benutzers.push(benutzer);
-
-
+    useEffect(() => {
+        const benutzers = JSON.parse(localStorage.getItem('benutzers'));
+        if (benutzers) {
+            setBenutzers(benutzers);
+        }
+    }, []);
 
   return (
-    <div>
+      <div>
 
+          <p>{localStorage.getItem("benutzers")}</p>
 
-    </div>
+      </div>
   );
 }
 
