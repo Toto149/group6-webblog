@@ -8,12 +8,13 @@ import Kommentare from "./components/kommentare/Kommentare";
 
 function App() {
     const [istAltZuNeu, setIstAltZuNeu] = useState(false)
-    const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege') || [beitrag,beitrag2]));
+    const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege')) || [beitrag,beitrag2]);
     const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
     const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
     const [titel, setTitel] = useState("");
     const [textInhalt, setTextInhalt] = useState("");
     const [kategorie, setKategorie] = useState("");
+    const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
 
     useEffect(() => {
         localStorage.setItem('kommentare', JSON.stringify(kommentare));
@@ -45,7 +46,6 @@ function App() {
 
 
 
-    const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
 
 
     useEffect(() => {
@@ -64,14 +64,10 @@ function App() {
     }, [aktuellerBenutzer]);
 
 
-    return (
-        <div>
 
 
   return (
       <div>
-          <h1> Hier kommt der Header </h1>
-
 
 
           <AnmeldeLeiste benutzers={benutzers}
@@ -101,29 +97,3 @@ function App() {
 
 export default App;
 
-/*
-<MeinHeader/>
-<AnmeldeLeiste/>
-<Beitraege>
-
-    <BeitragErstellen>
-
-    </BeitragErstellen>
-
-    <Beitrag>
-
-        <Kommentare>
-            <KommentarErstellen>
-
-            </KommentarErstellen>
-            <Kommentar>
-
-            </Kommentar>
-        </Kommentare>
-    </Beitrag>
-
-</Beitraege>
-
-<MeinFooter/>
-
- */

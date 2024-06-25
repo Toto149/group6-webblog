@@ -31,7 +31,10 @@ const Kommentare = (props) => {
             }).map((kommentar) => <Kommentar key={kommentar.id} kommentar={kommentar}
                                              aktuellerBenutzer={props.aktuellerBenutzer}/>)}
 
-            <KommentarErstellen beitrag={props.beitrag} kommentare={props.kommentare} setKommentare={props.setKommentare} aktuellerBenutzer={props.aktuellerBenutzer}/>
+            <KommentarErstellen beitrag={props.beitrag}
+                                kommentare={props.kommentare}
+                                setKommentare={props.setKommentare}
+                                aktuellerBenutzer={props.aktuellerBenutzer}/>
 
         </div>
     );
