@@ -3,10 +3,22 @@ import Beitrag from "./Beitrag";
 
 import {useState} from "react";
 import BeitragErstellenFormular from "./BeitragErstellenFormular";
-import PropTypes from "prop-types";
 
 
-export default function Beitraege({aktuellerBenutzer, beitraege,setBeitraege,neu,setNeu,kommentare,setKommentare,kategorie,setKategorie,titel,setTitel,textInhalt,setTextInhalt}){
+
+export default function Beitraege({aktuellerBenutzer,
+                                      beitraege,
+                                      setBeitraege,
+                                      neu,
+                                      setNeu,
+                                      kommentare,
+                                      setKommentare,
+                                      kategorie,
+                                      setKategorie,
+                                      titel,
+                                      setTitel,
+                                      textInhalt,
+                                      setTextInhalt}){
 
 
     const [geklickt, setGeklickt] = useState(false);
@@ -35,7 +47,7 @@ export default function Beitraege({aktuellerBenutzer, beitraege,setBeitraege,neu
     return(
         <div style={{backgroundColor: "lightblue", display: "flex", flexDirection:"column"}}>
             <div style={{textAlign: "right"}}>
-                {aktuellerBenutzer &&  aktuellerBenutzer.role.kannBeitragVerfassen && <button onClick={hantiereClick}> ➕ Add Post</button>}
+                {aktuellerBenutzer &&  aktuellerBenutzer.rolle.kannBeitragVerfassen && <button onClick={hantiereClick}> ➕ Add Post</button>}
                 <button onClick={hantiereClickAltZuNeu}> {neu ? "Neu zu Alt" : "Alt zu Neu"} </button>
             </div>
 
@@ -53,7 +65,10 @@ export default function Beitraege({aktuellerBenutzer, beitraege,setBeitraege,neu
                                                                   beitrag={beitrag}
                                                                   beitraege={beitraege}
                                                                   setBeitraege={setBeitraege}
-                                                                  kommentare={kommentare} />)}
+                                                                  kommentare={kommentare}
+                                                                  setKommentare={setKommentare}
+                                                                  aktuellerBenutzer={aktuellerBenutzer}
+             />)}
 
 
         </div>

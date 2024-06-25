@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-import {kommentar} from "../Beitrag";
+
 import Kommentare from "./kommentare/Kommentare";
 
 
@@ -20,7 +20,7 @@ export default function Beitrag(props){
 
                 const handleDelete = () => {
 
-                    setBeitraege(props.beitraege.filter(b => b.id != props.beitrag.id));
+                    props.setBeitraege(props.beitraege.filter(b => b.id != props.beitrag.id));
                 }
                 return (
                     <div key={props.key} 
@@ -49,8 +49,19 @@ export default function Beitrag(props){
                         <div>
                             <h3>Kommentare</h3>
 
-                            {!wurdeGeklicked && <Kommentare beitrag={props.beitrag} beitraege={props.beitraege} setBeitraege={props.setBeitraege} kommentare={props.kommentare} setKommentare={props.setKommentare} aktuellerBenutzer={props.aktuellerBenutzer}/>}
-                            <button onClick={hantiereKlick}>{wurdeGeklicked ? "Mehr Kommentare" : "Weniger Kommentare"}</button>
+
+                            {!wurdeGeklicked && <Kommentare beitrag={props.beitrag}
+                                                            beitraege={props.beitraege}
+                                                            setBeitraege={props.setBeitraege}
+                                                            kommentare={props.kommentare}
+                                                            setKommentare={props.setKommentare}
+                                                            aktuellerBenutzer={props.aktuellerBenutzer}
+                                                                                                        />
+                            }
+                           
+
+                     <button onClick={hantiereKlick}>{wurdeGeklicked ? "Mehr Kommentare" : "Weniger Kommentare"}</button>
+
                             <div>{wurdeGeklicked && displayMehrKommentare(props.beitrag.kommentare)}</div>
                         </div>
                         {props.beitrag.nutzer && <button onClick={handleDelete} key={props.beitrag.id}>🗑️</button>}
