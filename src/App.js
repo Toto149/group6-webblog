@@ -2,14 +2,14 @@ import {useState, useEffect} from 'react';
 
 import {administrator, benutzer1, benutzer2, benutzer3} from "./Benutzer";
 import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
-import {kommentar, beitrag, kommentar2} from "./Beitrag";
+import {kommentar, beitrag} from "./Beitrag";
 import Kommentare from "./components/kommentare/Kommentare";
 import Beitraege from "./components/Beitraege";
 
 function App() {
     const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers')) || [administrator, benutzer1, benutzer2, benutzer3]));
     const [beitraege, setBeitraege] = useState((JSON.parse(localStorage.getItem('beitraege')) || [beitrag]));
-    const [kommentare, setKommentare] = useState((JSON.parse(localStorage.getItem('kommentare')) || [kommentar,kommentar2]));
+    const [kommentare, setKommentare] = useState((JSON.parse(localStorage.getItem('kommentare')) || [kommentar]));
 
 
     useEffect(() => {

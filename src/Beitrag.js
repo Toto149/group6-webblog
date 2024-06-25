@@ -10,14 +10,6 @@ export let kommentar = {
     "beitragsId" : "1"
 };
 
-export let kommentar2 = {
-    "id": "234234",
-    "nutzer": administrator,
-    "inhalt": "Hallo ich bin ein Kommentar",
-    "datum" : Date.now()-100000,
-    "editDatum" : {},
-    "beitragsId" : "1"
-};
 export let beitrag = {
     "id": "1",
     "titel" : "Hallo Welt",
@@ -28,7 +20,6 @@ export let beitrag = {
     "kommentare" : [kommentar],
     "kategorien" : ["Neues von der Welt"],
 };
-
 
 
 

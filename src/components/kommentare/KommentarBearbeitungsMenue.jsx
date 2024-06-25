@@ -7,6 +7,16 @@ const KommentarBearbeitungsMenue = (props) => {
         setZeigeMenue(!zeigeMenue)
     };
 
+    const kommentarLöschen = ()=>{
+        const gefiltert = props.kommentare.filter((kom)=> kom.id!==props.kommentar.id)
+        props.setKommentare([...gefiltert])
+    };
+
+    const kommentarBearbeiten = ()=>{
+        return;
+    };
+
+
     return (
         <div style={{ position: 'relative', display: 'inline-block' }}>
             <button onClick={wechsleAnzeige}>✏️</button>
@@ -23,11 +33,11 @@ const KommentarBearbeitungsMenue = (props) => {
                     border: 'solid black 1px'
                 }}>
                     {props.aktuellerBenutzer.id===props.kommentar.nutzer.id && <li style={{ margin: '5px 0' }}>
-                        <button style={{ width: '100px' }}>bearbeiten</button>
+                        <button style={{ width: '100px' }} onClick={kommentarBearbeiten}>bearbeiten</button>
                     </li>}
 
                     <li style={{ margin: '5px 0' }}>
-                        <button style={{ width: '100px' }}>löschen</button>
+                        <button style={{ width: '100px' }} onClick={kommentarLöschen}>löschen</button>
                     </li>
                 </ul>
             )}
