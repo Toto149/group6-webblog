@@ -1,5 +1,6 @@
 
 import Beitrag from "./Beitrag";
+import PropTypes from "prop-types";
 
 export default function Beitraege(props){
 
@@ -22,7 +23,7 @@ export default function Beitraege(props){
             <div style={{textAlign: "right"}}>
                 <button> ➕ Add Post</button>
             </div>
-            {props.beitraege.sort(compareDates).map(beitrag => <Beitrag key={beitrag.beitragsId} beitrag={beitrag} />)}
+            {props.beitraege.sort(compareDates).map(beitrag => <Beitrag key={beitrag.beitragsId} beitrag={beitrag} beitraege={props.beitraege} setBeitraege={props.setBeitraege} kommentare={props.kommentare} setKommentare={props.setKommentare} aktuellerBenutzer={props.aktuellerBenutzer}/>)}
 
         </div>
     )

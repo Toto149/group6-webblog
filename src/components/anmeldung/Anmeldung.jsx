@@ -16,7 +16,6 @@ const Anmeldung = (props) => {
         if (!gefundenBenutzer) {
             setFehlerMeldung('Benutzername nicht gefunden. Möchten Sie sich registrieren?');
             <BenutzerErstellen benutzers={props.benutzers} setBenutzers={props.setBenutzers} />
-
             return;
         }
 

@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {kommentar} from "../Beitrag";
+import Kommentare from "./kommentare/Kommentare";
 
 export default function Beitrag(props){
                 const [wurdeGeklicked, setWurdeGeklicked ] = useState(false)
@@ -32,7 +33,7 @@ export default function Beitrag(props){
                         </p>
                         <div>
                             <h3>Kommentare</h3>
-                            {!wurdeGeklicked && props.beitrag.kommentare.map(kommentar => <p>{kommentar.beitragsId}</p>)}
+                            {!wurdeGeklicked && <Kommentare beitrag={props.beitrag} beitraege={props.beitraege} setBeitraege={props.setBeitraege} kommentare={props.kommentare} setKommentare={props.setKommentare} aktuellerBenutzer={props.aktuellerBenutzer}/>}
                             <button onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>
                             <div>{wurdeGeklicked && displayMehrKommentare(props.beitrag.kommentare)}</div>
                         </div>
