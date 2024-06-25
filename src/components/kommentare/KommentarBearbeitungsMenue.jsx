@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const KommentarBearbeitungsMenue = () => {
+const KommentarBearbeitungsMenue = (props) => {
     const [zeigeMenue, setZeigeMenue] = useState(false);
 
     const wechsleAnzeige = () => {
@@ -22,9 +22,10 @@ const KommentarBearbeitungsMenue = () => {
                     margin: '0',
                     border: 'solid black 1px'
                 }}>
-                    <li style={{ margin: '5px 0' }}>
+                    {props.aktuellerBenutzer.id===props.kommentar.nutzer.id && <li style={{ margin: '5px 0' }}>
                         <button style={{ width: '100px' }}>bearbeiten</button>
-                    </li>
+                    </li>}
+
                     <li style={{ margin: '5px 0' }}>
                         <button style={{ width: '100px' }}>löschen</button>
                     </li>
