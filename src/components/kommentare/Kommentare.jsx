@@ -28,7 +28,7 @@ const Kommentare = (props) => {
                 } else {
                     return 0;
                 }
-            }).map((kommentar) => <Kommentar key={kommentar.id} kommentar={kommentar}
+            }).map((kommentar) => <Kommentar key={kommentar.id} kommentar={kommentar} kommentare={props.kommentare} setKommentare={props.setKommentare}
                                              aktuellerBenutzer={props.aktuellerBenutzer}/>)}
 
             <KommentarErstellen beitrag={props.beitrag}
