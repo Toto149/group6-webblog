@@ -21,7 +21,7 @@ const Kommentare = (props) => {
     return (
         <div>
             {beitrag.kommentare.map((kommentar)=><Kommentar key={kommentar.id} kommentar={kommentar}/>)}
-            <KommentarErstellen/>
+            <KommentarErstellen beitragId={props.id}/>
 
         </div>
     );

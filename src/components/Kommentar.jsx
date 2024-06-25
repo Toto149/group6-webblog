@@ -8,19 +8,29 @@ const Kommentar = (props) => {
 
 
     return (
-        <div>
-            {/*<div className={kommentarHeader}>*/}
-            {/*    <h3 className={kommentarVerfasser}>{props.nutzer}</h3>*/}
-            {/*    <p className={kommentarDatum}>Verfasst am: {props.datum}</p>*/}
-            {/*    <KommentarBearbeitungsMenue/>*/}
-            {/*</div>*/}
-            {/*<p className={kommentarInhalt}>{props.inhalt}</p>*/}
-            <div >
-                <h3>{props.kommentar.nutzer.name}</h3>
-                <p>Verfasst am: {props.kommentar.datum.toString()}</p>
-                <KommentarBearbeitungsMenue/>
+        <div style={{
+            borderStyle: "solid", padding: "10px", margin: "20px", display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+        }}>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start"
+            }}>
+                <h3 style={{margin: "0"}}>{props.kommentar.nutzer.name}</h3>
+                <hr/>
+                <p style={{margin: "0"}}>{props.kommentar.inhalt}</p>
             </div>
-            <p >{props.kommentar.inhalt}</p>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center"
+            }}>
+                <p style={{margin: "0", marginRight: "10px"}}>Verfasst: {props.kommentar.datum.toLocaleDateString()}</p>
+                <KommentarBearbeitungsMenue />
+            </div>
         </div>
     );
 };

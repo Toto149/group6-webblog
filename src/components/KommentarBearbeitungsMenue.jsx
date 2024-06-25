@@ -8,17 +8,28 @@ const KommentarBearbeitungsMenue = () => {
     };
 
     return (
-        <div>
-            <button onClick={wechsleAnzeige}>...</button>
-            {zeigeMenue &&
-                <ul>
-                    <li>
-                        <button>bearbeiten</button>
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+            <button onClick={wechsleAnzeige}>✏️</button>
+            {zeigeMenue && (
+                <ul style={{
+                    position: 'absolute',
+                    top: '100%',
+                    right: '0',
+                    backgroundColor: 'white',
+                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+                    padding: '10px',
+                    listStyleType: 'none',
+                    margin: '0',
+                    border: 'solid black 1px'
+                }}>
+                    <li style={{ margin: '5px 0' }}>
+                        <button style={{ width: '100px' }}>bearbeiten</button>
                     </li>
-                    <li>
-                        <button>löschen</button>
+                    <li style={{ margin: '5px 0' }}>
+                        <button style={{ width: '100px' }}>löschen</button>
                     </li>
-                </ul>}
+                </ul>
+            )}
         </div>
     );
 };
