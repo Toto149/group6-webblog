@@ -90,11 +90,11 @@ const Anmeldung = (props) => {
                 <label>Herzlich willkommen, {props.aktuellerBenutzer.name}!</label>
                 <button onClick={abmelden}>Abmelden</button>
 
-                {props.aktuellerBenutzer && props.aktuellerBenutzer.role.kannRolleÄndern && !zeigenVerwaltung && (
+                {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && !zeigenVerwaltung && (
                     <a href="#" onClick={zurBenutzerVerwaltung}>zur Benutzerverwaltung</a>
                 )}
 
-                {props.aktuellerBenutzer && props.aktuellerBenutzer.role.kannRolleÄndern && zeigenVerwaltung && (
+                {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && zeigenVerwaltung && (
                     <a href="#" onClick={zurBenutzerVerwaltung}>schließen Benutzerverwaltung</a>
                 )}
 

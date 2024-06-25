@@ -33,7 +33,7 @@ export let administrator = {
     name: "Admin",
     passwort: "0000",
     avatar: "",
-    role: admin
+    rolle: admin
 }
 
 export let benutzer = {
@@ -41,7 +41,7 @@ export let benutzer = {
     name: "user" + Date.now(),
     passwort: "",
     avatar: "",
-    role: registrierterBenutzer
+    rolle: registrierterBenutzer
 }
 
 export let benutzer1 = {
@@ -49,7 +49,7 @@ export let benutzer1 = {
     name: "user1",
     passwort: "0000",
     avatar: "",
-    role: registrierterBenutzer
+    rolle: registrierterBenutzer
 }
 
 export let benutzer2 = {
@@ -57,7 +57,7 @@ export let benutzer2 = {
     name: "user2",
     passwort: "0000",
     avatar: "",
-    role: registrierterBenutzer
+    rolle: registrierterBenutzer
 }
 
 export let benutzer3 = {
@@ -65,7 +65,7 @@ export let benutzer3 = {
     name: "user3",
     passwort: "0000",
     avatar: "",
-    role: registrierterBenutzer
+    rolle: registrierterBenutzer
 }
 
 

@@ -8,12 +8,12 @@ const BenutzerListe = (props) => {
                 {props.benutzers.map(benutzer => (
                     <li key={benutzer.id}>{benutzer.name + " "
                         + benutzer.passwort + " "
-                        + benutzer.role.kannKommentieren + " "
-                        + benutzer.role.kannKommentareLöschen + " "
-                        + benutzer.role.kannBeitragLöschen + " "
-                        + benutzer.role.kannBeitragVerfassen + " "
-                        + benutzer.role.kannBeitragVerändern + " "
-                        + benutzer.role.kannRolleÄndern}</li>
+                        + benutzer.rolle.kannKommentieren + " "
+                        + benutzer.rolle.kannKommentareLöschen + " "
+                        + benutzer.rolle.kannBeitragLöschen + " "
+                        + benutzer.rolle.kannBeitragVerfassen + " "
+                        + benutzer.rolle.kannBeitragVerändern + " "
+                        + benutzer.rolle.kannRolleÄndern}</li>
                 ))}
             </ul>
             <hr/>
