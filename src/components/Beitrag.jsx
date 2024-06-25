@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {kommentar} from "../Beitrag";
+import Kommentare from "./Kommentare";
 
-export default function Beitrag(props){
+export default function Beitrag({beitrag,kommentare,setBeitraege,beitraege,key}){
                 const [wurdeGeklicked, setWurdeGeklicked ] = useState(false)
 
                 const displayKategorien = (kategorien) => {
@@ -11,32 +11,45 @@ export default function Beitrag(props){
                 const hantiereKlick = () => {
                     setWurdeGeklicked(!wurdeGeklicked);
                 }
-                const displayMehrKommentare = (kommentare) => {
-                    return <p>{kommentare.map(kommentar => <p>{kommentar.beitragsId}</p>)}</p>
+                const displayMehrKommentare = () => {
+                    return <Kommentare beitragId={beitrag.id} />
+                }
+
+                const handleDelete = () => {
+
+                    setBeitraege(beitraege.filter(b => b.id != beitrag.id));
                 }
                 return (
-                    <div key={props.key} style={{textAlign: "center", backgroundColor: "darkcyan", borderRadius:"5px", marginLeft: "15px", marginRight: "30px", marginBottom: "10px"}}>
+                    <div key={key} style={{
+                        textAlign: "center",
+                        backgroundColor: "darkcyan",
+                        borderRadius: "5px",
+                        marginLeft: "15px",
+                        marginRight: "30px",
+                        marginBottom: "10px"
+                    }}>
                         <div>
-                            <h3>{props.beitrag.titel}</h3>
-                            {"by   "  + props.beitrag.nutzer.name}
+                            <h3>{beitrag.titel}</h3>
+                            {"by   " + beitrag.nutzer.name}
                         </div>
                         <div>
-                            {displayKategorien(props.beitrag.kategorien)}
+                            {displayKategorien(beitrag.kategorien)}
                         </div>
-                        <div >
-                            <p>{props.beitrag.inhalt}</p>
+                        <div>
+                            <p>{beitrag.inhalt}</p>
                         </div>
-                        <p style={{textAlign: "right"}}>{props.beitrag.erstellungsDatum.toString()}</p>
+                        <p style={{textAlign: "right"}}>{beitrag.erstellungsDatum.toString()}</p>
                         <p style={{textAlign: "right", fontSize: "0.5em"}}>
 
                         </p>
                         <div>
                             <h3>Kommentare</h3>
-                            {!wurdeGeklicked && props.beitrag.kommentare.map(kommentar => <p>{kommentar.beitragsId}</p>)}
-                            <button onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>
-                            <div>{wurdeGeklicked && displayMehrKommentare(props.beitrag.kommentare)}</div>
+                            {!wurdeGeklicked && <Kommentare beitragId={beitrag.id}/>}
+                            <div>{wurdeGeklicked && displayMehrKommentare(kommentare.filter(kommentar => kommentar.id === beitrag.beitragsId))}</div>
+                            <button
+                                onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>
                         </div>
-
+                        {beitrag.nutzer && <button onClick={handleDelete} key={beitrag.id}>🗑️</button>}
                     </div>
                 );
 

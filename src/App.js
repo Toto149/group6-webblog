@@ -1,15 +1,18 @@
 import {useState, useEffect} from 'react';
-
+import {kommentar, beitrag, beitrag2} from "./Beitrag";
+import Beitraege from "./components/Beitraege";
 import {administrator, benutzer1, benutzer2, benutzer3} from "./Benutzer";
 import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
-import {kommentar, beitrag } from "./Beitrag";
-import Kommentare from "./components/Kommentare";
 
 function App() {
+    const [istAltZuNeu, setIstAltZuNeu] = useState(false)
+    const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege') || [beitrag,beitrag2]));
     const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
-    const [beitraege, setBeitraege] = useState([beitrag]);
-    const [kommentare, setKommentare] = useState([kommentar])
-
+    const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
+    const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
+    const [titel, setTitel] = useState("");
+    const [textInhalt, setTextInhalt] = useState("");
+    const [kategorie, setKategorie] = useState("");
 
     useEffect(() => {
         localStorage.setItem('kommentare', JSON.stringify(kommentare));
@@ -20,13 +23,13 @@ function App() {
 
     useEffect(() => {
         localStorage.setItem('beitraege', JSON.stringify(beitraege));
-    }, [beitraege]);
+    }, [beitraege,istAltZuNeu]);
 
     useEffect(() => {
         const benutzers = JSON.parse(localStorage.getItem('benutzers'));
         const beitraege = JSON.parse(localStorage.getItem('beitraege'));
         const kommentare = JSON.parse(localStorage.getItem('kommentare'));
-
+        console.log(beitraege)
 
         if(kommentare){
             setKommentare(kommentare)
@@ -41,7 +44,6 @@ function App() {
 
 
 
-    const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
 
     useEffect(() => {
         const localerBenutzer = JSON.parse(localStorage.getItem('aktuellerBenutzer'));
@@ -63,6 +65,8 @@ function App() {
 
   return (
       <div>
+          <h1> Hier kommt der Header </h1>
+
 
 
           <AnmeldeLeiste benutzers={benutzers}
@@ -71,8 +75,19 @@ function App() {
                          setAktuellerBenutzer={setAktuellerBenutzer}
           />
 
-
-            <Kommentare id="1"/>
+          { <Beitraege beitraege={beitraege}
+                       neu={istAltZuNeu}
+                       setNeu={setIstAltZuNeu}
+                       setBeitraege={setBeitraege}
+                       kommentare={kommentare}
+                       setKommentare={setKommentare}
+                       aktuellerBenutzer={aktuellerBenutzer}
+                       titel={titel}
+                       setTitel={setTitel}
+                       textInhalt={textInhalt}
+                       setTextInhalt={setTextInhalt}
+                       kategorie={kategorie}
+                       setKategorie={setKategorie} />}
 
       </div>
   );
