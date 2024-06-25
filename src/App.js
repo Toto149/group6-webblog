@@ -3,13 +3,14 @@ import {kommentar, beitrag, beitrag2} from "./Beitrag";
 import Beitraege from "./components/Beitraege";
 import {administrator, benutzer1, benutzer2, benutzer3} from "./Benutzer";
 import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
+import Kommentare from "./components/kommentare/Kommentare";
+
 
 function App() {
     const [istAltZuNeu, setIstAltZuNeu] = useState(false)
     const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege') || [beitrag,beitrag2]));
     const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
     const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
-    const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
     const [titel, setTitel] = useState("");
     const [textInhalt, setTextInhalt] = useState("");
     const [kategorie, setKategorie] = useState("");
@@ -31,10 +32,10 @@ function App() {
         const kommentare = JSON.parse(localStorage.getItem('kommentare'));
         console.log(beitraege)
 
-        if(kommentare){
+        if (kommentare) {
             setKommentare(kommentare)
         }
-        if(beitraege){
+        if (beitraege) {
             setBeitraege(beitraege)
         }
         if (benutzers) {
@@ -43,6 +44,8 @@ function App() {
     }, []);
 
 
+
+    const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
 
 
     useEffect(() => {
@@ -61,6 +64,8 @@ function App() {
     }, [aktuellerBenutzer]);
 
 
+    return (
+        <div>
 
 
   return (
@@ -89,8 +94,9 @@ function App() {
                        kategorie={kategorie}
                        setKategorie={setKategorie} />}
 
-      </div>
-  );
+
+        </div>
+    );
 }
 
 export default App;

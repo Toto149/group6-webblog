@@ -1,14 +1,17 @@
 
 import Beitrag from "./Beitrag";
+
 import {useState} from "react";
 import BeitragErstellenFormular from "./BeitragErstellenFormular";
-
+import PropTypes from "prop-types";
 
 
 export default function Beitraege({aktuellerBenutzer, beitraege,setBeitraege,neu,setNeu,kommentare,setKommentare,kategorie,setKategorie,titel,setTitel,textInhalt,setTextInhalt}){
 
 
     const [geklickt, setGeklickt] = useState(false);
+
+
 
 
     const compareDates = (b1, b2) => {
@@ -35,6 +38,7 @@ export default function Beitraege({aktuellerBenutzer, beitraege,setBeitraege,neu
                 {aktuellerBenutzer &&  aktuellerBenutzer.role.kannBeitragVerfassen && <button onClick={hantiereClick}> ➕ Add Post</button>}
                 <button onClick={hantiereClickAltZuNeu}> {neu ? "Neu zu Alt" : "Alt zu Neu"} </button>
             </div>
+
             {geklickt && <BeitragErstellenFormular beitraege={beitraege}
                                                    setBeitraege={setBeitraege}
                                                    kommentare={kommentare}
@@ -50,6 +54,7 @@ export default function Beitraege({aktuellerBenutzer, beitraege,setBeitraege,neu
                                                                   beitraege={beitraege}
                                                                   setBeitraege={setBeitraege}
                                                                   kommentare={kommentare} />)}
+
 
         </div>
     );

@@ -1,7 +1,10 @@
 import {useState} from "react";
-import Kommentare from "./Kommentare";
 
-export default function Beitrag({beitrag,kommentare,setBeitraege,beitraege,key}){
+import {kommentar} from "../Beitrag";
+import Kommentare from "./kommentare/Kommentare";
+
+
+export default function Beitrag(props){
                 const [wurdeGeklicked, setWurdeGeklicked ] = useState(false)
 
                 const displayKategorien = (kategorien) => {
@@ -12,15 +15,16 @@ export default function Beitrag({beitrag,kommentare,setBeitraege,beitraege,key})
                     setWurdeGeklicked(!wurdeGeklicked);
                 }
                 const displayMehrKommentare = () => {
-                    return <Kommentare beitragId={beitrag.id} />
+                    return <Kommentare beitragId={props.beitrag.id} />
                 }
 
                 const handleDelete = () => {
 
-                    setBeitraege(beitraege.filter(b => b.id != beitrag.id));
+                    setBeitraege(props.beitraege.filter(b => b.id != props.beitrag.id));
                 }
                 return (
-                    <div key={key} style={{
+                    <div key={props.key} 
+                        style={{
                         textAlign: "center",
                         backgroundColor: "darkcyan",
                         borderRadius: "5px",
@@ -29,27 +33,27 @@ export default function Beitrag({beitrag,kommentare,setBeitraege,beitraege,key})
                         marginBottom: "10px"
                     }}>
                         <div>
-                            <h3>{beitrag.titel}</h3>
-                            {"by   " + beitrag.nutzer.name}
+                            <h3>{props.beitrag.titel}</h3>
+                            {"by   " + props.beitrag.nutzer.name}
                         </div>
                         <div>
-                            {displayKategorien(beitrag.kategorien)}
+                            {displayKategorien(props.beitrag.kategorien)}
                         </div>
                         <div>
-                            <p>{beitrag.inhalt}</p>
+                            <p>{props.beitrag.inhalt}</p>
                         </div>
-                        <p style={{textAlign: "right"}}>{beitrag.erstellungsDatum.toString()}</p>
+                        <p style={{textAlign: "right"}}>{props.beitrag.erstellungsDatum.toString()}</p>
                         <p style={{textAlign: "right", fontSize: "0.5em"}}>
 
                         </p>
                         <div>
                             <h3>Kommentare</h3>
-                            {!wurdeGeklicked && <Kommentare beitragId={beitrag.id}/>}
-                            <div>{wurdeGeklicked && displayMehrKommentare(kommentare.filter(kommentar => kommentar.id === beitrag.beitragsId))}</div>
-                            <button
-                                onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>
+
+                            {!wurdeGeklicked && <Kommentare beitrag={props.beitrag} beitraege={props.beitraege} setBeitraege={props.setBeitraege} kommentare={props.kommentare} setKommentare={props.setKommentare} aktuellerBenutzer={props.aktuellerBenutzer}/>}
+                            <button onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>
+                            <div>{wurdeGeklicked && displayMehrKommentare(props.beitrag.kommentare)}</div>
                         </div>
-                        {beitrag.nutzer && <button onClick={handleDelete} key={beitrag.id}>🗑️</button>}
+                        {props.beitrag.nutzer && <button onClick={handleDelete} key={props.beitrag.id}>🗑️</button>}
                     </div>
                 );
 

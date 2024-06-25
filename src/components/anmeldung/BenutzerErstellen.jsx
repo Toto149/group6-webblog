@@ -36,7 +36,12 @@ const BenutzerErstellen = (props) => {
         setNeuerBenutzer({ ...neuerBenutzer, id: Date.now() });
         props.setBenutzers([...props.benutzers, neuerBenutzer]);
         setFehlerMeldung('');
+        props.setAnzeigeForm(true);
     };
+
+    function zurAnmeldungsform() {
+        props.setAnzeigeForm(true);
+    }
 
     return (
         <div>
@@ -53,9 +58,8 @@ const BenutzerErstellen = (props) => {
                     placeholder="Passwort"
                     onChange={passwortAendern}
                 />
-                <button type="submit">
-                    Registrieren
-                </button>
+                <button type="submit">Registrieren</button>
+                <a href="#" onClick={zurAnmeldungsform}>zur Anmeldungsform</a>
             </form>
             {fehlerMeldung && <p>{fehlerMeldung}</p>}
             <hr/>

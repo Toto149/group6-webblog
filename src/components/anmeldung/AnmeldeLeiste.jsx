@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Anmeldung from './Anmeldung';
 import BenutzerListe from './BenutzerListe';
-import BenutzerErstellen from './BenutzerErstellen';
+import BenutzerVerwaltung from "./BenutzerVerwaltung";
 
 const AnmeldeLeiste = (props) => {
 
@@ -15,8 +15,11 @@ const AnmeldeLeiste = (props) => {
                 benutzers={props.benutzers}
                 setBenutzers={props.setBenutzers}
             />
-            <BenutzerErstellen benutzers={props.benutzers} setBenutzers={props.setBenutzers} />
-            <BenutzerListe benutzers={props.benutzers} setBenutzers={props.setBenutzers} />
+
+            <BenutzerListe benutzers={props.benutzers}
+                           setBenutzers={props.setBenutzers}
+            />
+
         </div>
     );
 };
