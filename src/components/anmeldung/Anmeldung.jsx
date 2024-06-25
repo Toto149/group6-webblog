@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BenutzerErstellen from "./BenutzerErstellen";
+import BenutzerVerwaltung from "./BenutzerVerwaltung";
 
 const Anmeldung = (props) => {
     const [benutzername, setBenutzername] = useState('');
@@ -7,6 +8,8 @@ const Anmeldung = (props) => {
 
     const [anzeigeForm, setAnzeigeForm] = useState(true);
     const [fehlerMeldung, setFehlerMeldung] = useState('');
+
+    const [zeigenVerwaltung, setZeigenVerwaltung] = useState(false);
 
     const anmelden = (e) => {
         e.preventDefault();
@@ -39,10 +42,15 @@ const Anmeldung = (props) => {
         setAnzeigeForm(false);
     };
 
+    function zurBenutzerVerwaltung() {
+        setZeigenVerwaltung(!zeigenVerwaltung);
+    }
+
     if (!props.aktuellerBenutzer) {
         return (
             <div>
                 {anzeigeForm ? (
+                    <>
                     <form onSubmit={anmelden}>
                         <input
                             type="text"
@@ -63,21 +71,44 @@ const Anmeldung = (props) => {
                         <a href="#" onClick={zurRegistrierungsform}>zur Registrierungsform</a>
                         {fehlerMeldung && <p>{fehlerMeldung}</p>}
                     </form>
-                ) : <BenutzerErstellen benutzers={props.benutzers}
-                                       setBenutzers={props.setBenutzers}
-                                       anzeigeForm={anzeigeForm}
-                                       setAnzeigeForm={setAnzeigeForm}
-                />}
-                <hr/>
-            </div>
-        );
+                    </>
+                    ) : (
+                    <>
+                        <BenutzerErstellen benutzers={props.benutzers}
+                                           setBenutzers={props.setBenutzers}
+                                           anzeigeForm={anzeigeForm}
+                                           setAnzeigeForm={setAnzeigeForm}
+
+                        />
+                    </>)}
+                    <hr/>
+                    </div>
+                );
     } else {
         return (
             <div>
                 <label>Herzlich willkommen, {props.aktuellerBenutzer.name}!</label>
                 <button onClick={abmelden}>Abmelden</button>
 
-                <hr />
+                {props.aktuellerBenutzer && props.aktuellerBenutzer.role.kannRolleÄndern && !zeigenVerwaltung && (
+                    <a href="#" onClick={zurBenutzerVerwaltung}>zur Benutzerverwaltung</a>
+                )}
+
+                {props.aktuellerBenutzer && props.aktuellerBenutzer.role.kannRolleÄndern && zeigenVerwaltung && (
+                    <a href="#" onClick={zurBenutzerVerwaltung}>schließen Benutzerverwaltung</a>
+                )}
+
+                {zeigenVerwaltung && (
+                    <>
+                    <hr/>
+                    <BenutzerVerwaltung benutzers={props.benutzers}
+                                        setBenutzers={props.setBenutzers}
+                                        aktuellerBenutzer={props.aktuellerBenutzer}
+                    />
+                    </>
+                )}
+
+                <hr/>
             </div>
         );
     }

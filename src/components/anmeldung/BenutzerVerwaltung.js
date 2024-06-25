@@ -41,42 +41,67 @@ const BenutzerVerwaltung = (props) => {
         setGewaelteRolle({ ...gewaehlteRolle, [b.id]: neueRolle });
     };
 
+    function aenderungenAbbrechen(b) {
+        const { [b.id]: deletedItem, ...rest } = gewaehlteRolle;
+        setGewaelteRolle(rest);
+    }
+
     return (
         <>
             {props.aktuellerBenutzer && props.aktuellerBenutzer.role.kannRolleÄndern && (
 
                 <div>
-                <input
-                    type="text"
-                    value={suche}
-                    placeholder="Benutzer suchen"
-                    onChange={suchen}
+                    <input
+                        type="text"
+                        value={suche}
+                        placeholder="Benutzer suchen"
+                        onChange={suchen}
                     />
-                <label>Es wurden {gefundeneBenutzer ? gefundeneBenutzer.length : 0} Benutzer gefunden.</label>
-                <ul>
-                    {gefundeneBenutzer && gefundeneBenutzer.map(b => (
-                        <li key={b.id}>
-                            {b.name}
-                            {props.aktuellerBenutzer.role && props.aktuellerBenutzer.role.kannRolleÄndern && (
-                                <>
-                                    <select
-                                        value={gewaehlteRolle[b.id] || JSON.stringify(b.role)}
-                                        onChange={(e) => rolleGeaendert(e, b)}
-                                    >
-                                        <option value={JSON.stringify(admin)}>admin</option>
-                                        <option value={JSON.stringify(registrierterBenutzer)}>registrierter Benutzer</option>
-                                        <option value={JSON.stringify(moderator)}>moderator</option>
-                                    </select>
+                    <label>Es wurden {gefundeneBenutzer ? gefundeneBenutzer.length : 0} Benutzer gefunden.</label>
 
-                                    {gewaehlteRolle[b.id] && gewaehlteRolle[b.id] !== JSON.stringify(b.role) && (
-                                        <button onClick={() => rolleSpeichern(b)}>Änderungen bestätigen</button>
-                                    )}
-                                </>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name des Benutzers</th>
+                            <th>Passwort</th>
+                            <th>Rolle</th>
+                            <th>Änderungen bestätigen</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+
+
+                            {gefundeneBenutzer && gefundeneBenutzer.map(b => (
+                                <tr key={b.id}>
+                                    <td>{b.name}</td>
+                                    <td>{b.passwort}</td>
+                                    <td>{props.aktuellerBenutzer.role && props.aktuellerBenutzer.role.kannRolleÄndern && (
+                                        <select
+                                            value={gewaehlteRolle[b.id] || JSON.stringify(b.role)}
+                                            onChange={(e) => rolleGeaendert(e, b)}
+                                        >
+                                            <option value={JSON.stringify(admin)}>admin</option>
+                                            <option value={JSON.stringify(registrierterBenutzer)}>registrierter
+                                                    Benutzer</option>
+                                            <option value={JSON.stringify(moderator)}>moderator</option>
+                                        </select>
+
+                                    )}</td>
+                                    <td>{gewaehlteRolle[b.id] && gewaehlteRolle[b.id] !== JSON.stringify(b.role) && (
+                                        <>
+                                        <button onClick={() => rolleSpeichern(b)}>✔️</button>
+                                        <button onClick={() => aenderungenAbbrechen(b)}>❌</button>
+                                        </>
+                                    )}</td>
+                                </tr>
+                            ))}
+
+                        </tbody>
+                    </table>
+
+                </div>
 
             )}
         </>
@@ -88,16 +113,6 @@ export default BenutzerVerwaltung;
 /*
 
  */
-
-
-
-
-
-
-
-
-
-
 
 
 /*
