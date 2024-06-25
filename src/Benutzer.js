@@ -44,5 +44,31 @@ export let benutzer = {
     role: registrierterBenutzer
 }
 
+export let benutzer1 = {
+    id: 10,
+    name: "user1",
+    passwort: "0000",
+    avatar: "",
+    role: registrierterBenutzer
+}
+
+export let benutzer2 = {
+    id: 20,
+    name: "user2",
+    passwort: "0000",
+    avatar: "",
+    role: registrierterBenutzer
+}
+
+export let benutzer3 = {
+    id: 30,
+    name: "user3",
+    passwort: "0000",
+    avatar: "",
+    role: registrierterBenutzer
+}
+
+
+
 
 
