@@ -5,7 +5,6 @@ import {administrator, benutzer1, benutzer2, benutzer3} from "./Benutzer";
 import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
 import Kommentare from "./components/kommentare/Kommentare";
 
-
 function App() {
     const [istAltZuNeu, setIstAltZuNeu] = useState(false)
     const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege') || [beitrag,beitrag2]));

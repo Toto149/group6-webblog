@@ -50,7 +50,7 @@ export default function Beitrag(props){
                             <h3>Kommentare</h3>
 
                             {!wurdeGeklicked && <Kommentare beitrag={props.beitrag} beitraege={props.beitraege} setBeitraege={props.setBeitraege} kommentare={props.kommentare} setKommentare={props.setKommentare} aktuellerBenutzer={props.aktuellerBenutzer}/>}
-                            <button onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>
+                            <button onClick={hantiereKlick}>{wurdeGeklicked ? "Mehr Kommentare" : "Weniger Kommentare"}</button>
                             <div>{wurdeGeklicked && displayMehrKommentare(props.beitrag.kommentare)}</div>
                         </div>
                         {props.beitrag.nutzer && <button onClick={handleDelete} key={props.beitrag.id}>🗑️</button>}
