@@ -19,7 +19,6 @@ const Anmeldung = (props) => {
         if (!gefundenBenutzer) {
             setFehlerMeldung('Benutzername nicht gefunden. Möchten Sie sich registrieren?');
 
-
             <BenutzerErstellen benutzers={props.benutzers} setBenutzers={props.setBenutzers} />
 
             return;
@@ -93,6 +92,7 @@ const Anmeldung = (props) => {
             <div>
                 <label>Herzlich willkommen, {props.aktuellerBenutzer.name}!</label>
                 <button onClick={abmelden}>Abmelden</button>
+                <span> </span>
 
                 {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && !zeigenVerwaltung && (
                     <a href="#" onClick={zurBenutzerVerwaltung}>zur Benutzerverwaltung</a>
@@ -104,14 +104,13 @@ const Anmeldung = (props) => {
 
                 {zeigenVerwaltung && (
                     <>
-                    <hr/>
-                    <BenutzerVerwaltung benutzers={props.benutzers}
-                                        setBenutzers={props.setBenutzers}
-                                        aktuellerBenutzer={props.aktuellerBenutzer}
-                    />
+                        <hr/>
+                        <BenutzerVerwaltung benutzers={props.benutzers}
+                                            setBenutzers={props.setBenutzers}
+                                            aktuellerBenutzer={props.aktuellerBenutzer}
+                        />
                     </>
                 )}
-
                 <hr/>
             </div>
         );
