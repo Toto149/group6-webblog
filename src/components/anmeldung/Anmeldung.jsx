@@ -15,8 +15,6 @@ const Anmeldung = (props) => {
 
         if (!gefundenBenutzer) {
             setFehlerMeldung('Benutzername nicht gefunden. Möchten Sie sich registrieren?');
-            <BenutzerErstellen benutzers={props.benutzers} setBenutzers={props.setBenutzers} />
-
             return;
         }
 
@@ -37,8 +35,8 @@ const Anmeldung = (props) => {
         setAnzeigeForm(true);
     };
 
-    const registrieren = () => {
-        //
+    const zurRegistrierungsform = () => {
+        setAnzeigeForm(false);
     };
 
     if (!props.aktuellerBenutzer) {
@@ -61,10 +59,16 @@ const Anmeldung = (props) => {
                             required
                         />
                         <button type="submit">Anmelden</button>
+                        <span> </span>
+                        <a href="#" onClick={zurRegistrierungsform}>zur Registrierungsform</a>
                         {fehlerMeldung && <p>{fehlerMeldung}</p>}
                     </form>
-                ) : null}
-                <hr />
+                ) : <BenutzerErstellen benutzers={props.benutzers}
+                                       setBenutzers={props.setBenutzers}
+                                       anzeigeForm={anzeigeForm}
+                                       setAnzeigeForm={setAnzeigeForm}
+                />}
+                <hr/>
             </div>
         );
     } else {

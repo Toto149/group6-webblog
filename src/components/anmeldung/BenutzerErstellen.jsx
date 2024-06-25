@@ -36,6 +36,7 @@ const BenutzerErstellen = (props) => {
         setNeuerBenutzer({ ...neuerBenutzer, id: Date.now() });
         props.setBenutzers([...props.benutzers, neuerBenutzer]);
         setFehlerMeldung('');
+        props.setAnzeigeForm(true);
     };
 
     return (
