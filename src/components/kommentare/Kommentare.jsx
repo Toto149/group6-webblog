@@ -34,7 +34,9 @@ const Kommentare = (props) => {
             <KommentarErstellen beitrag={props.beitrag}
                                 kommentare={props.kommentare}
                                 setKommentare={props.setKommentare}
-                                aktuellerBenutzer={props.aktuellerBenutzer}/>
+                                aktuellerBenutzer={props.aktuellerBenutzer}
+                                wirdBearbeitet={false}
+                                kommentar={null}/>
 
         </div>
     );

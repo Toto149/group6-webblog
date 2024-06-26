@@ -2,6 +2,7 @@ import {useState} from "react";
 
 
 import Kommentare from "./kommentare/Kommentare";
+import datumKonvertieren from "./DatumKonvertieren";
 
 
 export default function Beitrag(props){
@@ -42,7 +43,7 @@ export default function Beitrag(props){
                         <div>
                             <p>{props.beitrag.inhalt}</p>
                         </div>
-                        <p style={{textAlign: "right"}}>{props.beitrag.erstellungsDatum.toString()}</p>
+                        <p style={{textAlign: "right"}}>{datumKonvertieren(props.beitrag.erstellungsDatum)}</p>
                         <p style={{textAlign: "right", fontSize: "0.5em"}}>
 
                         </p>
