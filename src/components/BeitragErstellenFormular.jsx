@@ -17,8 +17,8 @@ export default function BeitragErstellenFormular({
             "titel" : titel,
             "nutzer" : aktuellerBenutzer,
             "inhalt": textInhalt,
-            "publizierungsDatum": new Date(),
-            "erstellungsDatum": new Date(),
+            "publizierungsDatum": Date.now(),
+            "erstellungsDatum": Date.now(),
             "kommentare" : [],
             "kategorien": [kategorie]
         };

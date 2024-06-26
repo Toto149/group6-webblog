@@ -5,8 +5,8 @@ export let kommentar = {
     "id": "234234",
     "nutzer": administrator,
     "inhalt": "Hallo ich bin ein Kommentar",
-    "datum" : new Date(),
-    "editDatum" : {},
+    "datum" : Date.now(),
+    "editDatum" : null,
     "beitragsId" : "1"
 };
 
@@ -15,8 +15,8 @@ export let beitrag = {
     "titel" : "Hallo Welt1",
     "nutzer": administrator,
     "inhalt": "Hallo wie geht es euch?1",
-    "publizierungsDatum" : new Date(),
-    "erstellungsDatum" : new Date("2023-06-24T12:48:58.996Z"),
+    "publizierungsDatum" : {},
+    "erstellungsDatum" : Date.now(),
     "kommentare" : [],
     "kategorien" : ["Neues von der Welt","Sport"],
 };
@@ -27,8 +27,8 @@ export let beitrag2 = {
     "titel" : "Hallo Welt2",
     "nutzer": administrator,
     "inhalt": "Hallo wie geht es euch?2",
-    "publizierungsDatum" : new Date(),
-    "erstellungsDatum" : new Date(),
+    "publizierungsDatum" : {},
+    "erstellungsDatum" : Date.now()-1000,
     "kommentare" : [],
     "kategorien" : ["Sport"],
 }

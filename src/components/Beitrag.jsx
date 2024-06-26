@@ -1,6 +1,7 @@
 import {useState} from "react";
 import Kommentare from "./kommentare/Kommentare";
 import BeitragBearbeitenFormular from "./BeitragBearbeitungsFormular";
+import datumKonvertieren from "./DatumKonvertieren";
 
 
 export default function Beitrag(props){
@@ -35,92 +36,61 @@ export default function Beitrag(props){
                     setWurdeGeklickt(!wurdeGeklickt);
                 };
 
-                //Diese Funktion zeigt mehr Kommentare an
-                const displayMehrKommentare = () => {
-
-                    return <Kommentare beitragId={props.beitrag.id}
-                                       kommentare={props.beitrag.kommentare}
-                                       setKommentare={props.setKommentare}
-                                       aktuellerBenutzer={props.aktuellerBenutzer}
-                                        beitrag={props.beitrag}/>;
-                };
+        
 
                 //Diese Funktion lässt das Feld für die Bearbeitung erscheinen
                 const handleEdit = () => {
                     setWurdeEditGeklickt(!wurdeEditGeklickt);
                 }
+                
+     const displayKategorien = (kategorien) => {
+        return kategorien.map(kategorie => "Kategorien: " + kategorie + (kategorien.indexOf(kategorie) !== kategorien.length - 1 ? ", " : ""));
 
-                const handleDelete = () => {
+    }
 
-                    props.setBeitraege(props.beitraege.filter(b => b.id !== props.beitrag.id));
+    const handleDelete = () => {
+
+        props.setBeitraege(props.beitraege.filter(b => b.id != props.beitrag.id));
+    }
+    return (
+        <div key={props.key}
+             style={{
+                 textAlign: "center",
+                 backgroundColor: "darkcyan",
+                 borderRadius: "5px",
+                 marginLeft: "15px",
+                 marginRight: "30px",
+                 marginBottom: "10px"
+             }}>
+            <div>
+                <h3>{props.beitrag.titel}</h3>
+                {"by   " + props.beitrag.nutzer.name}
+            </div>
+            <div>
+                {displayKategorien(props.beitrag.kategorien)}
+            </div>
+            <div>
+                <p>{props.beitrag.inhalt}</p>
+            </div>
+            <p style={{textAlign: "right"}}>{datumKonvertieren(props.beitrag.erstellungsDatum)}</p>
+            <p style={{textAlign: "right", fontSize: "0.5em"}}>
+
+            </p>
+            <div>
+                <h3>Kommentare</h3>
+
+
+                {<Kommentare beitrag={props.beitrag}
+                             beitraege={props.beitraege}
+                             setBeitraege={props.setBeitraege}
+                             kommentare={props.kommentare}
+                             setKommentare={props.setKommentare}
+                             aktuellerBenutzer={props.aktuellerBenutzer}
+                />
                 }
-                return (
-                    <div key={props.key} 
-                        style={{
-                        textAlign: "center",
-                        backgroundColor: "darkcyan",
-                        borderRadius: "5px",
-                        marginLeft: "15px",
-                        marginRight: "30px",
-                        marginBottom: "10px"
-                    }}>
-                        <div>
-                            <h3>{props.beitrag.titel}</h3>
-                            {"by   " + props.beitrag.nutzer.name}
-                        </div>
-                        <div>
-                            {displayKategorien(props.beitrag.kategorien)}
-                        </div>
-                        <div style={{
-                            textAlign: "left",
-                            marginLeft: "50px",
-                            marginRight: "50px"
-                        }}>
-                            <p>{props.beitrag.inhalt}</p>
-                        </div>
-                        <p style={{textAlign: "right"}}>{props.beitrag.erstellungsDatum.toString()}</p>
-                        {wurdeSubmitet && <p style={{textAlign: "right"}}>{props.beitrag.publizierungsDatum.toString() + "(edited)"}</p>}
-                        <p style={{textAlign: "right", fontSize: "0.5em"}}>
-
-                        </p>
-                        <div>
-                            <h3>Kommentare</h3>
-
-
-                            {!wurdeGeklickt && <Kommentare beitrag={props.beitrag}
-                                                            beitraege={props.beitraege}
-                                                            setBeitraege={props.setBeitraege}
-                                                            kommentare={props.kommentare}
-                                                            setKommentare={props.setKommentare}
-                                                            aktuellerBenutzer={props.aktuellerBenutzer}
-                                                                                                        />
-                            }
-                           
-
-                            <button onClick={hantiereKlick}>
-                                {wurdeGeklickt ? "Mehr Kommentare" : "Weniger Kommentare"}
-                            </button>
-
-                            <div>
-                                {wurdeGeklickt && displayMehrKommentare(props.kommentare)}
-                            </div>
-
-                        </div>
-
-                        {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannBeitragLöschen
-                            && <button onClick={handleDelete} key={props.beitrag.id}>🗑️</button>}
-
-                        {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannBeitragVerändern
-                            && <button onClick={handleEdit}>✏️</button>}
-
-                        {wurdeEditGeklickt && <BeitragBearbeitenFormular
-                                                        beitrag={props.beitrag}
-                                                        beitraege={props.beitraege}
-                                                        setBeitraege={props.setBeitraege}
-                                                        aktuellerBenutzer={props.aktuellerBenutzer}
-                                                        setWurdeSubmitet={setWurdeSubmitet}
-                        /> }
-                    </div>
-                );
+                {props.beitrag.nutzer && <button onClick={handleDelete} key={props.beitrag.id}>🗑️</button>}
+            </div>
+        </div>
+    );
 
 }
