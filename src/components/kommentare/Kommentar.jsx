@@ -40,6 +40,7 @@ const Kommentar = (props) => {
                         <hr/>
                         <p style={{margin: "0"}}>{props.kommentar.inhalt}</p>
                     </div>
+
                     <div style={{
                         display: "flex",
                         flexDirection: "row",
