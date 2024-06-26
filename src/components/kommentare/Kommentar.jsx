@@ -8,17 +8,9 @@ const Kommentar = (props) => {
     const [wirdBearbeitet, setWirdBearbeitet] = useState(false);
 
     return (
-        <div style={{
-            borderStyle: "solid",
-            padding: "10px",
-            margin: "20px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-            backgroundColor: "lightblue",
-            borderRadius: "10px"
-        }}>
+
+
+        <>
             {wirdBearbeitet ?
                 <KommentarErstellen kommentare={props.kommentare}
                                     setKommentare={props.setKommentare}
@@ -27,7 +19,18 @@ const Kommentar = (props) => {
                                     setWirdBearbeitet={setWirdBearbeitet}
                                     kommentar={props.kommentar}/>
                 :
-                <>
+
+                <div style={{
+                    borderStyle: "solid",
+                    padding: "10px",
+                    margin: "20px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+                    backgroundColor: "lightblue",
+                    borderRadius: "10px"
+                }}>
                     <div style={{
                         display: "flex",
                         flexDirection: "column",
@@ -43,7 +46,7 @@ const Kommentar = (props) => {
                         alignItems: "center"
                     }}>
                         <p style={{margin: "0", marginRight: "10px"}}>
-                            {props.kommentar.editDatum !==null
+                            {props.kommentar.editDatum !== null
                                 ? `Bearbeitet: ${datumKonvertieren(props.kommentar.editDatum)}`
                                 : `Verfasst: ${datumKonvertieren(props.kommentar.datum)}`}
                         </p>
@@ -55,8 +58,9 @@ const Kommentar = (props) => {
                                             setKommentare={props.setKommentare}
                                             setWirdBearbeitet={setWirdBearbeitet}/>}
                     </div>
-                </>}
-        </div>
+                </div>
+            }
+        </>
     );
 };
 

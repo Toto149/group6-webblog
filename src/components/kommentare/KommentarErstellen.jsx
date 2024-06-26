@@ -83,10 +83,8 @@ const KommentarErstellen = (props) => {
                     />
                     {props.wirdBearbeitet ? <>
                             <div style={{display: "flex", justifyContent: "flex-end", marginTop: '10px'}}>
-                                <button onClick={speichern}>Änderung speichern</button>
-                            </div>
-                            <div style={{display: "flex", justifyContent: "flex-end", marginTop: '10px'}}>
-                                <button onClick={abbrechen}>Abbrechen</button>
+                                <button onClick={speichern}>Änderung speichern </button>
+                                <button style={{marginLeft: '10px'}} onClick={abbrechen}>Abbrechen</button>
                             </div>
                         </> :
                         <div style={{display: "flex", justifyContent: "flex-end", marginTop: '10px'}}>
