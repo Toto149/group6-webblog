@@ -1,20 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {administrator} from "../../Benutzer";
 import generiereZufaelligeID from "./GeneriereID";
 
 const KommentarErstellen = (props) => {
-    //nur wenn eingeloggt.
+    const maxZeichen = 300;
+    const warnungSchwellenFaktor = 0.1;
 
-    //nimmt nutzer
-    //eingabefeld
-    // - nimmt text und datum
-    //erstellt ID
-    //button zum abschicken (oder testen ob lang genug)
-
-    //adden zum Kommentare Array im Beitrag
-    //kommentar array sollte aktualisiert werden und rerender triggern
-    //form wieder leer
-    const [inhalt, setInhalt] = useState(props.kommentar!=null ? props.kommentar.inhalt:'');
+    const [inhalt, setInhalt] = useState(props.kommentar != null ? props.kommentar.inhalt : '');
     const eingabeRef = useRef(null);
 
     const verarbeiteInhaltsAenderung = (event) => {
@@ -22,42 +13,59 @@ const KommentarErstellen = (props) => {
     };
 
     const verarbeiteKnopfdruck = () => {
-        const beitragsId = props.beitrag.id;
-        const tempKommentar = {
-            "id": generiereZufaelligeID(),
-            "nutzer": props.aktuellerBenutzer,
-            "inhalt": inhalt,
-            "datum": Date.now(),
-            "editDatum": null,
-            "beitragsId": beitragsId,
+        if (inhalt.length <= maxZeichen) {
+            const beitragsId = props.beitrag.id;
+            const tempKommentar = {
+                "id": generiereZufaelligeID(),
+                "nutzer": props.aktuellerBenutzer,
+                "inhalt": inhalt,
+                "datum": Date.now(),
+                "editDatum": null,
+                "beitragsId": beitragsId,
+            }
+            props.setKommentare([...props.kommentare, tempKommentar]);
+            setInhalt('')
         }
-        props.setKommentare([...props.kommentare, tempKommentar]);
-        setInhalt('')
     };
 
-    const speichern = ()=>{
-        const tempKommentar = {
-            "id": props.kommentar.id,
-            "nutzer": props.aktuellerBenutzer,
-            "inhalt": inhalt,
-            "datum": props.kommentar.datum,
-            "editDatum": Date.now(),
-            "beitragsId": props.kommentar.beitragsId,
+    const speichern = () => {
+        if (inhalt.length <= maxZeichen) {
+            const tempKommentar = {
+                "id": props.kommentar.id,
+                "nutzer": props.aktuellerBenutzer,
+                "inhalt": inhalt,
+                "datum": props.kommentar.datum,
+                "editDatum": Date.now(),
+                "beitragsId": props.kommentar.beitragsId,
+            }
+            const gefiltert = props.kommentare.filter((kom) => kom.id !== props.kommentar.id);
+            props.setKommentare([...gefiltert, tempKommentar]);
+            props.setWirdBearbeitet(false);
         }
-        const gefiltert = props.kommentare.filter((kom)=> kom.id!==props.kommentar.id);
-        props.setKommentare([...gefiltert,tempKommentar]);
-        props.setWirdBearbeitet(false);
     }
 
-    const abbrechen = () =>{
+    const abbrechen = () => {
         props.setWirdBearbeitet(false);
     }
 
     useEffect(() => {
-        if (props.wirdBearbeitet && eingabeRef.current){
+        if (props.wirdBearbeitet && eingabeRef.current) {
             eingabeRef.current.focus();
         }
     }, [props.wirdBearbeitet]);
+
+    const farbeZeichenUebrig = () => {
+        const zeichenUebrig = maxZeichen - inhalt.length;
+        if (zeichenUebrig < 0) {
+            return 'red';
+
+        } else if (zeichenUebrig < maxZeichen * warnungSchwellenFaktor) {
+            return '#c86c0c';
+        } else {
+            return 'black';
+        }
+    }
+
 
     return (
         <div style={{
@@ -67,8 +75,8 @@ const KommentarErstellen = (props) => {
             backgroundColor: "lightblue",
             borderRadius: "10px"
         }}>
-            {props.aktuellerBenutzer !== null ?
-                <>
+            {props.aktuellerBenutzer !== null
+                ? <>
                     <input
                         ref={eingabeRef}
                         placeholder="Teile auch deine Meinung / Gib auch deinen Senf hinzu..."
@@ -81,15 +89,26 @@ const KommentarErstellen = (props) => {
                         value={inhalt}
                         onChange={verarbeiteInhaltsAenderung}
                     />
-                    {props.wirdBearbeitet ? <>
-                            <div style={{display: "flex", justifyContent: "flex-end", marginTop: '10px'}}>
-                                <button onClick={speichern}>Änderung speichern </button>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginTop: '10px',
+                        height: '30px',
+                        alignItems: 'center'
+                    }}>
+                        <p style={{
+                            fontSize: '14px',
+                            color: `${farbeZeichenUebrig()}`
+                        }}>{`Zeichen übrig: ${maxZeichen - inhalt.length}`}</p>
+                        {props.wirdBearbeitet
+                            ? <div style={{display: "flex", justifyContent: "flex-end"}}>
+                                <button onClick={speichern}>Änderung speichern</button>
                                 <button style={{marginLeft: '10px'}} onClick={abbrechen}>Abbrechen</button>
                             </div>
-                        </> :
-                        <div style={{display: "flex", justifyContent: "flex-end", marginTop: '10px'}}>
-                            <button onClick={verarbeiteKnopfdruck}>Kommentar hinzufügen</button>
-                        </div>}
+                            : <div style={{display: "flex", justifyContent: "flex-end"}}>
+                                <button onClick={verarbeiteKnopfdruck}>Kommentar hinzufügen</button>
+                            </div>}
+                    </div>
                 </>
                 : <p>Log dich ein um auch Kommentare verfassen zu können!</p>}
         </div>
