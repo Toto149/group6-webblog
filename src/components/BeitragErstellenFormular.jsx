@@ -1,16 +1,14 @@
-export default function BeitragErstellenFormular({   titel,
-                                                     kategorie,
-                                                     textInhalt,
+import {useState} from "react";
+
+export default function BeitragErstellenFormular({
                                                      aktuellerBenutzer,
                                                      beitraege,
-                                                     kommentare,
-                                                     setKategorie,
-                                                     setTitel,
-                                                     setBeitraege,
-                                                     setTextInhalt,
-                                                     setKommentare  }
+                                                     setBeitraege
+                                                 }
                                                 ) {
-
+    const [titel, setTitel] = useState("");
+    const [textInhalt, setTextInhalt] = useState("");
+    const [kategorie, setKategorie] = useState("");
     const hantiereSubmit =  () => {
 
 
@@ -30,14 +28,14 @@ export default function BeitragErstellenFormular({   titel,
 
 
     const hantiereVeraenderungTitel = (event) => {
+        event.preventDefault();
         setTitel(event.target.value);
     }
-    const hantiereVeraenderungText = (event2) => {
-        console.log(event2.target.value)
-        setTextInhalt(event2.target.value);
+    const hantiereVeraenderungText = (event) => {
+        setTextInhalt(event.target.value);
     }
-    const hantiereVeraenderungKategorie = (event3) => {
-        setKategorie([event3.target.value]);
+    const hantiereVeraenderungKategorie = (event) => {
+        setKategorie([event.target.value]);
     }
 
 
@@ -59,7 +57,7 @@ export default function BeitragErstellenFormular({   titel,
 
             </form>
         </div>
-    )
+    );
 
 
 

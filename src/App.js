@@ -3,28 +3,29 @@ import {kommentar, beitrag, beitrag2} from "./Beitrag";
 import Beitraege from "./components/Beitraege";
 import {administrator, benutzer1, benutzer2, benutzer3} from "./Benutzer";
 import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
-import Kommentare from "./components/kommentare/Kommentare";
 
 function App() {
-    const [istAltZuNeu, setIstAltZuNeu] = useState(false)
+
     const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege')) || [beitrag,beitrag2]);
     const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
     const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
-    const [titel, setTitel] = useState("");
-    const [textInhalt, setTextInhalt] = useState("");
-    const [kategorie, setKategorie] = useState("");
     const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
+
 
     useEffect(() => {
         localStorage.setItem('kommentare', JSON.stringify(kommentare));
     }, [kommentare]);
+
+
     useEffect(() => {
         localStorage.setItem('benutzers', JSON.stringify(benutzers));
     }, [benutzers]);
 
+
     useEffect(() => {
         localStorage.setItem('beitraege', JSON.stringify(beitraege));
-    }, [beitraege,istAltZuNeu]);
+    }, [beitraege]);
+
 
     useEffect(() => {
         const benutzers = JSON.parse(localStorage.getItem('benutzers'));
@@ -44,9 +45,6 @@ function App() {
     }, []);
 
 
-
-
-
     useEffect(() => {
         const localerBenutzer = JSON.parse(localStorage.getItem('aktuellerBenutzer'));
         if (localerBenutzer) {
@@ -62,9 +60,6 @@ function App() {
         }
     }, [aktuellerBenutzer]);
 
-
-
-
   return (
       <div>
 
@@ -76,18 +71,11 @@ function App() {
           />
 
           { <Beitraege beitraege={beitraege}
-                       neu={istAltZuNeu}
-                       setNeu={setIstAltZuNeu}
                        setBeitraege={setBeitraege}
                        kommentare={kommentare}
                        setKommentare={setKommentare}
                        aktuellerBenutzer={aktuellerBenutzer}
-                       titel={titel}
-                       setTitel={setTitel}
-                       textInhalt={textInhalt}
-                       setTextInhalt={setTextInhalt}
-                       kategorie={kategorie}
-                       setKategorie={setKategorie} />}
+          />}
 
 
         </div>

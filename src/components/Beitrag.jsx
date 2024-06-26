@@ -1,13 +1,49 @@
 import {useState} from "react";
-
-
 import Kommentare from "./kommentare/Kommentare";
+import BeitragBearbeitenFormular from "./BeitragBearbeitungsFormular";
 import datumKonvertieren from "./DatumKonvertieren";
 
 
-export default function Beitrag(props) {
+export default function Beitrag(props){
 
-    const displayKategorien = (kategorien) => {
+
+                //Diese Komponente soll einen einzelnen Beitrag des Web-blogs modellieren.
+                //Die Idee ist, dass diese Komponente Kommentare des Beitrags anzeigt und auf
+                // eine einzelne
+
+                // Dieser useState überprüft, ob "Mehr Kommentare" anzeigen gedrückt wurde.
+                const [wurdeGeklickt, setWurdeGeklickt ] = useState(false);
+
+                //Dieser useState überprüft, ob der Kommentare-editier-Button gedrückt wurde.
+                const [wurdeEditGeklickt, setWurdeEditGeklickt ] = useState(false);
+
+
+                //Dieser useStat überprüft, ob der Beitrag editiert wurde und wenn ja, dann soll das Datum angepasst
+                // werden.
+                const [wurdeSubmitet, setWurdeSubmitet] = useState(false);
+
+                //Diese Funktion soll die Kategorien anzeigen.
+                const displayKategorien = (kategorien) => {
+                    console.log(kategorien)
+                    return kategorien.map(kategorie => "Kategorien: " + kategorie
+                        + (kategorie.indexOf(kategorie) !== kategorie.length - 1  ? ", "  :  "")
+                    );
+
+                };
+
+                //Diese Funktion ändert den boolean im useState oben.
+                const hantiereKlick = () => {
+                    setWurdeGeklickt(!wurdeGeklickt);
+                };
+
+        
+
+                //Diese Funktion lässt das Feld für die Bearbeitung erscheinen
+                const handleEdit = () => {
+                    setWurdeEditGeklickt(!wurdeEditGeklickt);
+                }
+                
+     const displayKategorien = (kategorien) => {
         return kategorien.map(kategorie => "Kategorien: " + kategorie + (kategorien.indexOf(kategorie) !== kategorien.length - 1 ? ", " : ""));
 
     }
