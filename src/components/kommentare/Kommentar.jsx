@@ -27,7 +27,15 @@ const Kommentar = (props) => {
                 alignItems: "center"
             }}>
                 <p style={{margin: "0", marginRight: "10px"}}>Verfasst: {props.kommentar.datum.toString()}</p>
-                {props.aktuellerBenutzer !== null && (props.aktuellerBenutzer.rolle.kannKommentareLöschen || props.aktuellerBenutzer.id===props.kommentar.nutzer.id) &&  <KommentarBearbeitungsMenue aktuellerBenutzer={props.aktuellerBenutzer} kommentar={props.kommentar} kommentare={props.kommentare} setKommentare={props.setKommentare}/>}
+                {props.aktuellerBenutzer !== null
+                    && (props.aktuellerBenutzer.rolle.kannKommentareLöschen
+                        || props.aktuellerBenutzer.id===props.kommentar.nutzer.id
+                    )
+                    &&  <KommentarBearbeitungsMenue aktuellerBenutzer={props.aktuellerBenutzer}
+                                                    kommentar={props.kommentar}
+                                                    kommentare={props.kommentare}
+                                                    setKommentare={props.setKommentare}/>
+                }
             </div>
         </div>
     );
