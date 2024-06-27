@@ -1,11 +1,21 @@
 import React, {useState} from 'react';
 
-const KommentarBearbeitungsMenue = (props) => {
+const KommentarMenue = (props) => {
     const [zeigeMenue, setZeigeMenue] = useState(false);
 
     const wechsleAnzeige = () => {
         setZeigeMenue(!zeigeMenue)
     };
+
+    const kommentarLoeschen = ()=>{
+        const gefiltert = props.kommentare.filter((kom)=> kom.id!==props.kommentar.id)
+        props.setKommentare([...gefiltert])
+    };
+
+    const kommentarBearbeiten = ()=>{
+        props.setWirdBearbeitet(true);
+    };
+
 
     return (
         <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -23,11 +33,11 @@ const KommentarBearbeitungsMenue = (props) => {
                     border: 'solid black 1px'
                 }}>
                     {props.aktuellerBenutzer.id===props.kommentar.nutzer.id && <li style={{ margin: '5px 0' }}>
-                        <button style={{ width: '100px' }}>bearbeiten</button>
+                        <button style={{ width: '100px' }} onClick={kommentarBearbeiten}>bearbeiten</button>
                     </li>}
 
                     <li style={{ margin: '5px 0' }}>
-                        <button style={{ width: '100px' }}>löschen</button>
+                        <button style={{ width: '100px' }} onClick={kommentarLoeschen}>löschen</button>
                     </li>
                 </ul>
             )}
@@ -35,4 +45,4 @@ const KommentarBearbeitungsMenue = (props) => {
     );
 };
 
-export default KommentarBearbeitungsMenue;
+export default KommentarMenue;

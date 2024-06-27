@@ -25,7 +25,7 @@ export const moderator = {
     kannRolleÄndern: false
 }
 
-export let administrator = {
+export const administrator = {
     id: 1,
     name: "Admin",
     passwort: "0000",
@@ -33,7 +33,7 @@ export let administrator = {
     rolle: admin
 }
 
-export let benutzer = {
+export const benutzer = {
     id: Date.now(),
     name: "user" + Date.now(),
     passwort: "",
