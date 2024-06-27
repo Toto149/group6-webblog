@@ -11,9 +11,6 @@ export default function Beitrag(props){
                 //Die Idee ist, dass diese Komponente Kommentare des Beitrags anzeigt und auf
                 // eine einzelne
 
-                // Dieser useState überprüft, ob "Mehr Kommentare" anzeigen gedrückt wurde.
-                const [wurdeGeklickt, setWurdeGeklickt ] = useState(false);
-
                 //Dieser useState überprüft, ob der Kommentare-editier-Button gedrückt wurde.
                 const [wurdeEditGeklickt, setWurdeEditGeklickt ] = useState(false);
 
@@ -31,51 +28,94 @@ export default function Beitrag(props){
 
                 };
 
-                //Diese Funktion ändert den boolean im useState oben.
-                const hantiereKlick = () => {
-                    setWurdeGeklickt(!wurdeGeklickt);
-                };
-
         
 
                 //Diese Funktion lässt das Feld für die Bearbeitung erscheinen
                 const handleEdit = () => {
                     setWurdeEditGeklickt(!wurdeEditGeklickt);
                 }
-                
-     const displayKategorien = (kategorien) => {
-        return kategorien.map(kategorie => "Kategorien: " + kategorie + (kategorien.indexOf(kategorie) !== kategorien.length - 1 ? ", " : ""));
 
-    }
 
     const handleDelete = () => {
 
-        props.setBeitraege(props.beitraege.filter(b => b.id != props.beitrag.id));
+        props.setBeitraege(props.beitraege.filter(b => b.id !== props.beitrag.id));
     }
     return (
         <div key={props.key}
              style={{
                  textAlign: "center",
                  backgroundColor: "darkcyan",
-                 borderRadius: "5px",
+                 borderRadius: "20px",
                  marginLeft: "15px",
                  marginRight: "30px",
-                 marginBottom: "10px"
+                 marginBottom: "10px",
+                 fontFamily: "sans-serif"
              }}>
             <div>
-                <h3>{props.beitrag.titel}</h3>
+                <span
+                    style={{
+                        fontSize: "2em",
+                        fontWeight: "bold"
+                    }}>
+                    {props.beitrag.titel}
+                </span>
+                <br />
                 {"by   " + props.beitrag.nutzer.name}
             </div>
+            <hr style={{color: "green", marginLeft:"2em", marginRight: "2em"}}/>
             <div>
                 {displayKategorien(props.beitrag.kategorien)}
             </div>
             <div>
-                <p>{props.beitrag.inhalt}</p>
+                <p
+                    style={{
+                        textAlign: "left",
+                        marginRight: "2em",
+                        marginLeft: "2em"
+                    }}
+                >
+                    {props.beitrag.inhalt}
+                </p>
             </div>
-            <p style={{textAlign: "right"}}>{datumKonvertieren(props.beitrag.erstellungsDatum)}</p>
-            <p style={{textAlign: "right", fontSize: "0.5em"}}>
-
+            <p
+                style={{
+                    textAlign: "right",
+                    marginRight: "2em"
+            }}
+            >
+                {datumKonvertieren(props.beitrag.erstellungsDatum)}
             </p>
+            {wurdeSubmitet &&
+                <p
+                    style={{
+                        textAlign: "right",
+                        marginRight: "2em",
+                }}>
+                    {datumKonvertieren(props.beitrag.publizierungsDatum)}
+                </p>
+            }
+
+            {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannBeitragLöschen &&
+                <button
+                    onClick={handleDelete}
+                    style={{
+                        backgroundColor: "darkcyan",
+                        borderRadius: "5px"
+                    }}
+                >Löschen 🗑</button>
+            }
+
+            {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannBeitragVerändern &&
+                <button
+                    onClick={handleEdit}
+                    style={{
+                        backgroundColor: "darkcyan",
+                        borderRadius: "5px"
+                    }}
+                >
+                    Bearbeiten ✏ ️
+                </button>
+            }
             <div>
                 <h3>Kommentare</h3>
 
@@ -88,7 +128,15 @@ export default function Beitrag(props){
                              aktuellerBenutzer={props.aktuellerBenutzer}
                 />
                 }
-                {props.beitrag.nutzer && <button onClick={handleDelete} key={props.beitrag.id}>🗑️</button>}
+
+
+                {wurdeEditGeklickt && <BeitragBearbeitenFormular
+                    beitrag={props.beitrag}
+                    beitraege={props.beitraege}
+                    setBeitraege={props.setBeitraege}
+                    aktuellerBenutzer={props.aktuellerBenutzer}
+                    setWurdeSubmitet={setWurdeSubmitet}
+                /> }
             </div>
         </div>
     );

@@ -36,10 +36,28 @@ export default function Beitraege({aktuellerBenutzer,
         setIstAltZuNeu(!istAltZuNeu);
     };
     return(
-        <div style={{backgroundColor: "lightblue", display: "flex", flexDirection:"column"}}>
-            <div style={{textAlign: "right"}}>
-                {aktuellerBenutzer &&  aktuellerBenutzer.rolle.kannBeitragVerfassen && <button onClick={hantiereClick}> ➕ Add Post</button>}
-                <button onClick={hantiereClickAltZuNeu}> {istAltZuNeu ? "Neu zu Alt" : "Alt zu Neu"} </button>
+        <div
+            style={{
+                backgroundColor: "lightblue",
+                display: "flex",
+                flexDirection:"column",
+                borderRadius: "20px"
+            }}
+        >
+            <div
+                style={{
+                    textAlign: "right"
+                }}
+            >
+                {aktuellerBenutzer
+                    &&  aktuellerBenutzer.rolle.kannBeitragVerfassen
+                    && <button onClick={hantiereClick}> ➕ Beitrag erstellen</button>
+                }
+                <button
+                    onClick={hantiereClickAltZuNeu}
+                >
+                    {(istAltZuNeu ? "⬆️" : "⬇️")}
+                </button>
             </div>
 
             {geklickt && <BeitragErstellenFormular beitraege={beitraege}
