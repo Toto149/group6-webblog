@@ -3,11 +3,12 @@ import {kommentar, beitrag, beitrag2} from "./Beitrag";
 import Beitraege from "./components/Beitraege";
 import {administrator, benutzer1, benutzer2, benutzer3} from "./Benutzer";
 import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
-
+/*
 import {kommentar, beitrag, kommentar2} from "./Beitrag";
 import Kommentare from "./components/kommentare/Kommentare";
 import Beitraege from "./components/Beitraege";
 import Supabase from "./components/supabase/Supabase";
+*/
 
 
 function App() {
