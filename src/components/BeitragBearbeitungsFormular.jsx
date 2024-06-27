@@ -45,8 +45,8 @@ export default function BeitragBearbeitenFormular({
 
 
     return (
-        <div style={{alignSelf: "center", marginBottom: "20px"}}>
-
+        <div className="card-large is-7" style={{alignSelf: "center", marginBottom: "20px"}}>
+            <div className="card-content">
             <form onSubmit={hantiereSubmit}>
 
                 <label > Titel des Beitrags:</label>
@@ -54,14 +54,14 @@ export default function BeitragBearbeitenFormular({
                     onChange={hantiereVeraenderungTitel}
                     id={"beitragsTitel"}
                     type={"text"}
-                    style={{display: "block", width: "39em"}}
+                    className="input is-info"
                     value={lokalerTitel}
                 />
                 <label>Textinhalt des Beitrags</label>
                 <textarea
                     onChange={hantiereVeraenderungText}
                     id={"textInhalt"}
-                    style={{width: "40em", height: "20em",display: "block"}}
+                    className="textarea is-info"
                     value={lokalerTextInhalt}
                 />
 
@@ -70,12 +70,13 @@ export default function BeitragBearbeitenFormular({
                     onChange={hantiereVeraenderungKategorie}
                     id={"kategorie"}
                     type={"text"}
-                    style={{display: "block", width:"39em"}}
+                    className="input is-info"
                     value={lokaleKategorie}
                 />
                 <button style={{marginTop: "5px"}}>Submit</button>
 
             </form>
+            </div>
         </div>
     );
 
