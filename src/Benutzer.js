@@ -1,6 +1,3 @@
-
-
-
 export const admin = {
     kannKommentieren: true,
     kannKommentareLöschen: true,
