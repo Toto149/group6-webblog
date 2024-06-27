@@ -37,51 +37,7 @@ export default function Beitraege({aktuellerBenutzer,
     };
     return(
         <>
-            {/*<div*/}
-            {/*    style={{*/}
-            {/*        backgroundColor: "lightblue",*/}
-            {/*        display: "flex",*/}
-            {/*        flexDirection: "column",*/}
-            {/*        borderRadius: "20px"*/}
-            {/*    }}*/}
-            {/*>*/}
-            {/*    <div*/}
-            {/*        style={{*/}
-            {/*            textAlign: "right"*/}
-            {/*        }}*/}
-            {/*    >*/}
-            {/*        {aktuellerBenutzer*/}
-            {/*            && aktuellerBenutzer.rolle.kannBeitragVerfassen*/}
-            {/*            &&*/}
-            {/*            <button onClick={hantiereClick}><i className="fa fa-save"></i> {" "} Beitrag erstellen</button>*/}
-            {/*        }*/}
-            {/*        <button*/}
-            {/*            onClick={hantiereClickAltZuNeu}*/}
-            {/*            style={{*/}
-            {/*                marginRight: "2em",*/}
-            {/*            }}*/}
-            {/*        >*/}
-            {/*            {(istAltZuNeu ? "⬆️" : "⬇️")}*/}
-            {/*        </button>*/}
-            {/*    </div>*/}
-
-            {/*    {geklickt && <BeitragErstellenFormular beitraege={beitraege}*/}
-            {/*                                           setBeitraege={setBeitraege}*/}
-            {/*                                           aktuellerBenutzer={aktuellerBenutzer}/>}*/}
-
-            {/*    {beitraege.sort(compareDates).map(beitrag =>*/}
-            {/*        <Beitrag key={beitrag.id}*/}
-            {/*                 beitrag={beitrag}*/}
-            {/*                 beitraege={beitraege}*/}
-            {/*                 setBeitraege={setBeitraege}*/}
-            {/*                 kommentare={kommentare}*/}
-            {/*                 setKommentare={setKommentare}*/}
-            {/*                 aktuellerBenutzer={aktuellerBenutzer}*/}
-            {/*        />)*/}
-            {/*    }*/}
-
-
-            {/*</div>*/}
+     
             <div className="container"  >
                 <div className="section"    >
                     <div className="columns">
@@ -112,7 +68,6 @@ export default function Beitraege({aktuellerBenutzer,
                     >
                         {(istAltZuNeu ? "⬆️" : "⬇️")}
                     </button>
-
 
 
 
