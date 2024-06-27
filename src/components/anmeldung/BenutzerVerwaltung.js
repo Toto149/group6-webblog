@@ -50,7 +50,7 @@ const BenutzerVerwaltung = (props) => {
         <>
             {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && (
 
-                <div className=" m-2 has-text-left">
+                <div className="m-2 has-text-left">
 
 
                     <input
@@ -72,9 +72,9 @@ const BenutzerVerwaltung = (props) => {
                     <table  className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                         <thead>
                         <tr >
-                            <th className="has-text-centered">Name des Benutzers</th>
-                            <th className="has-text-centered">Rolle</th>
-                            <th className="has-text-centered">Änderungen bestätigen</th>
+                            <th className="is-narrow has-text-centered">Name des Benutzers</th>
+                            <th className="is-narrowhas-text-centered">Rolle</th>
+                            <th className="is-narrowhas-text-centered">Änderungen bestätigen</th>
                         </tr>
                         </thead>
                         <tbody>
