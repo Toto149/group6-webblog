@@ -3,7 +3,7 @@ import generiereZufaelligeID from "./GeneriereID";
 
 const KommentarErstellen = (props) => {
     const maxZeichen = 250;
-    const warnungSchwellenFaktor = 0.1;
+    const warnungSchwellenFaktor = 0.2;
 
     const [inhalt, setInhalt] = useState(props.kommentar != null ? props.kommentar.inhalt : '');
     const eingabeRef = useRef(null);
