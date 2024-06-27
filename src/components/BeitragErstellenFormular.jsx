@@ -46,57 +46,50 @@ export default function BeitragErstellenFormular({
 
 
     return (
-        <div style={{alignSelf: "center", marginBottom: "20px"}}>
+        <div className="field">
 
             <form onSubmit={hantiereSubmit}>
 
-                <label >Titel des Beitrags:</label>
+                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}} >Titel des Beitrags:</label>
 
                 <input
+                    className="input is-info"
                     onChange={hantiereVeraenderungTitel}
+                    placeholder={"Titel"}
                     id={"beitragsTitel"}
                     type={"text"}
-                    style={{
-                        display: "block",
-                        width: "39em"
-                    }}
-                />
+                                    />
 
-                <label>Textinhalt des Beitrags:</label>
+                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}}>Textinhalt des Beitrags:</label>
 
                 <textarea
                     onChange={hantiereVeraenderungText}
                     id={"textInhalt"}
-                    style={{
-                        width: "40em",
-                        height: "20em",
-                        display: "block"
-                    }}
+                    className="textarea is-info"
+                    placeholder={"Beitragstext"}
                 />
 
-                <label>Kategorie des Beitrags:</label>
+                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}}>Kategorie des Beitrags:</label>
 
                 <input
+                    className="input is-info"
                     onChange={hantiereVeraenderungKategorie}
                     id={"kategorie"}
+                    placeholder={"Kategorien des Textes betreffend e.g. Sprachen, Informatik"}
                     type={"text"}
-                    style={{
-                        display: "block",
-                        width:  "39em"
-                    }}
                 />
 
-                <label>Bild Url für das Bild des Artikels:</label>
+                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}} >Bild Url für das Bild des Artikels:</label>
 
                 <input
+                    className="input is-info"
                     onChange={hantiereVeraenderungbildUrl}
                     id={"bildUrl"}
+                    placeholder={"Url des Bildes e.g. www.asdasdasdasd.com/asdasd.jpg"}
                     type={"text"}
-                    style={{
-                        display: "block",
-                        width: "39em"
-                    }}/>
+                />
                 <button
+                    className="button is-info m-2"
                     style={{
                     marginTop: "5px"
                     }}
