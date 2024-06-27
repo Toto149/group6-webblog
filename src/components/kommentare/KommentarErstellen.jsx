@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import generiereZufaelligeID from "./GeneriereID";
 
 const KommentarErstellen = (props) => {
-    const maxZeichen = 300;
+    const maxZeichen = 250;
     const warnungSchwellenFaktor = 0.1;
 
     const [inhalt, setInhalt] = useState(props.kommentar != null ? props.kommentar.inhalt : '');
@@ -13,7 +13,7 @@ const KommentarErstellen = (props) => {
     };
 
     const verarbeiteKnopfdruck = () => {
-        if (inhalt.length <= maxZeichen) {
+        if (inhalt.length <= maxZeichen && inhalt.length>0) {
             const beitragsId = props.beitrag.id;
             const tempKommentar = {
                 "id": generiereZufaelligeID(),
@@ -29,7 +29,7 @@ const KommentarErstellen = (props) => {
     };
 
     const speichern = () => {
-        if (inhalt.length <= maxZeichen) {
+        if (inhalt.length <= maxZeichen && inhalt.length>0) {
             const tempKommentar = {
                 "id": props.kommentar.id,
                 "nutzer": props.aktuellerBenutzer,
@@ -73,7 +73,7 @@ const KommentarErstellen = (props) => {
             flexDirection: "column",
             boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
             backgroundColor: "lightblue",
-            borderRadius: "10px"
+            borderRadius: "10px",
         }}>
             {props.aktuellerBenutzer !== null
                 ? <>
