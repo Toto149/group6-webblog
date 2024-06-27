@@ -89,7 +89,7 @@ const Anmeldung = (props) => {
 
                             <span> </span>
 
-                            <a className="button is-info is-outlined" href="#" href="#"
+                            <a className="button is-info is-outlined" href="#"
                                onClick={zurRegistrierungsform}>
                                             <span className="icon">
                                                 <i className="fa fa-cog"></i>
@@ -120,7 +120,7 @@ const Anmeldung = (props) => {
                     willkommen, {props.aktuellerBenutzer.name}!</label>
                 <span> </span>
 
-                <a className="button is-white is-outlined" href="#" href="#" onClick={abmelden}>
+                <a className="button is-white is-outlined" href="#" onClick={abmelden}>
                                     <span className="icon">
                                         <i className="fa fa-user"></i>
                                     </span>
@@ -132,7 +132,7 @@ const Anmeldung = (props) => {
 
                 {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && !zeigenVerwaltung && (
 
-                    <a className="button is-info is-outlined" href="#" href="#" onClick={zurBenutzerVerwaltung}>
+                    <a className="button is-info is-outlined"  href="#" onClick={zurBenutzerVerwaltung}>
                                     <span className="icon">
                                         <i className="fa fa-cog"></i>
                                     </span>
@@ -145,7 +145,7 @@ const Anmeldung = (props) => {
                 {
                     props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && zeigenVerwaltung && (
 
-                        <a className="button is-info is-outlined" href="#" href="#" onClick={zurBenutzerVerwaltung}>
+                        <a className="button is-info is-outlined"  href="#" onClick={zurBenutzerVerwaltung}>
                                     <span className="icon">
                                         <i className="fa fa-cog"></i>
                                     </span>

@@ -79,7 +79,7 @@ const BenutzerErstellen = (props) => {
                 </button>
                 <span> </span>
 
-                <a className="button is-info is-outlined" href="#" href="#"
+                <a className="button is-info is-outlined" href="#"
                    onClick={zurAnmeldungsform}>
                                             <span className="icon">
                                                 <i className="fa fa-cog"></i>
