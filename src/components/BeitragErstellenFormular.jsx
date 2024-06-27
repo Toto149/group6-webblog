@@ -9,6 +9,7 @@ export default function BeitragErstellenFormular({
     const [titel, setTitel] = useState("");
     const [textInhalt, setTextInhalt] = useState("");
     const [kategorie, setKategorie] = useState("");
+    const [bildUrl, setBildUrl] = useState("");
     const hantiereSubmit =  () => {
 
 
@@ -20,7 +21,8 @@ export default function BeitragErstellenFormular({
             "publizierungsDatum": Date.now(),
             "erstellungsDatum": Date.now(),
             "kommentare" : [],
-            "kategorien": [kategorie]
+            "kategorien": [kategorie],
+            "bildUrl": bildUrl
         };
         setBeitraege(() => [...beitraege, neuerBeitrag]);
 
@@ -28,7 +30,6 @@ export default function BeitragErstellenFormular({
 
 
     const hantiereVeraenderungTitel = (event) => {
-        event.preventDefault();
         setTitel(event.target.value);
     }
     const hantiereVeraenderungText = (event) => {
@@ -37,7 +38,9 @@ export default function BeitragErstellenFormular({
     const hantiereVeraenderungKategorie = (event) => {
         setKategorie([event.target.value]);
     }
-
+    const hantiereVeraenderungbildUrl = (event) => {
+        setBildUrl(event.target.value);
+    }
 
 
 
@@ -47,14 +50,59 @@ export default function BeitragErstellenFormular({
 
             <form onSubmit={hantiereSubmit}>
 
-                <label > Titel des Beitrags:</label>
-                <input onChange={hantiereVeraenderungTitel} id={"beitragsTitel"} type={"text"} style={{display: "block", width: "39em"}}/>
-                <label>Textinhalt des Beitrags</label>
-                <textarea onChange={hantiereVeraenderungText} id={"textInhalt"} style={{width: "40em", height: "20em",display: "block"}} ></textarea>
-                <label>Kategorie des Beitrags</label>
-                <input onChange={hantiereVeraenderungKategorie} id={"kategorie"} type={"text"} style={{display: "block", width:"39em"}}/>
-                <button style={{marginTop: "5px"}}>Submit</button>
+                <label >Titel des Beitrags:</label>
 
+                <input
+                    onChange={hantiereVeraenderungTitel}
+                    id={"beitragsTitel"}
+                    type={"text"}
+                    style={{
+                        display: "block",
+                        width: "39em"
+                    }}
+                />
+
+                <label>Textinhalt des Beitrags:</label>
+
+                <textarea
+                    onChange={hantiereVeraenderungText}
+                    id={"textInhalt"}
+                    style={{
+                        width: "40em",
+                        height: "20em",
+                        display: "block"
+                    }}
+                />
+
+                <label>Kategorie des Beitrags:</label>
+
+                <input
+                    onChange={hantiereVeraenderungKategorie}
+                    id={"kategorie"}
+                    type={"text"}
+                    style={{
+                        display: "block",
+                        width:  "39em"
+                    }}
+                />
+
+                <label>Bild Url für das Bild des Artikels:</label>
+
+                <input
+                    onChange={hantiereVeraenderungbildUrl}
+                    id={"bildUrl"}
+                    type={"text"}
+                    style={{
+                        display: "block",
+                        width: "39em"
+                    }}/>
+                <button
+                    style={{
+                    marginTop: "5px"
+                    }}
+                >
+                    Submit
+                </button>
             </form>
         </div>
     );
