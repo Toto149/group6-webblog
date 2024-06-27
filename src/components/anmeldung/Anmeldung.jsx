@@ -54,28 +54,54 @@ const Anmeldung = (props) => {
             <div>
                 {anzeigeForm ? (
                     <>
-                    <form onSubmit={anmelden}>
-                        <input
-                            type="text"
-                            value={benutzername}
-                            placeholder="Benutzername"
-                            onChange={(e) => setBenutzername(e.target.value)}
-                            required
-                        />
-                        <input
-                            type="password"
-                            value={passwort}
-                            placeholder="Passwort"
-                            onChange={(e) => setPasswort(e.target.value)}
-                            required
-                        />
-                        <button type="submit">Anmelden</button>
-                        <span> </span>
-                        <a href="#" onClick={zurRegistrierungsform}>zur Registrierungsform</a>
-                        {fehlerMeldung && <p>{fehlerMeldung}</p>}
-                    </form>
+                        <form className="p-5 has-text-right" onSubmit={anmelden}>
+
+                            <input
+                                className="input"
+                                style={{width: '200px'}}
+                                type="text"
+                                value={benutzername}
+                                placeholder="Benutzername"
+                                onChange={(e) => setBenutzername(e.target.value)}
+                                required
+                            />
+                            <span> </span>
+
+                            <input
+                                className="input"
+                                style={{width: '200px'}}
+                                type="password"
+                                value={passwort}
+                                placeholder="Passwort"
+                                onChange={(e) => setPasswort(e.target.value)}
+                                required
+                            />
+
+                            <span> </span>
+
+                            <button className="button is-white is-outlined" type="submit">
+                                            <span className="icon">
+                                                <i className="fa fa-user"></i>
+                                            </span>
+                                <span>  </span>
+                                Anmelden
+                            </button>
+
+                            <span> </span>
+
+                            <a className="button is-info is-outlined" href="#" href="#"
+                               onClick={zurRegistrierungsform}>
+                                            <span className="icon">
+                                                <i className="fa fa-cog"></i>
+                                            </span>
+                                <span>zur Registrierungsform</span>
+                            </a>
+
+
+                            {fehlerMeldung && <p className="subtitle is-6 is-color-warning">{fehlerMeldung}</p>}
+                        </form>
                     </>
-                    ) : (
+                ) : (
                     <>
                         <BenutzerErstellen benutzers={props.benutzers}
                                            setBenutzers={props.setBenutzers}
@@ -84,34 +110,61 @@ const Anmeldung = (props) => {
 
                         />
                     </>)}
-                    <hr/>
-                    </div>
-                );
+
+            </div>
+        );
     } else {
         return (
-            <div>
-                <label>Herzlich willkommen, {props.aktuellerBenutzer.name}!</label>
-                <button onClick={abmelden}>Abmelden</button>
+            <div className="p-5 has-text-right">
+                <label className="button pt-9 is-6 is-color-info">Herzlich
+                    willkommen, {props.aktuellerBenutzer.name}!</label>
+                <span> </span>
+
+                <a className="button is-white is-outlined" href="#" href="#" onClick={abmelden}>
+                                    <span className="icon">
+                                        <i className="fa fa-user"></i>
+                                    </span>
+                    <span>Abmelden</span>
+                </a>
+
+
                 <span> </span>
 
                 {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && !zeigenVerwaltung && (
-                    <a href="#" onClick={zurBenutzerVerwaltung}>zur Benutzerverwaltung</a>
-                )}
 
-                {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && zeigenVerwaltung && (
-                    <a href="#" onClick={zurBenutzerVerwaltung}>schließen Benutzerverwaltung</a>
-                )}
+                    <a className="button is-info is-outlined" href="#" href="#" onClick={zurBenutzerVerwaltung}>
+                                    <span className="icon">
+                                        <i className="fa fa-cog"></i>
+                                    </span>
+                        <span>zur Benutzerverwaltung</span>
+                    </a>
 
-                {zeigenVerwaltung && (
-                    <>
-                        <hr/>
-                        <BenutzerVerwaltung benutzers={props.benutzers}
-                                            setBenutzers={props.setBenutzers}
-                                            aktuellerBenutzer={props.aktuellerBenutzer}
-                        />
-                    </>
-                )}
-                <hr/>
+                )
+                }
+
+                {
+                    props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && zeigenVerwaltung && (
+
+                        <a className="button is-info is-outlined" href="#" href="#" onClick={zurBenutzerVerwaltung}>
+                                    <span className="icon">
+                                        <i className="fa fa-cog"></i>
+                                    </span>
+                            <span>Benutzerverwaltung schließen</span>
+                        </a>
+                    )
+                }
+
+                {
+                    zeigenVerwaltung && (
+                        <>
+
+                            <BenutzerVerwaltung benutzers={props.benutzers}
+                                                setBenutzers={props.setBenutzers}
+                                                aktuellerBenutzer={props.aktuellerBenutzer}
+                            />
+                        </>
+                    )}
+
             </div>
         );
     }
