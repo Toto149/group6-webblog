@@ -3,7 +3,7 @@ import Kommentar from "./Kommentar";
 import KommentarErstellen from "./KommentarErstellen";
 
 const Kommentare = (props) => {
-    const [wurdeGeklicked, setWurdeGeklicked ] = useState(false)
+    const [wurdeGeklicked, setWurdeGeklicked] = useState(false)
 
     const hantiereKlick = () => {
         setWurdeGeklicked(!wurdeGeklicked);
@@ -26,27 +26,44 @@ const Kommentare = (props) => {
 
     return (
         <div>
-            {wurdeGeklicked
-                ? gefilterteKommentare.map((kommentar) => <Kommentar key={kommentar.id}
-                                                                kommentar={kommentar}
-                                                                kommentare={props.kommentare}
-                                                                setKommentare={props.setKommentare}
-                                                                aktuellerBenutzer={props.aktuellerBenutzer}/>)
-                : gefilterteKommentare.slice(0, 3).map((kommentar) => <Kommentar key={kommentar.id}
-                                                                      kommentar={kommentar}
-                                                                      kommentare={props.kommentare}
-                                                                      setKommentare={props.setKommentare}
-                                                                      aktuellerBenutzer={props.aktuellerBenutzer}/>)}
+            <div className="container">
+                <div className="section">
+                    <div className="columns">
+                        <div className="column has-text-centered">
+                            <h1 className="title" style={{color: "ghostwhite"}}>Kommentare</h1><br/>
+                        </div>
+                    </div>
+                    <div id="app" className="row columns is-centered">
+                        <div className="column is-7 ">
 
-            <KommentarErstellen beitrag={props.beitrag}
-                                kommentare={props.kommentare}
-                                setKommentare={props.setKommentare}
-                                aktuellerBenutzer={props.aktuellerBenutzer}
-                                wirdBearbeitet={false}
-                                kommentar={null}/>
 
-            {gefilterteKommentare.length > 3 &&
-            <button onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>}
+                            {wurdeGeklicked
+                                ? gefilterteKommentare.map((kommentar) => <Kommentar key={kommentar.id}
+                                                                                     kommentar={kommentar}
+                                                                                     kommentare={props.kommentare}
+                                                                                     setKommentare={props.setKommentare}
+                                                                                     aktuellerBenutzer={props.aktuellerBenutzer}/>)
+                                : gefilterteKommentare.slice(0, 3).map((kommentar) => <Kommentar key={kommentar.id}
+                                                                                                 kommentar={kommentar}
+                                                                                                 kommentare={props.kommentare}
+                                                                                                 setKommentare={props.setKommentare}
+                                                                                                 aktuellerBenutzer={props.aktuellerBenutzer}/>)}
+
+
+                            <KommentarErstellen beitrag={props.beitrag}
+                                                kommentare={props.kommentare}
+                                                setKommentare={props.setKommentare}
+                                                aktuellerBenutzer={props.aktuellerBenutzer}
+                                                wirdBearbeitet={false}
+                                                kommentar={null}/>
+
+                            {gefilterteKommentare.length > 3 &&
+                                <button
+                                    onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

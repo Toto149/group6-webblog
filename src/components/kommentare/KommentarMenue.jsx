@@ -19,7 +19,9 @@ const KommentarMenue = (props) => {
 
     return (
         <div style={{ position: 'relative', display: 'inline-block' }}>
-            <button onClick={wechsleAnzeige}>✏️</button>
+            <button onClick={wechsleAnzeige}>
+            <i className="fa fa-cog"></i>
+        </button>
             {zeigeMenue && (
                 <ul style={{
                     position: 'absolute',
@@ -33,11 +35,13 @@ const KommentarMenue = (props) => {
                     border: 'solid black 1px'
                 }}>
                     {props.aktuellerBenutzer.id===props.kommentar.nutzer.id && <li style={{ margin: '5px 0' }}>
-                        <button style={{ width: '100px' }} onClick={kommentarBearbeiten}>bearbeiten</button>
+                        <button style={{ width: '100px' }} onClick={kommentarBearbeiten}><i className="fa fa-edit"></i> bearbeiten
+                        </button>
                     </li>}
 
                     <li style={{ margin: '5px 0' }}>
-                        <button style={{ width: '100px' }} onClick={kommentarLoeschen}>löschen</button>
+                        <button style={{ width: '100px' }} onClick={kommentarLoeschen}><i className="fa fa-trash"></i> löschen
+                        </button>
                     </li>
                 </ul>
             )}

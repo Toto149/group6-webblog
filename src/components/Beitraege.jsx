@@ -64,6 +64,7 @@ export default function Beitraege({aktuellerBenutzer,
                                                    setBeitraege={setBeitraege}
                                                    aktuellerBenutzer={aktuellerBenutzer} />}
 
+
             {beitraege.sort(compareDates).map(beitrag =>
                                     <Beitrag key={beitrag.id}
                                              beitrag={beitrag}
