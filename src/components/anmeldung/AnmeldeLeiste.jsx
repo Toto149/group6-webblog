@@ -16,10 +16,6 @@ const AnmeldeLeiste = (props) => {
                 setBenutzers={props.setBenutzers}
             />
 
-            <BenutzerListe benutzers={props.benutzers}
-                           setBenutzers={props.setBenutzers}
-            />
-
         </div>
     );
 };
