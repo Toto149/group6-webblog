@@ -68,9 +68,6 @@ const KommentarErstellen = (props) => {
 
 
     return (
-        <>
-
-
             <div className="card">
                 <div className="card-content">
                     {props.aktuellerBenutzer !== null
@@ -108,54 +105,6 @@ const KommentarErstellen = (props) => {
                         : <p>Log dich ein, um auch Kommentare verfassen zu können!</p>}
                 </div>
             </div>
-
-
-            <div style={{
-                borderStyle: "solid", padding: "10px", margin: "20px", display: "flex",
-                flexDirection: "column",
-                boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-                backgroundColor: "lightblue",
-                borderRadius: "10px",
-            }}>
-                {props.aktuellerBenutzer !== null
-                    ? <>
-                        <input
-                            ref={eingabeRef}
-                            placeholder="Teile auch deine Meinung / Gib auch deinen Senf hinzu..."
-                            style={{
-                                width: '100%',
-                                height: '50px',
-                                padding: '0 10px',
-                                boxSizing: 'border-box'
-                            }}
-                            value={inhalt}
-                            onChange={verarbeiteInhaltsAenderung}
-                        />
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            marginTop: '10px',
-                            height: '30px',
-                            alignItems: 'center'
-                        }}>
-                            <p style={{
-                                fontSize: '14px',
-                                color: `${farbeZeichenUebrig()}`
-                            }}>{`Zeichen übrig: ${maxZeichen - inhalt.length}`}</p>
-                            {props.wirdBearbeitet
-                                ? <div style={{display: "flex", justifyContent: "flex-end"}}>
-                                    <button onClick={speichern}>Änderung speichern</button>
-                                    <button style={{marginLeft: '10px'}} onClick={abbrechen}>Abbrechen</button>
-                                </div>
-                                : <div style={{display: "flex", justifyContent: "flex-end"}}>
-                                    <button onClick={verarbeiteKnopfdruck}>Kommentar hinzufügen</button>
-                                </div>}
-                        </div>
-                    </>
-                    : <p>Log dich ein um auch Kommentare verfassen zu können!</p>}
-            </div>
-
-        </>
     );
 };
 
