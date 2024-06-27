@@ -50,33 +50,44 @@ const BenutzerVerwaltung = (props) => {
         <>
             {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && (
 
-                <div>
+                <div className=" m-2 has-text-left">
+
+
                     <input
+                        className="input"
+                        style={{width: '200px'}}
                         type="text"
                         value={suche}
-                        placeholder="Benutzer suchen"
+                        placeholder="Benutzername suchen"
                         onChange={suchen}
+                        required
                     />
-                    <span> </span>
-                    <label>Es wurden {gefundeneBenutzer ? gefundeneBenutzer.length : 0} Benutzer gefunden.</label>
 
-                    <table>
+                    <br/>
+
+                    <label  className="subtitle ml-2 is-6 is-color-info">
+                        Es wurden {gefundeneBenutzer ? gefundeneBenutzer.length : 0} Benutzer gefunden.
+                    </label>
+
+                    <table  className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                         <thead>
-                        <tr>
-                            <th>Name des Benutzers</th>
-                            <th>Rolle</th>
-                            <th>Änderungen bestätigen</th>
+                        <tr >
+                            <th className="has-text-centered">Name des Benutzers</th>
+                            <th className="has-text-centered">Rolle</th>
+                            <th className="has-text-centered">Änderungen bestätigen</th>
                         </tr>
                         </thead>
                         <tbody>
 
                         {gefundeneBenutzer && gefundeneBenutzer.map(b => (
                             <tr key={b.id}>
-                                <td>{b.name}</td>
-                                <td>{(b.name !== "Admin") && props.aktuellerBenutzer.rolle && props.aktuellerBenutzer.rolle.kannRolleÄndern && (
+                                <td className="is-narrow p-1 has-text-left">{b.name}</td>
+                                <td className="is-narrow p-1 has-text-left">{props.aktuellerBenutzer.rolle && props.aktuellerBenutzer.rolle.kannRolleÄndern && (
 
 
                                     <select
+                                        className="select"
+                                        disabled={(b.name === "Admin")}
                                         value={gewaehlteRolle[b.id] || JSON.stringify(b.rolle)}
                                         onChange={(e) => rolleGeaendert(e, b)}
                                     >
@@ -88,10 +99,15 @@ const BenutzerVerwaltung = (props) => {
                                     </select>
 
                                 )}</td>
-                                <td>{gewaehlteRolle[b.id] && gewaehlteRolle[b.id] !== JSON.stringify(b.rolle) && (
+
+
+
+
+
+                                <td className="has-text-left">{gewaehlteRolle[b.id] && gewaehlteRolle[b.id] !== JSON.stringify(b.rolle) && (
                                     <>
-                                        <button onClick={() => rolleSpeichern(b)}>✔️</button>
-                                        <button onClick={() => aenderungenAbbrechen(b)}>❌</button>
+                                        <button  className="button is-info is-outlined" onClick={() => rolleSpeichern(b)}>✔️</button>
+                                        <button  className="button is-info is-outlined" onClick={() => aenderungenAbbrechen(b)}>❌</button>
                                     </>
                                 )}</td>
                             </tr>

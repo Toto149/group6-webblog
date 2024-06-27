@@ -45,24 +45,51 @@ const BenutzerErstellen = (props) => {
 
     return (
         <div>
-            <form onSubmit={registrieren}>
+            <form className="p-5 has-text-right" onSubmit={registrieren}>
+
                 <input
+                    className="input"
+                    style={{width: '200px'}}
                     type="text"
                     value={neuerBenutzer.name}
                     placeholder="Benutzername"
                     onChange={nameAendern}
+                    required
                 />
+                <span> </span>
+
                 <input
+                    className="input"
+                    style={{width: '200px'}}
                     type="password"
                     value={neuerBenutzer.passwort}
                     placeholder="Passwort"
                     onChange={passwortAendern}
+                    required
                 />
-                <button type="submit">Registrieren</button>
-                <a href="#" onClick={zurAnmeldungsform}>zur Anmeldungsform</a>
+                <span> </span>
+
+
+                <button className="button is-white is-outlined" type="submit">
+                                <span className="icon">
+                                    <i className="fa fa-edit"></i>
+                                </span>
+                    <span>  </span>
+                    Registrieren
+                </button>
+                <span> </span>
+
+                <a className="button is-info is-outlined" href="#" href="#"
+                   onClick={zurAnmeldungsform}>
+                                            <span className="icon">
+                                                <i className="fa fa-cog"></i>
+                                            </span>
+                    <span>zur Anmeldungsform</span>
+                </a>
+
             </form>
-            {fehlerMeldung && <p>{fehlerMeldung}</p>}
-            <hr/>
+            {fehlerMeldung && <p className="subtitle is-6 is-color-warning has-text-right">{fehlerMeldung}</p>}
+
         </div>
     );
 
