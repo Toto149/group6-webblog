@@ -104,24 +104,27 @@ export default function Beitraege({aktuellerBenutzer,
                         &&
                         <button
                             onClick={hantiereClick}
-                                className="button is-info"><i className="fa fa-save"></i> {" "} Beitrag erstellen</button>
+                                className="button is-info ml-2">{" Beitrag erstellen"}<i className="fa fa-save"></i>  </button>
                     }
                     <button
                         onClick={hantiereClickAltZuNeu}
-                        className="button is-info"
+                        className="button is-info ml-2"
                     >
                         {(istAltZuNeu ? "⬆️" : "⬇️")}
                     </button>
 
 
-                        {geklickt && <BeitragErstellenFormular beitraege={beitraege}
-                                                       setBeitraege={setBeitraege}
-                                                       aktuellerBenutzer={aktuellerBenutzer}/>}
+
 
                     </div>
                     <div id="app"
                          className="row columns is-multiline is-centered"
                          >
+                            <div className="column is-9">
+                            {geklickt && <BeitragErstellenFormular beitraege={beitraege}
+                                                               setBeitraege={setBeitraege}
+                                                               aktuellerBenutzer={aktuellerBenutzer}/>}
+                            </div>
                             {beitraege.sort(compareDates).map(beitrag =>
                                 <Beitrag key={beitrag.id}
                                          beitrag={beitrag}

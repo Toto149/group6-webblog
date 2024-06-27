@@ -167,9 +167,9 @@ export default function Beitrag(props){
                             <img src="https://docs.moodle.org/404/de/images_de/7/7c/F1.png" alt="profilbild" />
                         </figure>
                     </div>
-                    <div className="media-content">
+                    <div className="media-content has-text-centered">
                         <p className="title is-4 no-padding" style={{textAlign: "left"}}>{props.beitrag.nutzer.name}</p>
-                        <p className={"title is-3 no-padding"}>
+                        <p className={"title is-3 no-padding"} style={{textAlign: "center"}}>
                             {props.beitrag.titel}
                         </p>
                         <br/>
@@ -217,7 +217,7 @@ export default function Beitrag(props){
                         {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannBeitragLöschen &&
                             <button
                                 onClick={handleDelete}
-                                className="button is-info"
+                                className="button is-info mr-2"
                             >Löschen <i className="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         }

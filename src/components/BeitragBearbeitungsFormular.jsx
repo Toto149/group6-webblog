@@ -45,38 +45,44 @@ export default function BeitragBearbeitenFormular({
 
 
     return (
-        <div className="card-large is-7" style={{alignSelf: "center", marginBottom: "20px"}}>
-            <div className="card-content">
-            <form onSubmit={hantiereSubmit}>
+        <div className="field">
+            {/*<div className="is-7">*/}
+            {/*    <div className="card-large">*/}
 
-                <label > Titel des Beitrags:</label>
-                <input
-                    onChange={hantiereVeraenderungTitel}
-                    id={"beitragsTitel"}
-                    type={"text"}
-                    className="input is-info"
-                    value={lokalerTitel}
-                />
-                <label>Textinhalt des Beitrags</label>
-                <textarea
-                    onChange={hantiereVeraenderungText}
-                    id={"textInhalt"}
-                    className="textarea is-info"
-                    value={lokalerTextInhalt}
-                />
+            {/*        <div className="card-content">*/}
 
-                <label>Kategorie des Beitrags</label>
-                <input
-                    onChange={hantiereVeraenderungKategorie}
-                    id={"kategorie"}
-                    type={"text"}
-                    className="input is-info"
-                    value={lokaleKategorie}
-                />
-                <button style={{marginTop: "5px"}}>Submit</button>
+                        <form onSubmit={hantiereSubmit}>
 
-            </form>
-            </div>
+                            <label > Titel des Beitrags:</label>
+                            <input
+                                onChange={hantiereVeraenderungTitel}
+                                id={"beitragsTitel"}
+                                type={"text"}
+                                className="input is-info"
+                                value={lokalerTitel}
+                            />
+                            <label>Textinhalt des Beitrags</label>
+                            <textarea
+                                onChange={hantiereVeraenderungText}
+                                id={"textInhalt"}
+                                className="textarea is-info"
+                                value={lokalerTextInhalt}
+                            />
+
+                            <label>Kategorie des Beitrags</label>
+                            <input
+                                onChange={hantiereVeraenderungKategorie}
+                                id={"kategorie"}
+                                type={"text"}
+                                className="input is-info"
+                                value={lokaleKategorie}
+                            />
+                            <button className="button is-info m-2">Submit</button>
+
+                    </form>
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </div>
     );
 
