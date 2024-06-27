@@ -5,11 +5,12 @@ import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
 import {kommentar, beitrag, kommentar2} from "./Beitrag";
 import Kommentare from "./components/kommentare/Kommentare";
 import Beitraege from "./components/Beitraege";
+import Supabase from "./components/supabase/Supabase";
 
 function App() {
     const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers')) || [administrator, benutzer1, benutzer2, benutzer3]));
     const [beitraege, setBeitraege] = useState((JSON.parse(localStorage.getItem('beitraege')) || [beitrag]));
-    const [kommentare, setKommentare] = useState((JSON.parse(localStorage.getItem('kommentare')) || [kommentar,kommentar2]));
+    const [kommentare, setKommentare] = useState((JSON.parse(localStorage.getItem('kommentare')) || [kommentar, kommentar2]));
 
 
     useEffect(() => {
@@ -58,48 +59,226 @@ function App() {
         }
     }, [aktuellerBenutzer]);
 
-
+    console.log(Date.now());
     return (
-        <div>
+
+        <section className="hero is-info is-fullheight">
+            <div className="hero-head">
+
+                <AnmeldeLeiste benutzers={benutzers}
+                               setBenutzers={setBenutzers}
+                               aktuellerBenutzer={aktuellerBenutzer}
+                               setAktuellerBenutzer={setAktuellerBenutzer}
+                />
+
+            </div>
 
 
-            <AnmeldeLeiste benutzers={benutzers}
-                           setBenutzers={setBenutzers}
-                           aktuellerBenutzer={aktuellerBenutzer}
-                           setAktuellerBenutzer={setAktuellerBenutzer}
-            />
-            <Beitraege beitraege={beitraege} setBeitraege={setBeitraege} kommentare={kommentare} setKommentare={setKommentare} aktuellerBenutzer={aktuellerBenutzer}/>
-            {/*<Kommentare id="1" useKommentare={kommentare} setKommentare={setKommentare}/>*/}
+            <div className="hero-body">
+                <div className="container has-text-centered">
 
-        </div>
+
+                    <div className="container">
+
+
+
+                    </div>
+
+
+                    <Beitraege beitraege={beitraege} setBeitraege={setBeitraege} kommentare={kommentare}
+                               setKommentare={setKommentare} aktuellerBenutzer={aktuellerBenutzer}/>
+                    {/*<Kommentare id="1" useKommentare={kommentare} setKommentare={setKommentare}/>*/}
+
+                </div>
+            </div>
+
+
+        </section>
+
+
     );
 }
 
 export default App;
 
 /*
-<MeinHeader/>
-<AnmeldeLeiste/>
-<Beitraege>
+    <section className="hero is-info is-fullheight">
+    <div className="hero-head">
 
-    <BeitragErstellen>
 
-    </BeitragErstellen>
 
-    <Beitrag>
+                <nav className="navbar is-fixed-top">
+                    <div className="container">
 
-        <Kommentare>
-            <KommentarErstellen>
 
-            </KommentarErstellen>
-            <Kommentar>
+                        <div className="navbar-brand">
+                            <a className="navbar-item" href="../">
+                                <img src="http://bulma.io/images/bulma-type-white.png" alt="Logo"/>
+                            </a>
+                            <span className="navbar-burger burger" data-target="navbarMenu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                        </div>
 
-            </Kommentar>
-        </Kommentare>
-    </Beitrag>
 
-</Beitraege>
+                        <div id="navbarMenu" className="navbar-menu">
 
-<MeinFooter/>
+                            <div className="navbar-end">
+                            <span className="navbar-item">
+                                <a className="button is-white is-outlined" href="#">
+                                    <span className="icon">
+                                        <i className="fa fa-home"></i>
+                                    </span>
+                                    <span>Home</span>
+                                </a>
+                            </span>
+
+
+                                <span className="navbar-item">
+                                <a className="button is-white is-outlined" href="#">
+                                    <span className="icon">
+                                        <i className="fa fa-superpowers"></i>
+                                    </span>
+                                    <span>Examples</span>
+                                </a>
+                                </span>
+
+
+                                <span className="navbar-item">
+                                <a className="button is-white is-outlined" href="#">
+                                    <span className="icon">
+                                        <i className="fa fa-book"></i>
+                                    </span>
+                                    <span>Documentation</span>
+                                </a>
+                                </span>
+
+
+                                <span className="navbar-item">
+                                <a className="button is-white is-outlined"
+                                   href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/landing.html">
+                                    <span className="icon">
+                                        <i className="fa fa-github"></i>
+                                    </span>
+                                    <span>View Source</span>
+                                </a>
+                                </span>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+
+
+        <nav className="navbar">
+            <div className="container">
+                <div className="navbar-brand">
+                    <a className="navbar-item" href="../">
+                        <img src="http://bulma.io/images/bulma-type-white.png" alt="Logo"/>
+                    </a>
+                    <span className="navbar-burger burger" data-target="navbarMenu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                </div>
+                <div id="navbarMenu" className="navbar-menu">
+                    <div className="navbar-end">
+                            <span className="navbar-item">
+                                <a className="button is-white is-outlined" href="#">
+                                    <span className="icon">
+                                        <i className="fa fa-home"></i>
+                                    </span>
+                                    <span>Home</span>
+                                </a>
+                            </span>
+                        <span className="navbar-item">
+                                <a className="button is-white is-outlined" href="#">
+                                    <span className="icon">
+                                        <i className="fa fa-superpowers"></i>
+                                    </span>
+                                    <span>Examples</span>
+                                </a>
+                            </span>
+                        <span className="navbar-item">
+                                <a className="button is-white is-outlined" href="#">
+                                    <span className="icon">
+                                        <i className="fa fa-book"></i>
+                                    </span>
+                                    <span>Documentation</span>
+                                </a>
+                            </span>
+                        <span className="navbar-item">
+                                <a className="button is-white is-outlined"
+                                   href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/landing.html">
+                                    <span className="icon">
+                                        <i className="fa fa-github"></i>
+                                    </span>
+                                    <span>View Source</span>
+                                </a>
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+    </div>
+
+    <div className="hero-body">
+        <div className="container has-text-centered">
+            <div className="column is-6 is-offset-3">
+
+
+                <h1 className="title">
+                    Coming Soon
+                </h1>
+                <h2 className="subtitle">
+                    $this is the best software platform for running an internet business. We handle billions of dollars
+                    every year for forward-thinking businesses around the world.
+                </h2>
+
+
+
+
+
+                <div className="box">
+                    <div className="field is-grouped">
+                        <p className="control is-expanded">
+                            <input className="input" type="text" placeholder="Enter your email"/>
+                        </p>
+                        <p className="control">
+                            <a className="button is-info">
+                                Notify Me
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+</section>
 
  */
