@@ -20,10 +20,10 @@ const Kommentar = (props) => {
                                     kommentar={props.kommentar}/>
                 :
 
-                <div className="card large mb-2" style={{minHeight: '150px'}}>
+                <div className="card large mb-3 " style={{minHeight: '150px', backgroundColor: '#2e333d'}}>
                     <div className="card-content">
-                        <div className="media is-justify-content-space-between is-align-items-center">
-                            <div className="media-left is-flex is-align-items-center">
+                        <div className="media is-justify-content-space-between is-align-items-center ">
+                            <div className="media-left is-flex is-align-items-center ">
                                 <figure className="image is-48x48 mr-2">
                                     <img src={props.kommentar.nutzer.avatar} alt="Profilbild"/>
                                 </figure>

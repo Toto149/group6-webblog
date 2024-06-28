@@ -1,5 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import generiereZufaelligeID from "./GeneriereID";
+import styled from 'styled-components';
+
+const Input = styled.input`
+    background-color: #ffffff;
+    color: hsl(0, 0%, 4%);
+    &::placeholder {
+        color: hsla(0, 0%, 4%, 0.6);
+    }
+`;
 
 const KommentarErstellen = (props) => {
     const maxZeichen = 250;
@@ -68,18 +77,18 @@ const KommentarErstellen = (props) => {
 
 
     return (
-            <div className="card">
+            <div className="card" style={{backgroundColor: '#2e333d'}}>
                 <div className="card-content">
                     {props.aktuellerBenutzer !== null
                         ? <>
 
                             <div className="field">
-                                <div className="control">
-                                    <input
+                                <div className="control" >
+                                    <Input
                                         ref={eingabeRef}
                                         className="input"
                                         type="text"
-                                        placeholder="Teile auch deine Meinung / Gib auch deinen Senf hinzu..."
+                                        placeholder="Teile auch deine Meinung ..."
                                         value={inhalt}
                                         onChange={verarbeiteInhaltsAenderung}
                                     />
@@ -87,7 +96,7 @@ const KommentarErstellen = (props) => {
                             </div>
                             <div className="level is-mobile">
                                 <div className="level-left">
-                                    <p className={`is-size-7 ${farbeZeichenUebrig()}`}>{`Zeichen übrig: ${maxZeichen - inhalt.length}`}</p>
+                                    <p className={`is-size-6 ${farbeZeichenUebrig()}`}>{`Zeichen übrig: ${maxZeichen - inhalt.length}`}</p>
                                 </div>
                                 <div className="level-right">
                                     {props.wirdBearbeitet

@@ -3,6 +3,7 @@ import Kommentar from "./Kommentar";
 import KommentarErstellen from "./KommentarErstellen";
 
 const Kommentare = (props) => {
+    const mehrKommentareGrenze = 2;
     const [wurdeGeklicked, setWurdeGeklicked] = useState(false)
 
     const hantiereKlick = () => {
@@ -30,7 +31,7 @@ const Kommentare = (props) => {
                 <div className="section">
                     <div className="columns">
                         <div className="column has-text-centered">
-                            <h1 className="title" style={{color: "ghostwhite"}}>Kommentare</h1><br/>
+                            <h1 className="title is-size-4">Kommentare</h1><br/>
                         </div>
                     </div>
                     <div id="app" className="row columns is-centered">
@@ -43,7 +44,7 @@ const Kommentare = (props) => {
                                                                                      kommentare={props.kommentare}
                                                                                      setKommentare={props.setKommentare}
                                                                                      aktuellerBenutzer={props.aktuellerBenutzer}/>)
-                                : gefilterteKommentare.slice(0, 3).map((kommentar) => <Kommentar key={kommentar.id}
+                                : gefilterteKommentare.slice(0, mehrKommentareGrenze).map((kommentar) => <Kommentar key={kommentar.id}
                                                                                                  kommentar={kommentar}
                                                                                                  kommentare={props.kommentare}
                                                                                                  setKommentare={props.setKommentare}
@@ -57,9 +58,9 @@ const Kommentare = (props) => {
                                                 wirdBearbeitet={false}
                                                 kommentar={null}/>
 
-                            {gefilterteKommentare.length > 3 &&
-                                <button className={'button is-info'}
-                                    onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>}
+                            {gefilterteKommentare.length > mehrKommentareGrenze &&
+                                <button className={'button is-dark'}
+                                        onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>}
                         </div>
                     </div>
                 </div>
