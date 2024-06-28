@@ -47,6 +47,49 @@ function App() {
         }
     }, [benutzerDB, rollenDB]);
 
+    useEffect(() => {
+        // befor ende
+        const benutzersSpeichern = () => {
+
+                //BenutzerInDBSpeichern();
+
+
+        };
+
+        window.addEventListener('beforeunload', benutzersSpeichern);
+
+        return () => {
+            window.removeEventListener('beforeunload', benutzersSpeichern);
+        };
+    }, []);
+
+    async function BenutzerInDBSpeichern() {
+        try {
+            const benutzersZurDB = benutzers.map(b => ({
+                name: b.name,
+                passwort: b.passwort,
+                avatarURL: b.avatar,
+                rolleName: b.rolleName
+            }));
+
+            const { data, error } = await supabase
+                .from('benutzer')
+                .upsert(benutzersZurDB)
+                .select();
+
+            if (error) {
+                throw error;
+            }
+
+            alert('Benutzers sind gespeichert:', data);
+        } catch (error) {
+            alert('Error Benutzersspeicherung:', error.message);
+        }
+    }
+
+
+
+
     async function getDatenAusDB() {
         await getBenutzerAusDB();
         await getRollenAusDB();
@@ -78,16 +121,17 @@ function App() {
         let benutzersAusDB = [];
         benutzerDB.forEach((benutzerRow) => {
             const tempBenutzer = {
-                id: benutzerRow.id,
                 name: benutzerRow.name,
                 passwort: benutzerRow.passwort,
                 avatar: benutzerRow.avatarURL,
+                rolleName: null,
                 rolle: null
             };
 
             rollenDB.forEach((rolleRow) => {
                 if (rolleRow.name === benutzerRow.rolleName) {
                     tempBenutzer.rolle = {
+                        name: rolleRow.name,
                         kannKommentieren: rolleRow.kannKommentieren,
                         kannKommentareLöschen: rolleRow.kannKommentareLöschen,
                         kannBeitragLöschen: rolleRow.kannBeitragLöschen,
@@ -95,6 +139,7 @@ function App() {
                         kannBeitragVerändern: rolleRow.kannBeitragVerändern,
                         kannRolleÄndern: rolleRow.kannRolleÄndern,
                     };
+                    tempBenutzer.rolleName = rolleRow.name;
                 }
             });
             benutzersAusDB.push(tempBenutzer);
@@ -107,6 +152,7 @@ function App() {
         let rollenAusDB = [];
             rollenDB.forEach((rolleRow) => {
                 const tempRolle = {
+                    name: rolleRow.name,
                     kannKommentieren: rolleRow.kannKommentieren,
                     kannKommentareLöschen: rolleRow.kannKommentareLöschen,
                     kannBeitragLöschen: rolleRow.kannBeitragLöschen,
