@@ -34,7 +34,7 @@ const Kommentare = (props) => {
                         </div>
                     </div>
                     <div id="app" className="row columns is-centered">
-                        <div className="column is-7 ">
+                        <div className="column is-12 ">
 
 
                             {wurdeGeklicked
@@ -58,7 +58,7 @@ const Kommentare = (props) => {
                                                 kommentar={null}/>
 
                             {gefilterteKommentare.length > 3 &&
-                                <button
+                                <button className={'button is-info'}
                                     onClick={hantiereKlick}>{wurdeGeklicked ? "Weniger Kommentare" : "Mehr Kommentare"}</button>}
                         </div>
                     </div>

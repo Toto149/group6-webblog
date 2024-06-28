@@ -92,12 +92,12 @@ const KommentarErstellen = (props) => {
                                 <div className="level-right">
                                     {props.wirdBearbeitet
                                         ? <>
-                                            <button className="button is-small" onClick={speichern}>Änderung speichern
+                                            <button className="button is-small is-info" onClick={speichern}>Änderung speichern
                                             </button>
                                             <button className="button is-small is-light" onClick={abbrechen}>Abbrechen
                                             </button>
                                         </>
-                                        : <button className="button" onClick={verarbeiteKnopfdruck}>Kommentar
+                                        : <button className="button is-info" onClick={verarbeiteKnopfdruck}>Kommentar
                                             hinzufügen</button>}
                                 </div>
                             </div>
