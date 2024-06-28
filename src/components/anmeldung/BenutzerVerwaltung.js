@@ -34,7 +34,7 @@ const BenutzerVerwaltung = (props) => {
         const neueRolle = gewaehlteRolle[b.name];
 
         const aktualisierteBenutzer = props.benutzers.map(bs =>
-            bs.name === b.name ? { ...bs, rolle: JSON.parse(neueRolle) } : bs
+            bs.name === b.name ? { ...bs, rolleName: neueRolle.rolleName ,rolle: JSON.parse(neueRolle) } : bs
         );
 
         props.setBenutzers(aktualisierteBenutzer);
