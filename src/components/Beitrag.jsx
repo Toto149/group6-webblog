@@ -92,18 +92,18 @@ export default function Beitrag(props){
                     <p
                         style={{
                             textAlign: "right",
-                            marginRight: "2em"
+                            fontSize: "0.75em"
                         }}
                     >
-                        {datumKonvertieren(props.beitrag.erstellungsDatum)}
+                        Erstellt am: &nbsp; {datumKonvertieren(props.beitrag.erstellungsDatum)}
                     </p>
                     {wurdeSubmitet &&
                         <p
                             style={{
                                 textAlign: "right",
-                                marginRight: "2em",
+                                fontSize: "0.75em"
                             }}>
-                            {datumKonvertieren(props.beitrag.publizierungsDatum)}
+                           Zuletzt bearbeitet am: &nbsp; {datumKonvertieren(props.beitrag.publizierungsDatum)}
                         </p>
                     }
                     <div
@@ -137,7 +137,6 @@ export default function Beitrag(props){
                             setWurdeEditGeklickt={setWurdeEditGeklickt}
                             setWurdeSubmitet={setWurdeSubmitet}
                         />}
-                        <h3>Kommentare</h3>
 
 
                         {<Kommentare beitrag={props.beitrag}
