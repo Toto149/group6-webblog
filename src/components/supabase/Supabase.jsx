@@ -45,23 +45,22 @@ function Supabase() {
                     <li key={benutzerRow.name}>
                         {benutzerRow.name}
                         {benutzerRow.passwort}
-                        {benutzerRow.rolleID}
+                        {benutzerRow.rolleName}
                         {/*benutzerRow.avatarURL*/}
                         <img src={benutzerRow.avatarURL} style={{width: '32px', height: '32px'}} alt="Avatar"/>
                     </li>
                 ))}
             </ul>
             <ul>
-                {rollen.map((rollenRow) => (
-                    <li key={rollenRow.id}>
-                        {rollenRow.id}<span> </span>
-                        {rollenRow.name}<span> </span>
-                        {rollenRow.kannKommentieren ? "true" : "false"}<span> </span>
-                        {rollenRow.kannKommentareLöschen ? "true" : "false"}<span> </span>
-                        {rollenRow.kannBeitragLöschen ? "true" : "false"}<span> </span>
-                        {rollenRow.kannBeitragVerfassen ? "true" : "false"}<span> </span>
-                        {rollenRow.kannBeitragVerändern ? "true" : "false"}<span> </span>
-                        {rollenRow.kannRolleÄndern ? "true" : "false"}</li>
+                {rollen.map((rolleRow) => (
+                    <li key={rolleRow.name}>
+                        {rolleRow.name}<span> </span>
+                        {rolleRow.kannKommentieren ? "true" : "false"}<span> </span>
+                        {rolleRow.kannKommentareLöschen ? "true" : "false"}<span> </span>
+                        {rolleRow.kannBeitragLöschen ? "true" : "false"}<span> </span>
+                        {rolleRow.kannBeitragVerfassen ? "true" : "false"}<span> </span>
+                        {rolleRow.kannBeitragVerändern ? "true" : "false"}<span> </span>
+                        {rolleRow.kannRolleÄndern ? "true" : "false"}</li>
                 ))}
             </ul>
             <ul>
