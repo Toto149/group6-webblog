@@ -3,6 +3,7 @@ import Beitrag from "./Beitrag";
 
 import {useState} from "react";
 import BeitragErstellenFormular from "./BeitragErstellenFormular";
+import PropTypes from "prop-types";
 
 
 
@@ -36,18 +37,10 @@ export default function Beitraege({aktuellerBenutzer,
         setIstAltZuNeu(!istAltZuNeu);
     };
     return(
-        <>
-     
-            <div className="container"  >
-                <div className="section"    >
+            <div className="container">
+                <div className="section">
                     <div className="columns">
                         <div className="columns has-text-centered">
-                            <h2
-                                className="title"
-                                style={{
-                                    color: "ghostwhite",
-                                    marginRight: "20em",
-                            }}> Beiträge </h2>
                             <br />
                         </div>
                     </div>
@@ -55,16 +48,18 @@ export default function Beitraege({aktuellerBenutzer,
                         textAlign: "right",
                         marginRight: "10em"
                     }}>
-                    {aktuellerBenutzer
-                        && aktuellerBenutzer.rolle.kannBeitragVerfassen
+                    {aktuellerBenutzer?.rolle.kannBeitragVerfassen
                         &&
                         <button
                             onClick={hantiereClick}
-                                className="button is-info ml-2">{" Beitrag erstellen"}<i className="fa fa-save"></i>  </button>
+                            className="button is-dark ml-2">
+
+                            <i className="fa fa-save"></i> &nbsp; Beitrag erstellen
+                        </button>
                     }
                     <button
                         onClick={hantiereClickAltZuNeu}
-                        className="button is-info ml-2"
+                        className="button is-dark ml-2"
                     >
                         {(istAltZuNeu ? "⬆️" : "⬇️")}
                     </button>
@@ -94,6 +89,13 @@ export default function Beitraege({aktuellerBenutzer,
 
                 </div>
             </div>
-        </>
     );
+}
+
+Beitraege.propTypes = {
+    aktuellerBenutzer: PropTypes.object.isRequired,
+    beitraege: PropTypes.array.isRequired,
+    setBeitraege: PropTypes.func.isRequired,
+    kommentare: PropTypes.array.isRequired,
+    setKommentare: PropTypes.func.isRequired,
 }
