@@ -27,22 +27,22 @@ const BenutzerVerwaltung = (props) => {
 
     const rolleGeaendert = (e, b) => {
         const neueRolle = e.target.value;
-        setGewaelteRolle({ ...gewaehlteRolle, [b.id]: neueRolle });
+        setGewaelteRolle({ ...gewaehlteRolle, [b.name]: neueRolle });
     };
 
     const rolleSpeichern = (b) => {
-        const neueRolle = gewaehlteRolle[b.id];
+        const neueRolle = gewaehlteRolle[b.name];
 
         const aktualisierteBenutzer = props.benutzers.map(bs =>
-            bs.id === b.id ? { ...bs, rolle: JSON.parse(neueRolle) } : bs
+            bs.name === b.name ? { ...bs, rolle: JSON.parse(neueRolle) } : bs
         );
 
         props.setBenutzers(aktualisierteBenutzer);
-        setGewaelteRolle({ ...gewaehlteRolle, [b.id]: neueRolle });
+        setGewaelteRolle({ ...gewaehlteRolle, [b.name]: neueRolle });
     };
 
     function aenderungenAbbrechen(b) {
-        const { [b.id]: deletedItem, ...rest } = gewaehlteRolle;
+        const { [b.name]: deletedItem, ...rest } = gewaehlteRolle;
         setGewaelteRolle(rest);
     }
 
@@ -72,15 +72,15 @@ const BenutzerVerwaltung = (props) => {
                     <table  className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                         <thead>
                         <tr >
-                            <th className="has-text-centered">Name des Benutzers</th>
-                            <th className="has-text-centered">Rolle</th>
-                            <th className="has-text-centered">Änderungen bestätigen</th>
+                            <th className="is-narrow has-text-centered">Name des Benutzers</th>
+                            <th className="is-narrow has-text-centered">Rolle</th>
+                            <th >Änderungen bestätigen</th>
                         </tr>
                         </thead>
                         <tbody>
 
                         {gefundeneBenutzer && gefundeneBenutzer.map(b => (
-                            <tr key={b.id}>
+                            <tr key={b.name}>
                                 <td className="is-narrow p-1 has-text-left">{b.name}</td>
                                 <td className="is-narrow p-1 has-text-left">{props.aktuellerBenutzer.rolle && props.aktuellerBenutzer.rolle.kannRolleÄndern && (
 
@@ -88,14 +88,14 @@ const BenutzerVerwaltung = (props) => {
                                     <select
                                         className="select"
                                         disabled={(b.name === "Admin")}
-                                        value={gewaehlteRolle[b.id] || JSON.stringify(b.rolle)}
+                                        value={gewaehlteRolle[b.name] || JSON.stringify(b.rolle)}
                                         onChange={(e) => rolleGeaendert(e, b)}
                                     >
-                                        <option value={JSON.stringify(admin)}>admin</option>
-                                        <option value={JSON.stringify(registrierterBenutzer)}>registrierter
+                                        <option value={JSON.stringify(props.rollen[0])}>admin</option>
+                                        <option value={JSON.stringify(props.rollen[1])}>registrierter
                                             Benutzer
                                         </option>
-                                        <option value={JSON.stringify(moderator)}>moderator</option>
+                                        <option value={JSON.stringify(props.rollen[2])}>moderator</option>
                                     </select>
 
                                 )}</td>
@@ -104,7 +104,7 @@ const BenutzerVerwaltung = (props) => {
 
 
 
-                                <td className="has-text-left">{gewaehlteRolle[b.id] && gewaehlteRolle[b.id] !== JSON.stringify(b.rolle) && (
+                                <td className="has-text-left">{gewaehlteRolle[b.name] && gewaehlteRolle[b.name] !== JSON.stringify(b.rolle) && (
                                     <>
                                         <button  className="button is-info is-outlined" onClick={() => rolleSpeichern(b)}>✔️</button>
                                         <button  className="button is-info is-outlined" onClick={() => aenderungenAbbrechen(b)}>❌</button>
