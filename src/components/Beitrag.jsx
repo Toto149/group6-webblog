@@ -2,6 +2,7 @@ import {useState} from "react";
 import Kommentare from "./kommentare/Kommentare";
 import BeitragBearbeitenFormular from "./BeitragBearbeitungsFormular";
 import datumKonvertieren from "./DatumKonvertieren";
+import PropTypes from "prop-types";
 
 
 export default function Beitrag(props){
@@ -46,121 +47,17 @@ export default function Beitrag(props){
         props.setBeitraege(props.beitraege.filter(b => b.id !== props.beitrag.id));
     }
     return (
-        // <div key={props.key}
-        //      style={{
-        //          textAlign: "center",
-        //          backgroundColor: "darkcyan",
-        //          borderRadius: "20px",
-        //          marginLeft: "15px",
-        //          marginRight: "30px",
-        //          marginBottom: "10px",
-        //          fontFamily: "sans-serif"
-        //      }}>
-        //     <div>
-        //         <span
-        //             style={{
-        //                 fontSize: "2em",
-        //                 fontWeight: "bold"
-        //             }}>
-        //             {props.beitrag.titel}
-        //         </span>
-        //         <br />
-        //         {"by   " + props.beitrag.nutzer.name}
-        //     </div>
-        //     <hr style={{color: "green", marginLeft:"2em", marginRight: "2em"}}/>
-        //     <div>
-        //         {displayKategorien(props.beitrag.kategorien)}
-        //     </div>
-        //     <br />
-        //     <div>
-        //         <p
-        //             style={{
-        //                 textAlign: "left",
-        //                 marginRight: "2em",
-        //                 marginLeft: "2em"
-        //             }}
-        //         >
-        //             {props.beitrag.inhalt}
-        //         </p>
-        //     </div>
-        //     <p
-        //         style={{
-        //             textAlign: "right",
-        //             marginRight: "2em"
-        //     }}
-        //     >
-        //         {datumKonvertieren(props.beitrag.erstellungsDatum)}
-        //     </p>
-        //     {wurdeSubmitet &&
-        //         <p
-        //             style={{
-        //                 textAlign: "right",
-        //                 marginRight: "2em",
-        //         }}>
-        //             {datumKonvertieren(props.beitrag.publizierungsDatum)}
-        //         </p>
-        //     }
-        //     <div
-        //         style={{
-        //             textAlign: "right",
-        //             }}
-        //     >
-        //     {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannBeitragLöschen &&
-        //         <button
-        //             onClick={handleDelete}
-        //             style={{
-        //                 backgroundColor: "darkcyan",
-        //                 borderRadius: "5px",
-        //                 textAlign: "right",
-        //             }}
-        //         >Löschen <i class="fa fa-trash" aria-hidden="true"></i>
-        //         </button>
-        //     }
-        //
-        //     {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannBeitragVerändern &&
-        //         <button
-        //             onClick={handleEdit}
-        //             style={{
-        //                 backgroundColor: "darkcyan",
-        //                 borderRadius: "5px",
-        //                 marginLeft: "10px",
-        //                 borderColor: "black",
-        //                 textAlign: "right",
-        //                 marginRight: "2em"
-        //             }}
-        //         >
-        //             Bearbeiten {" "}<i class="fa fa-edit"></i>
-        //         </button>
-        //     }
-        //     </div>
-        //     <div>
-        //         <h3>Kommentare</h3>
-        //
-        //
-        //         {<Kommentare beitrag={props.beitrag}
-        //                      beitraege={props.beitraege}
-        //                      setBeitraege={props.setBeitraege}
-        //                      kommentare={props.kommentare}
-        //                      setKommentare={props.setKommentare}
-        //                      aktuellerBenutzer={props.aktuellerBenutzer}
-        //         />
-        //         }
-        //
-        //
-        //         {wurdeEditGeklickt && <BeitragBearbeitenFormular
-        //             beitrag={props.beitrag}
-        //             beitraege={props.beitraege}
-        //             setBeitraege={props.setBeitraege}
-        //             aktuellerBenutzer={props.aktuellerBenutzer}
-        //             setWurdeSubmitet={setWurdeSubmitet}
-        //         /> }
-        //     </div>
-        // </div>
+
         <div key={props.key}
             className="column is-9"
         >
             <div className="card large">
-                <div className="card-content">
+                <div className="card-image" style={{backgroundColor: "white", borderTopLeftRadius: "15px",borderTopRightRadius: "15px"}}>
+                    <figure className="image is-16by9" >
+                        <img src={props.beitrag.bildUrl}/>
+                    </figure>
+                </div>
+                <div className="card-content" style={{backgroundColor: "ghostwhite", color: "black", borderWidth: "0.25px", borderColor:"black", borderTop:"solid"}}>
                     <div className="media">
                     <div className="media-left">
                         <figure className="image is-48x48">
@@ -214,24 +111,32 @@ export default function Beitrag(props){
                             textAlign: "right",
                         }}
                     >
-                        {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannBeitragLöschen &&
+                        {props.aktuellerBenutzer?.rolle.kannBeitragLöschen &&
                             <button
                                 onClick={handleDelete}
-                                className="button is-info mr-2"
-                            >Löschen <i className="fa fa-trash" aria-hidden="true"></i>
+                                className="button is-dark mr-2"
+                            ><i className="fa fa-trash" aria-hidden="true"></i> &nbsp; Löschen
                             </button>
                         }
 
-                        {props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannBeitragVerändern &&
+                        {props.aktuellerBenutzer?.rolle.kannBeitragVerändern &&
                             <button
                                 onClick={handleEdit}
-                                className="button is-info"
+                                className="button is-dark"
                             >
-                                Bearbeiten {" "}<i className="fa fa-edit"></i>
+                                <i className="fa fa-edit"></i> &nbsp; Bearbeiten
                             </button>
                         }
                     </div>
                     <div>
+                        {wurdeEditGeklickt && <BeitragBearbeitenFormular
+                            beitrag={props.beitrag}
+                            beitraege={props.beitraege}
+                            setBeitraege={props.setBeitraege}
+                            aktuellerBenutzer={props.aktuellerBenutzer}
+                            setWurdeEditGeklickt={setWurdeEditGeklickt}
+                            setWurdeSubmitet={setWurdeSubmitet}
+                        />}
                         <h3>Kommentare</h3>
 
 
@@ -245,17 +150,19 @@ export default function Beitrag(props){
                         }
 
 
-                        {wurdeEditGeklickt && <BeitragBearbeitenFormular
-                            beitrag={props.beitrag}
-                            beitraege={props.beitraege}
-                            setBeitraege={props.setBeitraege}
-                            aktuellerBenutzer={props.aktuellerBenutzer}
-                            setWurdeSubmitet={setWurdeSubmitet}
-                        />}
                     </div>
                 </div>
             </div>
         </div>
     );
 
+}
+Beitrag.propTypes = {
+    setBeitraege: PropTypes.func.isRequired,
+    aktuellerBenutzer: PropTypes.object.isRequired,
+    beitrag: PropTypes.object.isRequired,
+    kommentare: PropTypes.array.isRequired,
+    beitraege: PropTypes.array.isRequired,
+    setKommentare: PropTypes.func.isRequired,
+    key: PropTypes.any.isRequired
 }
