@@ -137,7 +137,6 @@ export default function Beitrag(props){
                             setWurdeEditGeklickt={setWurdeEditGeklickt}
                             setWurdeSubmitet={setWurdeSubmitet}
                         />}
-                        <h3>Kommentare</h3>
 
 
                         {<Kommentare beitrag={props.beitrag}

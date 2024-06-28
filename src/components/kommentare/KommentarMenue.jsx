@@ -1,46 +1,51 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 const KommentarMenue = (props) => {
     const [zeigeMenue, setZeigeMenue] = useState(false);
 
     const wechsleAnzeige = () => {
-        setZeigeMenue(!zeigeMenue)
+        setZeigeMenue(!zeigeMenue);
     };
 
-    const kommentarLoeschen = ()=>{
-        const gefiltert = props.kommentare.filter((kom)=> kom.id!==props.kommentar.id)
-        props.setKommentare([...gefiltert])
+    const kommentarLoeschen = () => {
+        const gefiltert = props.kommentare.filter((kom) => kom.id !== props.kommentar.id);
+        props.setKommentare([...gefiltert]);
     };
 
-    const kommentarBearbeiten = ()=>{
+    const kommentarBearbeiten = () => {
         props.setWirdBearbeitet(true);
     };
 
-
     return (
         <div style={{ position: 'relative', display: 'inline-block' }}>
-            <button onClick={wechsleAnzeige}>
-            <i className="fa fa-cog"></i>
-        </button>
+            <button className={'button is-info'} onClick={wechsleAnzeige}>
+                <i className="fa fa-cog"></i>
+            </button>
             {zeigeMenue && (
-                <ul style={{
+                <ul className={'has-background-grey-darker'} style={{
                     position: 'absolute',
                     top: '100%',
                     right: '0',
-                    backgroundColor: 'white',
                     boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-                    padding: '10px',
+                    padding: '4px',
                     listStyleType: 'none',
                     margin: '0',
-                    border: 'solid black 1px'
+                    border: 'solid white 1px',
+                    borderRadius: '10px',
+                    zIndex: '1000', // Ensures the menu is above other elements
+                    maxHeight: '200px', // Optional: limits the height of the menu
+                    overflowY: 'auto' // Optional: enables scrolling if the menu is too tall
                 }}>
-                    {props.aktuellerBenutzer.id===props.kommentar.nutzer.id && <li style={{ margin: '5px 0' }}>
-                        <button style={{ width: '100px' }} onClick={kommentarBearbeiten}><i className="fa fa-edit"></i> bearbeiten
-                        </button>
-                    </li>}
-
-                    <li style={{ margin: '5px 0' }}>
-                        <button style={{ width: '100px' }} onClick={kommentarLoeschen}><i className="fa fa-trash"></i> löschen
+                    {props.aktuellerBenutzer.id === props.kommentar.nutzer.id && (
+                        <li className="m-1">
+                            <button className="button is-light" style={{width: '100px'}} onClick={kommentarBearbeiten}>
+                                <i className="fa fa-edit"></i>&nbsp;bearbeiten
+                            </button>
+                        </li>
+                    )}
+                    <li className="m-1">
+                        <button className="button is-light" style={{width: '100px'}} onClick={kommentarLoeschen}>
+                            &nbsp;<i className="fa fa-trash"></i>&nbsp;löschen
                         </button>
                     </li>
                 </ul>
