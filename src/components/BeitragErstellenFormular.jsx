@@ -1,4 +1,5 @@
 import {useState} from "react";
+import PropTypes from "prop-types";
 
 export default function BeitragErstellenFormular({
                                                      aktuellerBenutzer,
@@ -50,7 +51,7 @@ export default function BeitragErstellenFormular({
 
             <form onSubmit={hantiereSubmit}>
 
-                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}} >Titel des Beitrags:</label>
+                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}} >Titel des Beitrags: {" "}
 
                 <input
                     className="input is-info"
@@ -59,8 +60,9 @@ export default function BeitragErstellenFormular({
                     id={"beitragsTitel"}
                     type={"text"}
                                     />
+                </label>
 
-                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}}>Textinhalt des Beitrags:</label>
+                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}}>Textinhalt des Beitrags: {" "}
 
                 <textarea
                     onChange={hantiereVeraenderungText}
@@ -68,8 +70,8 @@ export default function BeitragErstellenFormular({
                     className="textarea is-info"
                     placeholder={"Beitragstext"}
                 />
-
-                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}}>Kategorie des Beitrags:</label>
+                </label>
+                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}}>Kategorie des Beitrags: {" "}
 
                 <input
                     className="input is-info"
@@ -78,8 +80,8 @@ export default function BeitragErstellenFormular({
                     placeholder={"Kategorien des Textes betreffend e.g. Sprachen, Informatik"}
                     type={"text"}
                 />
-
-                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}} >Bild Url für das Bild des Artikels:</label>
+                </label>
+                <label className="label is-info" style={{color: "ghostwhite", textAlign:"left"}} >Bild Url für das Bild des Artikels: {" "}
 
                 <input
                     className="input is-info"
@@ -88,8 +90,9 @@ export default function BeitragErstellenFormular({
                     placeholder={"Url des Bildes e.g. www.asdasdasdasd.com/asdasd.jpg"}
                     type={"text"}
                 />
+                </label>
                 <button
-                    className="button is-info m-2"
+                    className="button is-dark m-2"
                     style={{
                     marginTop: "5px"
                     }}
@@ -102,4 +105,10 @@ export default function BeitragErstellenFormular({
 
 
 
+}
+
+BeitragErstellenFormular.propTypes = {
+    aktuellerBenutzer: PropTypes.object.isRequired,
+    beitraege: PropTypes.array.isRequired,
+    setBeitraege: PropTypes.func.isRequired
 }

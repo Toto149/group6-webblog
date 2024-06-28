@@ -1,9 +1,11 @@
 import {useState} from "react";
+import PropTypes from "prop-types";
 
 export default function BeitragBearbeitenFormular({
                                                         beitraege,
                                                         setBeitraege,
                                                         beitrag,
+                                                        setWurdeEditGeklickt,
                                                         setWurdeSubmitet,
                                                     }
 ) {
@@ -11,6 +13,7 @@ export default function BeitragBearbeitenFormular({
     const [lokalerTitel, setLokalerTitel] = useState(beitrag.titel);
     const [lokaleKategorie, setLokaleKategorie] = useState(beitrag.kategorien.toString());
     const [lokalerTextInhalt, setLokalerTextInhalt] = useState(beitrag.inhalt);
+    const [lokaleBildUrl, setLokaleBildUrl] = useState(beitrag.bildUrl);
 
     const hantiereSubmit =  () => {
 
@@ -20,12 +23,13 @@ export default function BeitragBearbeitenFormular({
             "titel" : lokalerTitel,
             "inhalt": lokalerTextInhalt,
             "publizierungsDatum": new Date(),
-            "kategorien": [lokaleKategorie]
+            "kategorien": [lokaleKategorie],
+            "bildUrl": lokaleBildUrl,
         };
 
         const tempBeitraege= beitraege.filter(b => b.id !== beitrag.id)
         setBeitraege([...tempBeitraege, neuerBeitrag]);
-
+        setWurdeEditGeklickt(false);
     }
 
 
@@ -40,20 +44,18 @@ export default function BeitragBearbeitenFormular({
         setLokaleKategorie(event.target.value);
     }
 
-
+    const hantiereVeraenderungBildUrl = (event) => {
+        setLokaleBildUrl(event.target.value)
+    }
 
 
 
     return (
-        <div className="field">
-            {/*<div className="is-7">*/}
-            {/*    <div className="card-large">*/}
-
-            {/*        <div className="card-content">*/}
-
+        <div className="field m-1" style={{textAlign: "left"}}>
                         <form onSubmit={hantiereSubmit}>
 
-                            <label > Titel des Beitrags:</label>
+                            <label className="label">
+                                Titel des Beitrags: {" "}
                             <input
                                 onChange={hantiereVeraenderungTitel}
                                 id={"beitragsTitel"}
@@ -61,15 +63,20 @@ export default function BeitragBearbeitenFormular({
                                 className="input is-info"
                                 value={lokalerTitel}
                             />
-                            <label>Textinhalt des Beitrags</label>
+                            </label>
+
+                            <label className="label">
+                                Textinhalt des Beitrags: {" "}
                             <textarea
                                 onChange={hantiereVeraenderungText}
-                                id={"textInhalt"}
+                                    id={"textInhalt"}
                                 className="textarea is-info"
                                 value={lokalerTextInhalt}
                             />
+                            </label>
 
-                            <label>Kategorie des Beitrags</label>
+                            <label className="label">
+                                Kategorie des Beitrags: {" "}
                             <input
                                 onChange={hantiereVeraenderungKategorie}
                                 id={"kategorie"}
@@ -77,15 +84,32 @@ export default function BeitragBearbeitenFormular({
                                 className="input is-info"
                                 value={lokaleKategorie}
                             />
+
+                            </label>
+                            <label className="label">
+                                Url des Bildes: {" "}
+                            <input
+                                    onChange={hantiereVeraenderungBildUrl}
+                                   className="input is-dark"
+                                   type="text"
+                                   id="bildUrl"
+
+                            />
+                                </label>
                             <button className="button is-info m-2">Submit</button>
 
                     </form>
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </div>
     );
 
 
 
+}
+
+BeitragBearbeitenFormular.propTypes = {
+    beitraege: PropTypes.array.isRequired,
+    setBeitraege: PropTypes.func.isRequired,
+    beitrag: PropTypes.object.isRequired,
+    setWurdeSubmitet: PropTypes.func.isRequired,
+    setWurdeEditGeklickt: PropTypes.func.isRequired
 }
