@@ -6,12 +6,167 @@ import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
 
 
 
+
+//Verbindung mit DB
+import {createClient} from "@supabase/supabase-js";
+const supabaseUrl = "https://hsyjtnkoizsbrwkgyjid.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzeWp0bmtvaXpzYnJ3a2d5amlkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTM4NjMyMywiZXhwIjoyMDM0OTYyMzIzfQ.NNi48gm9BAf1S65ESyFAQbvxeAlhBWvrGe8BzN-N8So";
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+
+
+
 function App() {
 
     const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege')) || [beitrag,beitrag2]);
-    const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
+    //const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
     const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
     const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
+
+
+    //DB beginn
+    const [benutzers, setBenutzers] = useState([]);
+    const [rollen, setRollen] = useState([]);
+
+    const [benutzerDB, setBenutzerDB] = useState([]);
+    const [rollenDB, setRollenDB] = useState([]);
+    const [beitraegeDB, setBeitraegeDB] = useState([]);
+    const [kommentareDB, setKommentareDB] = useState([]);
+
+    useEffect(() => {
+        getDatenAusDB();
+    }, []);
+
+    useEffect(() => {
+        if (benutzerDB.length > 0 && rollenDB.length > 0) {
+            let rollenAusDB = rollenFüllen();
+            setRollen(rollenAusDB);
+
+            let benutzersAusDB = benutzerFüllen();
+            setBenutzers(benutzersAusDB);
+        }
+    }, [benutzerDB, rollenDB]);
+
+    useEffect(() => {
+        // befor ende
+        const benutzersSpeichern = () => {
+
+                //BenutzerInDBSpeichern();
+
+
+        };
+
+        window.addEventListener('beforeunload', benutzersSpeichern);
+
+        return () => {
+            window.removeEventListener('beforeunload', benutzersSpeichern);
+        };
+    }, []);
+
+    async function BenutzerInDBSpeichern() {
+        try {
+            const benutzersZurDB = benutzers.map(b => ({
+                name: b.name,
+                passwort: b.passwort,
+                avatarURL: b.avatar,
+                rolleName: b.rolleName
+            }));
+
+            const { data, error } = await supabase
+                .from('benutzer')
+                .upsert(benutzersZurDB)
+                .select();
+
+            if (error) {
+                throw error;
+            }
+
+            alert('Benutzers sind gespeichert:', data);
+        } catch (error) {
+            alert('Error Benutzersspeicherung:', error.message);
+        }
+    }
+
+
+
+
+    async function getDatenAusDB() {
+        await getBenutzerAusDB();
+        await getRollenAusDB();
+        await getBeitraegeAusDB();
+        await getKommentareAusDB();
+    }
+
+    async function getBenutzerAusDB() {
+        const { data } = await supabase.from("benutzer").select();
+        setBenutzerDB(data || []);
+    }
+
+    async function getRollenAusDB() {
+        const { data } = await supabase.from("rollen").select();
+        setRollenDB(data || []);
+    }
+
+    async function getBeitraegeAusDB() {
+        const { data } = await supabase.from("beitraege").select();
+        setBeitraegeDB(data || []);
+    }
+
+    async function getKommentareAusDB() {
+        const { data } = await supabase.from("kommentare").select();
+        setKommentareDB(data || []);
+    }
+
+    function benutzerFüllen() {
+        let benutzersAusDB = [];
+        benutzerDB.forEach((benutzerRow) => {
+            const tempBenutzer = {
+                name: benutzerRow.name,
+                passwort: benutzerRow.passwort,
+                avatar: benutzerRow.avatarURL,
+                rolleName: null,
+                rolle: null
+            };
+
+            rollenDB.forEach((rolleRow) => {
+                if (rolleRow.name === benutzerRow.rolleName) {
+                    tempBenutzer.rolle = {
+                        name: rolleRow.name,
+                        kannKommentieren: rolleRow.kannKommentieren,
+                        kannKommentareLöschen: rolleRow.kannKommentareLöschen,
+                        kannBeitragLöschen: rolleRow.kannBeitragLöschen,
+                        kannBeitragVerfassen: rolleRow.kannBeitragVerfassen,
+                        kannBeitragVerändern: rolleRow.kannBeitragVerändern,
+                        kannRolleÄndern: rolleRow.kannRolleÄndern,
+                    };
+                    tempBenutzer.rolleName = rolleRow.name;
+                }
+            });
+            benutzersAusDB.push(tempBenutzer);
+        });
+        return benutzersAusDB;
+    }
+
+
+    function rollenFüllen() {
+        let rollenAusDB = [];
+            rollenDB.forEach((rolleRow) => {
+                const tempRolle = {
+                    name: rolleRow.name,
+                    kannKommentieren: rolleRow.kannKommentieren,
+                    kannKommentareLöschen: rolleRow.kannKommentareLöschen,
+                    kannBeitragLöschen: rolleRow.kannBeitragLöschen,
+                    kannBeitragVerfassen: rolleRow.kannBeitragVerfassen,
+                    kannBeitragVerändern: rolleRow.kannBeitragVerändern,
+                    kannRolleÄndern: rolleRow.kannRolleÄndern,
+                };
+                rollenAusDB.push(tempRolle);
+            });
+        return rollenAusDB;
+    }
+    ////DB end
+
+
 
 
 
@@ -19,11 +174,11 @@ function App() {
         localStorage.setItem('kommentare', JSON.stringify(kommentare));
     }, [kommentare]);
 
-
+    /*
     useEffect(() => {
         localStorage.setItem('benutzers', JSON.stringify(benutzers));
     }, [benutzers]);
-
+    */
 
     useEffect(() => {
         localStorage.setItem('beitraege', JSON.stringify(beitraege));
@@ -31,7 +186,7 @@ function App() {
 
 
     useEffect(() => {
-        const benutzers = JSON.parse(localStorage.getItem('benutzers'));
+        //const benutzers = JSON.parse(localStorage.getItem('benutzers'));
         const beitraege = JSON.parse(localStorage.getItem('beitraege'));
         const kommentare = JSON.parse(localStorage.getItem('kommentare'));
         console.log(beitraege)
@@ -42,9 +197,12 @@ function App() {
         if (beitraege) {
             setBeitraege(beitraege)
         }
+        /*
         if (benutzers) {
             setBenutzers(benutzers);
         }
+         */
+
     }, []);
 
 
@@ -73,6 +231,7 @@ function App() {
                                setBenutzers={setBenutzers}
                                aktuellerBenutzer={aktuellerBenutzer}
                                setAktuellerBenutzer={setAktuellerBenutzer}
+                               rollen={rollen}
                 />
 
             </div>

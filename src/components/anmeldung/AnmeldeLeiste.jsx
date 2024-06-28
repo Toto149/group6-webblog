@@ -9,11 +9,11 @@ const AnmeldeLeiste = (props) => {
     return (
         <div>
             <Anmeldung
-                benutzers={props.benutzers}
                 aktuellerBenutzer={props.aktuellerBenutzer}
                 setAktuellerBenutzer={props.setAktuellerBenutzer}
                 benutzers={props.benutzers}
                 setBenutzers={props.setBenutzers}
+                rollen={props.rollen}
             />
 
         </div>
