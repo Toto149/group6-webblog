@@ -90,13 +90,14 @@ export default function BeitragBearbeitenFormular({
                                 Url des Bildes: {" "}
                             <input
                                     onChange={hantiereVeraenderungBildUrl}
+                                    value={beitrag.bildUrl}
                                    className="input is-dark"
                                    type="text"
                                    id="bildUrl"
 
                             />
                                 </label>
-                            <button className="button is-info m-2">Submit</button>
+                            <button className="button is-dark m-2">Submit</button>
 
                     </form>
         </div>
