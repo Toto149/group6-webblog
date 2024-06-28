@@ -1,9 +1,28 @@
 import React, {useState} from 'react';
-import {benutzer} from "../../Benutzer";
+import {benutzer, registrierterBenutzer} from "../../Benutzer";
 
 const BenutzerErstellen = (props) => {
 
-    const [neuerBenutzer, setNeuerBenutzer] = useState(benutzer);
+    const tempRolle = {
+        name: "registrierterBenutzer",
+        kannKommentieren: true,
+        kannKommentareLöschen: false,
+        kannBeitragLöschen: false,
+        kannBeitragVerfassen: false,
+        kannBeitragVerändern: false,
+        kannRolleÄndern: false,
+    };
+
+    const tempBenutzer = {
+        name: "user" + Date.now(),
+        passwort: "",
+        avatar: "",
+        rolleName: "registrierterBenutzer",
+        rolle: tempRolle
+    };
+
+
+    const [neuerBenutzer, setNeuerBenutzer] = useState(tempBenutzer);
 
     const [fehlerMeldung, setFehlerMeldung] = useState('');
 
@@ -33,7 +52,8 @@ const BenutzerErstellen = (props) => {
             setFehlerMeldung('Benutzername bereits vorhanden.');
             return;
         }
-        setNeuerBenutzer({ ...neuerBenutzer, id: Date.now() });
+
+        setNeuerBenutzer({ ...neuerBenutzer, rolleNane: "registrierterBenutzer" });
         props.setBenutzers([...props.benutzers, neuerBenutzer]);
         setFehlerMeldung('');
         props.setAnzeigeForm(true);

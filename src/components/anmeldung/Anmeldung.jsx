@@ -107,6 +107,7 @@ const Anmeldung = (props) => {
                                            setBenutzers={props.setBenutzers}
                                            anzeigeForm={anzeigeForm}
                                            setAnzeigeForm={setAnzeigeForm}
+                                           rollen={props.rollen}
 
                         />
                     </>)}
