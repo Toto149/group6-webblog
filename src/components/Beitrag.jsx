@@ -63,8 +63,8 @@ export default function Beitrag(props){
                 <div className="card-content" style={{backgroundColor: "ghostwhite", color: "black", borderWidth: "0.25px", borderColor:"black", borderTop:"solid"}}>
                     <div className="media">
                     <div className="media-left">
-                        <figure className="image is-48x48">
-                            <img src={nutzerDerBeitrag[0].avatar} alt="profilbild" />
+                        <figure >
+                            <img className="image is-48x48  has-radius-rounded" src={nutzerDerBeitrag[0].avatar} alt="profilbild" />
                         </figure>
                     </div>
                     <div className="media-content has-text-centered">

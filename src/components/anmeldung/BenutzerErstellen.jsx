@@ -16,7 +16,7 @@ const BenutzerErstellen = (props) => {
     const tempBenutzer = {
         name: "user" + Date.now(),
         passwort: "",
-        avatar: "",
+        avatar: "https://th.bing.com/th/id/OIG4..GlNkMAXarsBMDOfy9dT?w=1024&h=1024&rs=1&pid=ImgDetMain",
         rolleName: "registrierterBenutzer",
         rolle: tempRolle
     };
@@ -32,6 +32,10 @@ const BenutzerErstellen = (props) => {
 
     const passwortAendern = (e) => {
         setNeuerBenutzer({ ...neuerBenutzer, passwort: e.target.value });
+    };
+
+    const avatarAendern = (e) => {
+        setNeuerBenutzer({ ...neuerBenutzer, avatar: e.target.value });
     };
 
     const registrieren = (e) => {
@@ -85,6 +89,17 @@ const BenutzerErstellen = (props) => {
                     value={neuerBenutzer.passwort}
                     placeholder="Passwort"
                     onChange={passwortAendern}
+                    required
+                />
+                <span> </span>
+
+                <input
+                    className="input"
+                    style={{width: '200px'}}
+                    type="text"
+                    value={neuerBenutzer.avatar}
+                    placeholder="URL für Avatar"
+                    onChange={avatarAendern}
                     required
                 />
                 <span> </span>

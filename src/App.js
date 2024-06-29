@@ -4,9 +4,6 @@ import Beitraege from "./components/Beitraege";
 import {administrator, benutzer1, benutzer2, benutzer3} from "./Benutzer";
 import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
 
-
-
-
 //Verbindung mit DB
 import {createClient} from "@supabase/supabase-js";
 import generiereZufaelligeID from "./components/kommentare/GeneriereID";
@@ -14,37 +11,11 @@ const supabaseUrl = "https://hsyjtnkoizsbrwkgyjid.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzeWp0bmtvaXpzYnJ3a2d5amlkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTM4NjMyMywiZXhwIjoyMDM0OTYyMzIzfQ.NNi48gm9BAf1S65ESyFAQbvxeAlhBWvrGe8BzN-N8So";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-
-
-/*
-kommentare
-
-id
-benutzerName
-inhalt
-datum
-editDatum
-beitragsID
- */
-
-/*
-const tempKommentar = {
-    "id": generiereZufaelligeID(),
-    "nutzer": props.aktuellerBenutzer,
-    "inhalt": inhalt,
-    "datum": Date.now(),
-    "editDatum": null,
-    "beitragsId": beitragsId,
-}
-
- */
-
-
 function App() {
 
     //const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege')) || [beitrag,beitrag2]);
     //const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
-    const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
+    //const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
     const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
 
     //DB beginn
@@ -52,7 +23,7 @@ function App() {
     const [rollen, setRollen] = useState([]);
 
     const [beitraege, setBeitraege] = useState([]);
-
+    const [kommentare, setKommentare] = useState([])
 
     const [benutzerDB, setBenutzerDB] = useState([]);
     const [rollenDB, setRollenDB] = useState([]);
@@ -64,18 +35,23 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (benutzerDB.length > 0 && rollenDB.length > 0 && beitraegeDB.length > 0) {
+        if (benutzerDB && rollenDB && benutzerDB.length > 0 && rollenDB.length > 0) {
             let rollenAusDB = rollenFüllen();
             setRollen(rollenAusDB);
 
             let benutzersAusDB = benutzerFüllen();
             setBenutzers(benutzersAusDB);
-
+        }
+        if (beitraegeDB && beitraegeDB.length > 0) {
             let beitraegeAusDB = beitraegeFüllen();
             setBeitraege(beitraegeAusDB);
         }
+        if (kommentareDB && kommentareDB.length > 0) {
+            let kommentareAusDB = kommentareFüllen();
+            setKommentare(kommentareAusDB);
+        }
 
-    }, [benutzerDB, rollenDB, beitraegeDB]);
+    }, [benutzerDB, rollenDB, beitraegeDB, kommentareDB]);
 
     useEffect(() => {
         // befor ende
@@ -214,44 +190,36 @@ function App() {
         return beitraegeAusDB;
     }
 
+    function kommentareFüllen() {
+        let kommentareAusDB = [];
+        kommentareDB.forEach((kommentarRow) => {
+            const tempKommentar = {
+                "id": kommentarRow.id,
+                "nutzer": kommentarRow.benutzerName,
+                "inhalt": kommentarRow.inhalt,
+                "datum": kommentarRow.datum,
+                "editDatum": kommentarRow.editDatum,
+                "beitragsId": kommentarRow.beitragsID,
+            };
+            kommentareAusDB.push(tempKommentar);
+        });
+        return kommentareAusDB;
+    }
 
 
-    /*
-beitraege
 
-id
-titel
-inhalt
-kategorien
-benutzerName
-erstellungsDatum
-publizierungsDatum
-bildURL
- */
-    /*
-    const neuerBeitrag = {
-        "id": Date.now().toString(),
-        "titel" : titel,
-        "nutzer" : aktuellerBenutzer,
-        "inhalt": textInhalt,
-        "publizierungsDatum": Date.now(),
-        "erstellungsDatum": Date.now(),
-        "kommentare" : [],
-        "kategorien": [kategorie],
-        "bildUrl": bildUrl
-    };
 
-     */
+
     ////DB end
 
 
 
 
-
+/*
     useEffect(() => {
         localStorage.setItem('kommentare', JSON.stringify(kommentare));
     }, [kommentare]);
-
+*/
     /*
     useEffect(() => {
         localStorage.setItem('benutzers', JSON.stringify(benutzers));
@@ -266,12 +234,14 @@ bildURL
     useEffect(() => {
         //const benutzers = JSON.parse(localStorage.getItem('benutzers'));
         //const beitraege = JSON.parse(localStorage.getItem('beitraege'));
-        const kommentare = JSON.parse(localStorage.getItem('kommentare'));
+        //const kommentare = JSON.parse(localStorage.getItem('kommentare'));
         //console.log(beitraege)
-
+/*
         if (kommentare) {
             setKommentare(kommentare)
         }
+        */
+
         /*
         if (beitraege) {
             setBeitraege(beitraege)
@@ -379,8 +349,55 @@ bildURL
 export default App;
 
 
+/*
+beitraege
 
+id
+titel
+inhalt
+kategorien
+benutzerName
+erstellungsDatum
+publizierungsDatum
+bildURL
+ */
+/*
+const neuerBeitrag = {
+    "id": Date.now().toString(),
+    "titel" : titel,
+    "nutzer" : aktuellerBenutzer,
+    "inhalt": textInhalt,
+    "publizierungsDatum": Date.now(),
+    "erstellungsDatum": Date.now(),
+    "kommentare" : [],
+    "kategorien": [kategorie],
+    "bildUrl": bildUrl
+};
 
+ */
+
+/*
+kommentare
+
+id
+benutzerName
+inhalt
+datum
+editDatum
+beitragsID
+*/
+
+/*
+const tempKommentar = {
+    "id": generiereZufaelligeID(),
+    "nutzer": props.aktuellerBenutzer,
+    "inhalt": inhalt,
+    "datum": Date.now(),
+    "editDatum": null,
+    "beitragsId": beitragsId,
+}
+
+ */
 
 
 
