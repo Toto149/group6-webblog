@@ -11,13 +11,14 @@ export default function BeitragErstellenFormular({
     const [textInhalt, setTextInhalt] = useState("");
     const [kategorie, setKategorie] = useState("");
     const [bildUrl, setBildUrl] = useState("");
-    const hantiereSubmit =  () => {
 
+    const hantiereSubmit =  (e) => {
+        e.preventDefault();
 
         const neuerBeitrag = {
-            "id": Date.now().toString(),
+            "id": Date.now(),
             "titel" : titel,
-            "nutzer" : aktuellerBenutzer,
+            "nutzer" : aktuellerBenutzer.name,
             "inhalt": textInhalt,
             "publizierungsDatum": Date.now(),
             "erstellungsDatum": Date.now(),
@@ -25,7 +26,7 @@ export default function BeitragErstellenFormular({
             "kategorien": [kategorie],
             "bildUrl": bildUrl
         };
-        setBeitraege(() => [...beitraege, neuerBeitrag]);
+        setBeitraege([...beitraege, neuerBeitrag]);
 
     }
 

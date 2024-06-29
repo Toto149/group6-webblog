@@ -9,24 +9,50 @@ import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
 
 //Verbindung mit DB
 import {createClient} from "@supabase/supabase-js";
+import generiereZufaelligeID from "./components/kommentare/GeneriereID";
 const supabaseUrl = "https://hsyjtnkoizsbrwkgyjid.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzeWp0bmtvaXpzYnJ3a2d5amlkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTM4NjMyMywiZXhwIjoyMDM0OTYyMzIzfQ.NNi48gm9BAf1S65ESyFAQbvxeAlhBWvrGe8BzN-N8So";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 
 
+/*
+kommentare
+
+id
+benutzerName
+inhalt
+datum
+editDatum
+beitragsID
+ */
+
+/*
+const tempKommentar = {
+    "id": generiereZufaelligeID(),
+    "nutzer": props.aktuellerBenutzer,
+    "inhalt": inhalt,
+    "datum": Date.now(),
+    "editDatum": null,
+    "beitragsId": beitragsId,
+}
+
+ */
+
 
 function App() {
 
-    const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege')) || [beitrag,beitrag2]);
+    //const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege')) || [beitrag,beitrag2]);
     //const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
     const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
     const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
 
-
     //DB beginn
     const [benutzers, setBenutzers] = useState([]);
     const [rollen, setRollen] = useState([]);
+
+    const [beitraege, setBeitraege] = useState([]);
+
 
     const [benutzerDB, setBenutzerDB] = useState([]);
     const [rollenDB, setRollenDB] = useState([]);
@@ -38,14 +64,18 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (benutzerDB.length > 0 && rollenDB.length > 0) {
+        if (benutzerDB.length > 0 && rollenDB.length > 0 && beitraegeDB.length > 0) {
             let rollenAusDB = rollenFüllen();
             setRollen(rollenAusDB);
 
             let benutzersAusDB = benutzerFüllen();
             setBenutzers(benutzersAusDB);
+
+            let beitraegeAusDB = beitraegeFüllen();
+            setBeitraege(beitraegeAusDB);
         }
-    }, [benutzerDB, rollenDB]);
+
+    }, [benutzerDB, rollenDB, beitraegeDB]);
 
     useEffect(() => {
         // befor ende
@@ -164,6 +194,54 @@ function App() {
             });
         return rollenAusDB;
     }
+
+    function beitraegeFüllen() {
+        let beitraegeAusDB = [];
+        beitraegeDB.forEach((beitragRow) => {
+            const tempBeitrag = {
+                "id": beitragRow.id,
+                "titel" : beitragRow.titel,
+                "nutzer" : beitragRow.benutzerName,
+                "inhalt": beitragRow.inhalt,
+                "publizierungsDatum": beitragRow.publizierungsDatum,
+                "erstellungsDatum": beitragRow.erstellungsDatum,
+                "kommentare" : [],
+                "kategorien": [], //beitragRow.kategorien
+                "bildUrl": beitragRow.bildURL
+            };
+            beitraegeAusDB.push(tempBeitrag);
+        });
+        return beitraegeAusDB;
+    }
+
+
+
+    /*
+beitraege
+
+id
+titel
+inhalt
+kategorien
+benutzerName
+erstellungsDatum
+publizierungsDatum
+bildURL
+ */
+    /*
+    const neuerBeitrag = {
+        "id": Date.now().toString(),
+        "titel" : titel,
+        "nutzer" : aktuellerBenutzer,
+        "inhalt": textInhalt,
+        "publizierungsDatum": Date.now(),
+        "erstellungsDatum": Date.now(),
+        "kommentare" : [],
+        "kategorien": [kategorie],
+        "bildUrl": bildUrl
+    };
+
+     */
     ////DB end
 
 
@@ -179,24 +257,27 @@ function App() {
         localStorage.setItem('benutzers', JSON.stringify(benutzers));
     }, [benutzers]);
     */
-
+/*
     useEffect(() => {
         localStorage.setItem('beitraege', JSON.stringify(beitraege));
     }, [beitraege]);
-
+*/
 
     useEffect(() => {
         //const benutzers = JSON.parse(localStorage.getItem('benutzers'));
-        const beitraege = JSON.parse(localStorage.getItem('beitraege'));
+        //const beitraege = JSON.parse(localStorage.getItem('beitraege'));
         const kommentare = JSON.parse(localStorage.getItem('kommentare'));
-        console.log(beitraege)
+        //console.log(beitraege)
 
         if (kommentare) {
             setKommentare(kommentare)
         }
+        /*
         if (beitraege) {
             setBeitraege(beitraege)
         }
+
+         */
         /*
         if (benutzers) {
             setBenutzers(benutzers);
@@ -276,6 +357,7 @@ function App() {
                                 kommentare={kommentare}
                                 setKommentare={setKommentare}
                                 aktuellerBenutzer={aktuellerBenutzer}
+                                benutzers={benutzers}
                     />}
 
                 </div>
