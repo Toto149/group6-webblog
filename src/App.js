@@ -13,9 +13,6 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 function App() {
 
-    //const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege')) || [beitrag,beitrag2]);
-    //const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
-    //const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
     const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
 
     //DB beginn
@@ -29,6 +26,11 @@ function App() {
     const [rollenDB, setRollenDB] = useState([]);
     const [beitraegeDB, setBeitraegeDB] = useState([]);
     const [kommentareDB, setKommentareDB] = useState([]);
+
+    let copyBenutzers = [];
+    let copyRollen = [];
+    let copyBeitraege = [];
+    let copyKommentare = [];
 
     useEffect(() => {
         getDatenAusDB();
@@ -44,30 +46,16 @@ function App() {
         }
         if (beitraegeDB && beitraegeDB.length > 0) {
             let beitraegeAusDB = beitraegeFüllen();
+            copyBeitraege = [...beitraegeAusDB];
             setBeitraege(beitraegeAusDB);
         }
         if (kommentareDB && kommentareDB.length > 0) {
             let kommentareAusDB = kommentareFüllen();
+            copyKommentare = [...kommentareAusDB];
             setKommentare(kommentareAusDB);
         }
 
     }, [benutzerDB, rollenDB, beitraegeDB, kommentareDB]);
-
-    useEffect(() => {
-        // befor ende
-        const benutzersSpeichern = () => {
-
-                //BenutzerInDBSpeichern();
-
-
-        };
-
-        window.addEventListener('beforeunload', benutzersSpeichern);
-
-        return () => {
-            window.removeEventListener('beforeunload', benutzersSpeichern);
-        };
-    }, []);
 
     async function BenutzerInDBSpeichern() {
         try {
@@ -92,9 +80,6 @@ function App() {
             alert('Error Benutzersspeicherung:', error.message);
         }
     }
-
-
-
 
     async function getDatenAusDB() {
         await getBenutzerAusDB();
@@ -152,7 +137,6 @@ function App() {
         });
         return benutzersAusDB;
     }
-
 
     function rollenFüllen() {
         let rollenAusDB = [];
@@ -223,7 +207,6 @@ function App() {
         }
     }, [aktuellerBenutzer]);
 
-
     return (
 
         <section className="hero is-info is-fullheight">
@@ -270,75 +253,12 @@ function App() {
                                 aktuellerBenutzer={aktuellerBenutzer}
                                 benutzers={benutzers}
                     />}
-
                 </div>
             </div>
-
-
             <div className="hero-foot">
-
-
             </div>
-
-
         </section>
-
-
     );
 }
-
 export default App;
-
-
-/*
-beitraege
-
-id
-titel
-inhalt
-kategorien
-benutzerName
-erstellungsDatum
-publizierungsDatum
-bildURL
- */
-/*
-const neuerBeitrag = {
-    "id": Date.now().toString(),
-    "titel" : titel,
-    "nutzer" : aktuellerBenutzer,
-    "inhalt": textInhalt,
-    "publizierungsDatum": Date.now(),
-    "erstellungsDatum": Date.now(),
-    "kommentare" : [],
-    "kategorien": [kategorie],
-    "bildUrl": bildUrl
-};
-
- */
-
-/*
-kommentare
-
-id
-benutzerName
-inhalt
-datum
-editDatum
-beitragsID
-*/
-
-/*
-const tempKommentar = {
-    "id": generiereZufaelligeID(),
-    "nutzer": props.aktuellerBenutzer,
-    "inhalt": inhalt,
-    "datum": Date.now(),
-    "editDatum": null,
-    "beitragsId": beitragsId,
-}
-
- */
-
-
 

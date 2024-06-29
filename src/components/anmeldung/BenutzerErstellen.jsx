@@ -45,12 +45,14 @@ const BenutzerErstellen = (props) => {
             setFehlerMeldung('Benutzername und Passwort dürfen nicht leer sein.');
             return;
         }
-
+/*
         const regulaereAusdruecke = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
         if (!regulaereAusdruecke.test(neuerBenutzer.passwort)) {
             setFehlerMeldung('Das Passwort muss mindestens 8 Zeichen lang sein und mindestens eine Ziffer, einen Großbuchstaben und ein Sonderzeichen enthalten.');
             return;
         }
+
+ */
 
         if (props.benutzers.some(benutzer => benutzer.name === neuerBenutzer.name)) {
             setFehlerMeldung('Benutzername bereits vorhanden.');
