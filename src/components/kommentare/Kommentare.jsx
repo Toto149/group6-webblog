@@ -43,17 +43,20 @@ const Kommentare = (props) => {
                                                                                      kommentar={kommentar}
                                                                                      kommentare={props.kommentare}
                                                                                      setKommentare={props.setKommentare}
+                                                                                     benutzers={props.benutzers}
                                                                                      aktuellerBenutzer={props.aktuellerBenutzer}/>)
                                 : gefilterteKommentare.slice(0, mehrKommentareGrenze).map((kommentar) => <Kommentar key={kommentar.id}
                                                                                                  kommentar={kommentar}
                                                                                                  kommentare={props.kommentare}
                                                                                                  setKommentare={props.setKommentare}
+                                                                                                 benutzers={props.benutzers}
                                                                                                  aktuellerBenutzer={props.aktuellerBenutzer}/>)}
 
 
                             <KommentarErstellen beitrag={props.beitrag}
                                                 kommentare={props.kommentare}
                                                 setKommentare={props.setKommentare}
+                                                benutzers={props.benutzers}
                                                 aktuellerBenutzer={props.aktuellerBenutzer}
                                                 wirdBearbeitet={false}
                                                 kommentar={null}/>

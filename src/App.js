@@ -206,56 +206,7 @@ function App() {
         return kommentareAusDB;
     }
 
-
-
-
-
     ////DB end
-
-
-
-
-/*
-    useEffect(() => {
-        localStorage.setItem('kommentare', JSON.stringify(kommentare));
-    }, [kommentare]);
-*/
-    /*
-    useEffect(() => {
-        localStorage.setItem('benutzers', JSON.stringify(benutzers));
-    }, [benutzers]);
-    */
-/*
-    useEffect(() => {
-        localStorage.setItem('beitraege', JSON.stringify(beitraege));
-    }, [beitraege]);
-*/
-
-    useEffect(() => {
-        //const benutzers = JSON.parse(localStorage.getItem('benutzers'));
-        //const beitraege = JSON.parse(localStorage.getItem('beitraege'));
-        //const kommentare = JSON.parse(localStorage.getItem('kommentare'));
-        //console.log(beitraege)
-/*
-        if (kommentare) {
-            setKommentare(kommentare)
-        }
-        */
-
-        /*
-        if (beitraege) {
-            setBeitraege(beitraege)
-        }
-
-         */
-        /*
-        if (benutzers) {
-            setBenutzers(benutzers);
-        }
-         */
-
-    }, []);
-
 
     useEffect(() => {
         const localerBenutzer = JSON.parse(localStorage.getItem('aktuellerBenutzer'));
@@ -287,19 +238,13 @@ function App() {
 
             </div>
 
-
             <div className="hero-body">
 
-
-
-
                 <div className="container has-text-centered">
-
 
                     <div className="container">
                         <div className="container has-text-centered">
                             <div className="column is-6 is-offset-3">
-
 
                                 <h1 className="title title is-2 is-color-info ">
                                     CYBERSECURITY BLOG
@@ -311,10 +256,6 @@ function App() {
                                     einer vernetzten Welt. Tauche ein in spannende Diskussionen und lerne von Experten,
                                     wie du dich im digitalen Zeitalter sicher bewegst.
                                 </h2>
-
-
-
-
 
                             </div>
                         </div>

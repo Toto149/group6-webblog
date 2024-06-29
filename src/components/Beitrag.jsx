@@ -148,6 +148,7 @@ export default function Beitrag(props){
                                      kommentare={props.kommentare}
                                      setKommentare={props.setKommentare}
                                      aktuellerBenutzer={props.aktuellerBenutzer}
+                                     benutzers={props.benutzers}
                         />
                         }
 
