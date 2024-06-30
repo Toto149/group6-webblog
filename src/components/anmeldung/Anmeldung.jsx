@@ -116,10 +116,20 @@ const Anmeldung = (props) => {
         );
     } else {
         return (
+
+
+
             <div className="p-5 has-text-right">
-                <label className="button pt-9 is-6 is-color-info">Herzlich
-                    willkommen, {props.aktuellerBenutzer.name}!</label>
+                <div className="field is-grouped is-grouped-right">
+                    <label className="is-color-warning">Herzlich willkommen, {props.aktuellerBenutzer.name}&nbsp;&nbsp;!
+                    </label>
+                    <img className="image is-32x32 has-radius-rounded"
+                         src={props.aktuellerBenutzer.avatar}
+                         alt="profilbild"/>
+
+
                 <span> </span>
+
 
                 <a className="button is-white is-outlined" href="#" onClick={abmelden}>
                                     <span className="icon">
@@ -143,6 +153,8 @@ const Anmeldung = (props) => {
                 )
                 }
 
+
+
                 {
                     props.aktuellerBenutzer && props.aktuellerBenutzer.rolle.kannRolleÄndern && zeigenVerwaltung && (
 
@@ -154,6 +166,8 @@ const Anmeldung = (props) => {
                         </a>
                     )
                 }
+
+                </div>
 
                 {
                     zeigenVerwaltung && (

@@ -12,6 +12,7 @@ export default function Beitraege({aktuellerBenutzer,
                                       setBeitraege,
                                       kommentare,
                                       setKommentare,
+                                        benutzers
                                   }){
 
 
@@ -83,6 +84,7 @@ export default function Beitraege({aktuellerBenutzer,
                                          kommentare={kommentare}
                                          setKommentare={setKommentare}
                                          aktuellerBenutzer={aktuellerBenutzer}
+                                         benutzers={benutzers}
                                 />)
                             }
                     </div>

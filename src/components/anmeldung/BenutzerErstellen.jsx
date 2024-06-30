@@ -16,7 +16,7 @@ const BenutzerErstellen = (props) => {
     const tempBenutzer = {
         name: "user" + Date.now(),
         passwort: "",
-        avatar: "",
+        avatar: "https://th.bing.com/th/id/OIG4..GlNkMAXarsBMDOfy9dT?w=1024&h=1024&rs=1&pid=ImgDetMain",
         rolleName: "registrierterBenutzer",
         rolle: tempRolle
     };
@@ -34,6 +34,10 @@ const BenutzerErstellen = (props) => {
         setNeuerBenutzer({ ...neuerBenutzer, passwort: e.target.value });
     };
 
+    const avatarAendern = (e) => {
+        setNeuerBenutzer({ ...neuerBenutzer, avatar: e.target.value });
+    };
+
     const registrieren = (e) => {
         e.preventDefault();
 
@@ -41,12 +45,14 @@ const BenutzerErstellen = (props) => {
             setFehlerMeldung('Benutzername und Passwort dürfen nicht leer sein.');
             return;
         }
-
+/*
         const regulaereAusdruecke = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
         if (!regulaereAusdruecke.test(neuerBenutzer.passwort)) {
             setFehlerMeldung('Das Passwort muss mindestens 8 Zeichen lang sein und mindestens eine Ziffer, einen Großbuchstaben und ein Sonderzeichen enthalten.');
             return;
         }
+
+ */
 
         if (props.benutzers.some(benutzer => benutzer.name === neuerBenutzer.name)) {
             setFehlerMeldung('Benutzername bereits vorhanden.');
@@ -85,6 +91,17 @@ const BenutzerErstellen = (props) => {
                     value={neuerBenutzer.passwort}
                     placeholder="Passwort"
                     onChange={passwortAendern}
+                    required
+                />
+                <span> </span>
+
+                <input
+                    className="input"
+                    style={{width: '200px'}}
+                    type="text"
+                    value={neuerBenutzer.avatar}
+                    placeholder="URL für Avatar"
+                    onChange={avatarAendern}
                     required
                 />
                 <span> </span>

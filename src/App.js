@@ -4,64 +4,58 @@ import Beitraege from "./components/Beitraege";
 import {administrator, benutzer1, benutzer2, benutzer3} from "./Benutzer";
 import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
 
-
-
-
 //Verbindung mit DB
 import {createClient} from "@supabase/supabase-js";
+import generiereZufaelligeID from "./components/kommentare/GeneriereID";
 const supabaseUrl = "https://hsyjtnkoizsbrwkgyjid.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzeWp0bmtvaXpzYnJ3a2d5amlkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTM4NjMyMywiZXhwIjoyMDM0OTYyMzIzfQ.NNi48gm9BAf1S65ESyFAQbvxeAlhBWvrGe8BzN-N8So";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-
-
-
 function App() {
 
-    const [beitraege, setBeitraege] = useState(JSON.parse(localStorage.getItem('beitraege')) || [beitrag,beitrag2]);
-    //const [benutzers, setBenutzers] = useState((JSON.parse(localStorage.getItem('benutzers'))||[administrator, benutzer1, benutzer2, benutzer3]));
-    const [kommentare, setKommentare] = useState(JSON.parse(localStorage.getItem('kommentare')) || [kommentar])
     const [aktuellerBenutzer, setAktuellerBenutzer] = useState(null);
-
 
     //DB beginn
     const [benutzers, setBenutzers] = useState([]);
     const [rollen, setRollen] = useState([]);
+
+    const [beitraege, setBeitraege] = useState([]);
+    const [kommentare, setKommentare] = useState([])
 
     const [benutzerDB, setBenutzerDB] = useState([]);
     const [rollenDB, setRollenDB] = useState([]);
     const [beitraegeDB, setBeitraegeDB] = useState([]);
     const [kommentareDB, setKommentareDB] = useState([]);
 
+    let copyBenutzers = [];
+    let copyRollen = [];
+    let copyBeitraege = [];
+    let copyKommentare = [];
+
     useEffect(() => {
         getDatenAusDB();
     }, []);
 
     useEffect(() => {
-        if (benutzerDB.length > 0 && rollenDB.length > 0) {
+        if (benutzerDB && rollenDB && benutzerDB.length > 0 && rollenDB.length > 0) {
             let rollenAusDB = rollenFüllen();
             setRollen(rollenAusDB);
 
             let benutzersAusDB = benutzerFüllen();
             setBenutzers(benutzersAusDB);
         }
-    }, [benutzerDB, rollenDB]);
+        if (beitraegeDB && beitraegeDB.length > 0) {
+            let beitraegeAusDB = beitraegeFüllen();
+            copyBeitraege = [...beitraegeAusDB];
+            setBeitraege(beitraegeAusDB);
+        }
+        if (kommentareDB && kommentareDB.length > 0) {
+            let kommentareAusDB = kommentareFüllen();
+            copyKommentare = [...kommentareAusDB];
+            setKommentare(kommentareAusDB);
+        }
 
-    useEffect(() => {
-        // befor ende
-        const benutzersSpeichern = () => {
-
-                //BenutzerInDBSpeichern();
-
-
-        };
-
-        window.addEventListener('beforeunload', benutzersSpeichern);
-
-        return () => {
-            window.removeEventListener('beforeunload', benutzersSpeichern);
-        };
-    }, []);
+    }, [benutzerDB, rollenDB, beitraegeDB, kommentareDB]);
 
     async function BenutzerInDBSpeichern() {
         try {
@@ -86,9 +80,6 @@ function App() {
             alert('Error Benutzersspeicherung:', error.message);
         }
     }
-
-
-
 
     async function getDatenAusDB() {
         await getBenutzerAusDB();
@@ -147,7 +138,6 @@ function App() {
         return benutzersAusDB;
     }
 
-
     function rollenFüllen() {
         let rollenAusDB = [];
             rollenDB.forEach((rolleRow) => {
@@ -164,47 +154,43 @@ function App() {
             });
         return rollenAusDB;
     }
+
+    function beitraegeFüllen() {
+        let beitraegeAusDB = [];
+        beitraegeDB.forEach((beitragRow) => {
+            const tempBeitrag = {
+                "id": beitragRow.id,
+                "titel" : beitragRow.titel,
+                "nutzer" : beitragRow.benutzerName,
+                "inhalt": beitragRow.inhalt,
+                "publizierungsDatum": beitragRow.publizierungsDatum,
+                "erstellungsDatum": beitragRow.erstellungsDatum,
+                "kommentare" : [],
+                "kategorien": [], //beitragRow.kategorien
+                "bildUrl": beitragRow.bildURL
+            };
+            beitraegeAusDB.push(tempBeitrag);
+        });
+        return beitraegeAusDB;
+    }
+
+    function kommentareFüllen() {
+        let kommentareAusDB = [];
+        kommentareDB.forEach((kommentarRow) => {
+            const tempKommentar = {
+                "id": kommentarRow.id,
+                "nutzer": kommentarRow.benutzerName,
+                "inhalt": kommentarRow.inhalt,
+                "datum": kommentarRow.datum,
+                "editDatum": kommentarRow.editDatum,
+                "beitragsId": kommentarRow.beitragsID,
+            };
+            kommentareAusDB.push(tempKommentar);
+        });
+        return kommentareAusDB;
+    }
+
     ////DB end
-
-
-
-
-
-    useEffect(() => {
-        localStorage.setItem('kommentare', JSON.stringify(kommentare));
-    }, [kommentare]);
-
-    /*
-    useEffect(() => {
-        localStorage.setItem('benutzers', JSON.stringify(benutzers));
-    }, [benutzers]);
-    */
-
-    useEffect(() => {
-        localStorage.setItem('beitraege', JSON.stringify(beitraege));
-    }, [beitraege]);
-
-
-    useEffect(() => {
-        //const benutzers = JSON.parse(localStorage.getItem('benutzers'));
-        const beitraege = JSON.parse(localStorage.getItem('beitraege'));
-        const kommentare = JSON.parse(localStorage.getItem('kommentare'));
-        console.log(beitraege)
-
-        if (kommentare) {
-            setKommentare(kommentare)
-        }
-        if (beitraege) {
-            setBeitraege(beitraege)
-        }
-        /*
-        if (benutzers) {
-            setBenutzers(benutzers);
-        }
-         */
-
-    }, []);
-
 
     useEffect(() => {
         const localerBenutzer = JSON.parse(localStorage.getItem('aktuellerBenutzer'));
@@ -221,7 +207,6 @@ function App() {
         }
     }, [aktuellerBenutzer]);
 
-
     return (
 
         <section className="hero is-info is-fullheight">
@@ -236,19 +221,13 @@ function App() {
 
             </div>
 
-
             <div className="hero-body">
 
-
-
-
                 <div className="container has-text-centered">
-
 
                     <div className="container">
                         <div className="container has-text-centered">
                             <div className="column is-6 is-offset-3">
-
 
                                 <h1 className="title title is-2 is-color-info ">
                                     CYBERSECURITY BLOG
@@ -261,10 +240,6 @@ function App() {
                                     wie du dich im digitalen Zeitalter sicher bewegst.
                                 </h2>
 
-
-
-
-
                             </div>
                         </div>
 
@@ -276,29 +251,14 @@ function App() {
                                 kommentare={kommentare}
                                 setKommentare={setKommentare}
                                 aktuellerBenutzer={aktuellerBenutzer}
+                                benutzers={benutzers}
                     />}
-
                 </div>
             </div>
-
-
             <div className="hero-foot">
-
-
             </div>
-
-
         </section>
-
-
     );
 }
-
 export default App;
-
-
-
-
-
-
 

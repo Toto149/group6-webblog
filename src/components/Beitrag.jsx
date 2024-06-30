@@ -41,6 +41,9 @@ export default function Beitrag(props){
                     setWurdeEditGeklickt(!wurdeEditGeklickt);
                 }
 
+    const nutzerDerBeitrag = props.benutzers.filter(b => b.name === props.beitrag.nutzer);
+
+
 
     const handleDelete = () => {
 
@@ -54,18 +57,18 @@ export default function Beitrag(props){
             <div className="card large">
                 <div className="card-image" style={{backgroundColor: "white", borderTopLeftRadius: "15px",borderTopRightRadius: "15px"}}>
                     <figure className="image is-16by9" >
-                        <img src={props.beitrag.bildUrl}/>
+                        <img src={props.beitrag.bildUrl} style={{ objectFit: 'cover', width: '100%', height: '100%' }}/>
                     </figure>
                 </div>
                 <div className="card-content" style={{backgroundColor: "ghostwhite", color: "black", borderWidth: "0.25px", borderColor:"black", borderTop:"solid"}}>
                     <div className="media">
                     <div className="media-left">
-                        <figure className="image is-48x48">
-                            <img src="https://docs.moodle.org/404/de/images_de/7/7c/F1.png" alt="profilbild" />
+                        <figure >
+                            <img className="image is-48x48  has-radius-rounded" src={nutzerDerBeitrag[0].avatar} alt="profilbild" />
                         </figure>
                     </div>
                     <div className="media-content has-text-centered">
-                        <p className="title is-4 no-padding" style={{textAlign: "left"}}>{props.beitrag.nutzer.name}</p>
+                        <p className="title is-6 is-italic no-padding" style={{textAlign: "left"}}>{nutzerDerBeitrag[0].name}</p>
                         <p className={"title is-3 no-padding"} style={{textAlign: "center"}}>
                             {props.beitrag.titel}
                         </p>
@@ -145,6 +148,7 @@ export default function Beitrag(props){
                                      kommentare={props.kommentare}
                                      setKommentare={props.setKommentare}
                                      aktuellerBenutzer={props.aktuellerBenutzer}
+                                     benutzers={props.benutzers}
                         />
                         }
 

@@ -25,8 +25,8 @@ const KommentarErstellen = (props) => {
         if (inhalt.length <= maxZeichen && inhalt.length>0) {
             const beitragsId = props.beitrag.id;
             const tempKommentar = {
-                "id": generiereZufaelligeID(),
-                "nutzer": props.aktuellerBenutzer,
+                "id": Date.now(),
+                "nutzer": props.aktuellerBenutzer.name,
                 "inhalt": inhalt,
                 "datum": Date.now(),
                 "editDatum": null,
@@ -41,7 +41,7 @@ const KommentarErstellen = (props) => {
         if (inhalt.length <= maxZeichen && inhalt.length>0) {
             const tempKommentar = {
                 "id": props.kommentar.id,
-                "nutzer": props.aktuellerBenutzer,
+                "nutzer": props.aktuellerBenutzer.name,
                 "inhalt": inhalt,
                 "datum": props.kommentar.datum,
                 "editDatum": Date.now(),

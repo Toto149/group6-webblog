@@ -72,6 +72,7 @@ const BenutzerVerwaltung = (props) => {
                     <table  className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                         <thead>
                         <tr >
+                            <th></th>
                             <th className="is-narrow has-text-centered">Name des Benutzers</th>
                             <th className="is-narrow has-text-centered">Rolle</th>
                             <th >Änderungen bestätigen</th>
@@ -81,6 +82,13 @@ const BenutzerVerwaltung = (props) => {
 
                         {gefundeneBenutzer && gefundeneBenutzer.map(b => (
                             <tr key={b.name}>
+                                <td className="is-narrow p-1 has-text-left">
+                                    <div className="media-left">
+                                        <figure className="image is-32x32">
+                                            <img className="image  has-radius-rounded"  src={b.avatar} alt="profilbild"/>
+                                        </figure>
+                                    </div>
+                                </td>
                                 <td className="is-narrow p-1 has-text-left">{b.name}</td>
                                 <td className="is-narrow p-1 has-text-left">{props.aktuellerBenutzer.rolle && props.aktuellerBenutzer.rolle.kannRolleÄndern && (
 
