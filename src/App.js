@@ -7,6 +7,7 @@ import AnmeldeLeiste from "./components/anmeldung/AnmeldeLeiste";
 //Verbindung mit DB
 import {createClient} from "@supabase/supabase-js";
 import generiereZufaelligeID from "./components/kommentare/GeneriereID";
+import Footer from "./components/Footer";
 const supabaseUrl = "https://hsyjtnkoizsbrwkgyjid.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzeWp0bmtvaXpzYnJ3a2d5amlkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTM4NjMyMywiZXhwIjoyMDM0OTYyMzIzfQ.NNi48gm9BAf1S65ESyFAQbvxeAlhBWvrGe8BzN-N8So";
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -381,6 +382,7 @@ function App() {
                 </div>
             </div>
             <div className="hero-foot">
+                <Footer></Footer>
             </div>
         </section>
     );

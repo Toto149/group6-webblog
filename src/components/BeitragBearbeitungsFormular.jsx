@@ -11,7 +11,7 @@ export default function BeitragBearbeitenFormular({
 ) {
     //Diese useStates sind wichtig, damit diese Component up to date bleibt.
     const [lokalerTitel, setLokalerTitel] = useState(beitrag.titel);
-    const [lokaleKategorie, setLokaleKategorie] = useState(beitrag.kategorien.toString());
+    const [lokaleKategorie, setLokaleKategorie] = useState(beitrag.kategorien);
     const [lokalerTextInhalt, setLokalerTextInhalt] = useState(beitrag.inhalt);
     const [lokaleBildUrl, setLokaleBildUrl] = useState(beitrag.bildUrl);
 
@@ -54,7 +54,7 @@ export default function BeitragBearbeitenFormular({
         <div className="field m-1" style={{textAlign: "left"}}>
                         <form onSubmit={hantiereSubmit}>
 
-                            <label className="label">
+                            <label className="label has-text-black">
                                 Titel des Beitrags: {" "}
                             <input
                                 onChange={hantiereVeraenderungTitel}
@@ -65,7 +65,7 @@ export default function BeitragBearbeitenFormular({
                             />
                             </label>
 
-                            <label className="label">
+                            <label className="label has-text-black">
                                 Textinhalt des Beitrags: {" "}
                             <textarea
                                 onChange={hantiereVeraenderungText}
@@ -75,7 +75,7 @@ export default function BeitragBearbeitenFormular({
                             />
                             </label>
 
-                            <label className="label">
+                            <label className="label has-text-black">
                                 Kategorie des Beitrags: {" "}
                             <input
                                 onChange={hantiereVeraenderungKategorie}
@@ -86,7 +86,7 @@ export default function BeitragBearbeitenFormular({
                             />
 
                             </label>
-                            <label className="label">
+                            <label className="label has-text-black">
                                 Url des Bildes: {" "}
                             <input
                                     onChange={hantiereVeraenderungBildUrl}

@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 export default function Beitrag(props){
 
 
+
                 //Diese Komponente soll einen einzelnen Beitrag des Web-blogs modellieren.
                 //Die Idee ist, dass diese Komponente Kommentare des Beitrags anzeigt und auf
                 // eine einzelne
@@ -38,12 +39,37 @@ export default function Beitrag(props){
 
                 };
 
-        
 
-                //Diese Funktion lässt das Feld für die Bearbeitung erscheinen
-                const handleEdit = () => {
-                    setWurdeEditGeklickt(!wurdeEditGeklickt);
-                }
+    //Diese Komponente soll einen einzelnen Beitrag des Web-blogs modellieren.
+    //Die Idee ist, dass diese Komponente Kommentare des Beitrags anzeigt und auf
+    // eine einzelne
+    //Dieser useState überprüft, ob der Kommentare-editier-Button gedrückt wurde.
+    const [wurdeEditGeklickt, setWurdeEditGeklickt ] = useState(false);
+
+    //Dieser useStat überprüft, ob der Beitrag editiert wurde und wenn ja, dann soll das Datum angepasst
+    // werden.
+    const [wurdeSubmitet, setWurdeSubmitet] = useState(false);
+
+    //Diese Funktion soll die Kategorien anzeigen.
+    const displayKategorien = (kategorien) => {
+        if(kategorien.length===0){
+            return "";
+        }
+        let str = "Kategorien: ";
+        for(let i = 0; i<kategorien.length; i++){
+            if(i<kategorien.length-1) {
+                str += kategorien[i] + ", ";
+            } else {
+                str += kategorien[i];
+            }
+        }
+        return str;
+    };
+
+    //Diese Funktion lässt das Feld für die Bearbeitung erscheinen
+    const handleEdit = () => {
+        setWurdeEditGeklickt(!wurdeEditGeklickt);
+    }
 
     const nutzerDerBeitrag = props.benutzers.filter(b => b.name === props.beitrag.nutzer);
 
