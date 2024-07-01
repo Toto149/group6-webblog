@@ -53,14 +53,14 @@ export default function Beitraege({aktuellerBenutzer,
                         textAlign: "right",
                         marginRight: "10em"
                     }}>
-                    {aktuellerBenutzer?.rolle.kannBeitragVerfassen
-                        &&
+                    {(aktuellerBenutzer?.rolle.kannBeitragVerfassen === true)
+                        && (
                         <button
                             onClick={hantiereClick}
                             className="button is-dark ml-2">
 
                             <i className="fa fa-save"></i> &nbsp; Beitrag erstellen
-                        </button>
+                        </button>)
                     }
                     <button
                         onClick={hantiereClickAltZuNeu}

@@ -23,7 +23,7 @@ export default function BeitragErstellenFormular({
             "publizierungsDatum": Date.now(),
             "erstellungsDatum": Date.now(),
             "kommentare" : [],
-            "kategorien": [kategorie],
+            "kategorien": kategorie,
             "bildUrl": bildUrl
         };
         setBeitraege([...beitraege, neuerBeitrag]);

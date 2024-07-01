@@ -22,6 +22,8 @@ export default function Beitrag(props){
 
                 //Diese Funktion soll die Kategorien anzeigen.
                 const displayKategorien = (kategorien) => {
+
+                    /*
                     let str = "Kategorien: ";
                     for(let i = 0; i<kategorien.length; i++){
                         if(i<kategorien.length-1) {
@@ -30,7 +32,9 @@ export default function Beitrag(props){
                             str += kategorien[i];
                         }
                     }
-                    return str;
+
+                     */
+                    return kategorien;
 
                 };
 
