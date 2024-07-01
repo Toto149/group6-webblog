@@ -51,7 +51,7 @@ const Kommentar = (props) => {
                                     <img className="has-radius-rounded" src={avatarUrl} alt="Profilbild"/>
                                 </figure>
                                 <div className="media-content">
-                                    <p className="is-size-4 no-padding is-break-word">{props.kommentar.nutzer.name}</p>
+                                    <p className="is-size-6 no-padding is-break-word">{props.kommentar.nutzer}</p>
                                 </div>
                             </div>
                             <div className="media-right is-flex is-align-items-center field is-grouped">

@@ -29,6 +29,8 @@ const KommentarMenue = (props) => {
                 <i className="fa fa-cog"></i>
             </button>
             {zeigeMenue && (
+
+                props.aktuellerBenutzer.name === props.kommentar.nutzer && (
                 <ul className={'has-background-grey-darker'} style={{
                     position: 'absolute',
                     top: '100%',
@@ -43,19 +45,21 @@ const KommentarMenue = (props) => {
                     maxHeight: '200px', // Optional: limits the height of the menu
                     overflowY: 'auto' // Optional: enables scrolling if the menu is too tall
                 }}>
-                    {props.aktuellerBenutzer.id === props.kommentar.nutzer.id && (
+
                         <li className="m-1">
                             <button className="button is-light" style={{width: '100px'}} onClick={kommentarBearbeiten}>
                                 <i className="fa fa-edit"></i>&nbsp;bearbeiten
                             </button>
                         </li>
-                    )}
+
                     <li className="m-1">
                         <button className="button is-light" style={{width: '100px'}} onClick={kommentarLoeschen}>
                             &nbsp;<i className="fa fa-trash"></i>&nbsp;löschen
                         </button>
                     </li>
                 </ul>
+            )
+
             )}
         </div>
     );
