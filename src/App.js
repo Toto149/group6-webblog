@@ -37,8 +37,6 @@ function App() {
 
     useEffect(() => {
         if (beitragIdFürLöschen) deleteBeitrag();
-
-        console.log("я хочу удалить post: " + beitragIdFürLöschen);
     }, [beitragIdFürLöschen]);
 
 
@@ -46,13 +44,11 @@ function App() {
         if (kommentarIdFürLöschen) {
             deleteKommentar();
         }
-
-        console.log("я хочу удалить комментарий: " + kommentarIdFürLöschen);
-
     }, [kommentarIdFürLöschen]);
 
     useEffect(() => {
-        //benutzerSpeichern();
+        benutzerSpeichern();
+        //console.log(JSON.stringify(benutzers))
     }, [benutzers]);
 
     useEffect(() => {
