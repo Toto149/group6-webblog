@@ -64,7 +64,7 @@ const Kommentar = (props) => {
                                         </p>
                                     </div>
                                     {props.aktuellerBenutzer !== null &&
-                                        (props.aktuellerBenutzer.rolle.kannKommentareLöschen || props.aktuellerBenutzer.id === props.kommentar.nutzer.id) &&
+                                        (props.aktuellerBenutzer.rolle.kannKommentareLöschen || props.aktuellerBenutzer.name === props.kommentar.nutzer) &&
                                         <div className="level-item">
                                             <KommentarMenue
                                                 aktuellerBenutzer={props.aktuellerBenutzer}
