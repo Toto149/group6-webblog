@@ -31,20 +31,20 @@ const KommentarMenue = (props) => {
             {zeigeMenue && (
 
                 props.aktuellerBenutzer.name === props.kommentar.nutzer && (
-                <ul className={'has-background-grey-darker'} style={{
-                    position: 'absolute',
-                    top: '100%',
-                    right: '0',
-                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-                    padding: '4px',
-                    listStyleType: 'none',
-                    margin: '0',
-                    border: 'solid white 1px',
-                    borderRadius: '10px',
-                    zIndex: '1000', // Ensures the menu is above other elements
-                    maxHeight: '200px', // Optional: limits the height of the menu
-                    overflowY: 'auto' // Optional: enables scrolling if the menu is too tall
-                }}>
+                    <ul className={'has-background-grey-darker'} style={{
+                        position: 'absolute',
+                        top: '100%',
+                        right: '0',
+                        boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+                        padding: '4px',
+                        listStyleType: 'none',
+                        margin: '0',
+                        border: 'solid white 1px',
+                        borderRadius: '10px',
+                        zIndex: '1000', // Ensures the menu is above other elements
+                        maxHeight: '200px', // Optional: limits the height of the menu
+                        overflowY: 'auto' // Optional: enables scrolling if the menu is too tall
+                    }}>
 
                         <li className="m-1">
                             <button className="button is-light" style={{width: '100px'}} onClick={kommentarBearbeiten}>
@@ -52,13 +52,13 @@ const KommentarMenue = (props) => {
                             </button>
                         </li>
 
-                    <li className="m-1">
-                        <button className="button is-light" style={{width: '100px'}} onClick={kommentarLoeschen}>
-                            &nbsp;<i className="fa fa-trash"></i>&nbsp;löschen
-                        </button>
-                    </li>
-                </ul>
-            )
+                        <li className="m-1">
+                            <button className="button is-light" style={{width: '100px'}} onClick={kommentarLoeschen}>
+                                &nbsp;<i className="fa fa-trash"></i>&nbsp;löschen
+                            </button>
+                        </li>
+                    </ul>
+                )
 
             )}
         </div>
