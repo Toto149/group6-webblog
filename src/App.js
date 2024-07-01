@@ -20,7 +20,10 @@ function App() {
     const [rollen, setRollen] = useState([]);
 
     const [beitraege, setBeitraege] = useState([]);
-    const [kommentare, setKommentare] = useState([])
+    const [kommentare, setKommentare] = useState([]);
+
+    const [beitragIdFürLöschen, setBeitragIdFürLöschen] = useState(null);
+    const [kommentarIdFürLöschen, setKommentarIdFürLöschen] = useState(null);
 
     const [benutzerDB, setBenutzerDB] = useState([]);
     const [rollenDB, setRollenDB] = useState([]);
@@ -28,14 +31,25 @@ function App() {
     const [kommentareDB, setKommentareDB] = useState([]);
 
 
-    let copyBenutzers = [];
-    let copyRollen = [];
-    let copyBeitraege = [];
-    let copyKommentare = [];
-
     useEffect(() => {
         getDatenAusDB();
     }, []);
+
+    useEffect(() => {
+        if (beitragIdFürLöschen) deleteBeitrag();
+
+        console.log("я хочу удалить post: " + beitragIdFürLöschen);
+    }, [beitragIdFürLöschen]);
+
+
+    useEffect(() => {
+        if (kommentarIdFürLöschen) {
+            deleteKommentar();
+        }
+
+        console.log("я хочу удалить комментарий: " + kommentarIdFürLöschen);
+
+    }, [kommentarIdFürLöschen]);
 
     useEffect(() => {
         //benutzerSpeichern();
@@ -59,12 +73,10 @@ function App() {
         }
         if (beitraegeDB && beitraegeDB.length > 0) {
             let beitraegeAusDB = beitraegeFüllen();
-            copyBeitraege = [...beitraegeAusDB];
             setBeitraege(beitraegeAusDB);
         }
         if (kommentareDB && kommentareDB.length > 0) {
             let kommentareAusDB = kommentareFüllen();
-            copyKommentare = [...kommentareAusDB];
             setKommentare(kommentareAusDB);
         }
 
@@ -216,7 +228,6 @@ function App() {
         let beitraegeInDB = [];
 
         beitraege.map((Row) => {
-            console.log('*')
             const tempBeitrag = {
                 id: Row.id,
                 titel : Row.titel,
@@ -282,6 +293,28 @@ function App() {
         }
     }
 
+    async function deleteKommentar(){
+        const { data, error } = await supabase
+            .from('kommentare')
+            .delete()
+            .eq('id', kommentarIdFürLöschen)
+
+        if (error) {
+            alert("Ich lehne DELETE vom Kommentar ab: " + error.details);
+        }
+    }
+
+    async function deleteBeitrag(){
+        const { data, error } = await supabase
+            .from('beitraege')
+            .delete()
+            .eq('id', beitragIdFürLöschen)
+
+        if (error) {
+            alert("Ich lehne DELETE vom Beitrag ab: " + error.details);
+        }
+    }
+
     ////DB end
 
     useEffect(() => {
@@ -344,6 +377,10 @@ function App() {
                                 setKommentare={setKommentare}
                                 aktuellerBenutzer={aktuellerBenutzer}
                                 benutzers={benutzers}
+                                beitragIdFürLöschen={beitragIdFürLöschen}
+                                setBeitragIdFürLöschen={setBeitragIdFürLöschen}
+                                kommentarIdFürLöschen={kommentarIdFürLöschen}
+                                setKommentarIdFürLöschen={setKommentarIdFürLöschen}
                     />}
                 </div>
             </div>

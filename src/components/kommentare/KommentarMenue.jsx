@@ -8,8 +8,15 @@ const KommentarMenue = (props) => {
     };
 
     const kommentarLoeschen = () => {
-        const gefiltert = props.kommentare.filter((kom) => kom.id !== props.kommentar.id);
-        props.setKommentare([...gefiltert]);
+
+        const userConfirmed = window.confirm("Kommentar löschen?");
+        if (userConfirmed) {
+
+            const gefiltert = props.kommentare.filter((kom) => kom.id !== props.kommentar.id);
+            props.setKommentare([...gefiltert]);
+            //DB
+            props.setKommentarIdFürLöschen(props.kommentar.id);
+        }
     };
 
     const kommentarBearbeiten = () => {

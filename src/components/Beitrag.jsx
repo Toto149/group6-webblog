@@ -43,11 +43,15 @@ export default function Beitrag(props){
 
     const nutzerDerBeitrag = props.benutzers.filter(b => b.name === props.beitrag.nutzer);
 
-
-
     const handleDelete = () => {
 
-        props.setBeitraege(props.beitraege.filter(b => b.id !== props.beitrag.id));
+        const userConfirmed = window.confirm("Beitrag löschen?");
+        if (userConfirmed) {
+
+            props.setBeitraege(props.beitraege.filter(b => b.id !== props.beitrag.id));
+            // für DB
+            props.setBeitragIdFürLöschen(props.beitrag.id);
+        }
     }
     return (
 
@@ -149,6 +153,8 @@ export default function Beitrag(props){
                                      setKommentare={props.setKommentare}
                                      aktuellerBenutzer={props.aktuellerBenutzer}
                                      benutzers={props.benutzers}
+                                     kommentarIdFürLöschen={props.kommentarIdFürLöschen}
+                                     setKommentarIdFürLöschen={props.setKommentarIdFürLöschen}
                         />
                         }
 

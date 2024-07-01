@@ -12,7 +12,11 @@ export default function Beitraege({aktuellerBenutzer,
                                       setBeitraege,
                                       kommentare,
                                       setKommentare,
-                                        benutzers
+                                        benutzers,
+                                      beitragIdFürLöschen,
+                                      setBeitragIdFürLöschen,
+                                      kommentarIdFürLöschen,
+                                      setKommentarIdFürLöschen
                                   }){
 
 
@@ -85,6 +89,10 @@ export default function Beitraege({aktuellerBenutzer,
                                          setKommentare={setKommentare}
                                          aktuellerBenutzer={aktuellerBenutzer}
                                          benutzers={benutzers}
+                                         beitragIdFürLöschen={beitragIdFürLöschen}
+                                         setBeitragIdFürLöschen={setBeitragIdFürLöschen}
+                                         kommentarIdFürLöschen={kommentarIdFürLöschen}
+                                         setKommentarIdFürLöschen={setKommentarIdFürLöschen}
                                 />)
                             }
                     </div>

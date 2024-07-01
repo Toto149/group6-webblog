@@ -73,6 +73,8 @@ const Kommentar = (props) => {
                                                 kommentare={props.kommentare}
                                                 setKommentare={props.setKommentare}
                                                 setWirdBearbeitet={setWirdBearbeitet}
+                                                kommentarIdFürLöschen={props.kommentarIdFürLöschen}
+                                                setKommentarIdFürLöschen={props.setKommentarIdFürLöschen}
                                             />
                                         </div>
                                     }
