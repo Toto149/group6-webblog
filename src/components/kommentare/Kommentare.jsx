@@ -44,10 +44,14 @@ const Kommentare = (props) => {
                                                                                      kommentare={props.kommentare}
                                                                                      setKommentare={props.setKommentare}
                                                                                      benutzers={props.benutzers}
+                                                                                     kommentarIdFürLöschen={props.kommentarIdFürLöschen}
+                                                                                     setKommentarIdFürLöschen={props.setKommentarIdFürLöschen}
                                                                                      aktuellerBenutzer={props.aktuellerBenutzer}/>)
                                 : gefilterteKommentare.slice(0, mehrKommentareGrenze).map((kommentar) => <Kommentar key={kommentar.id}
                                                                                                  kommentar={kommentar}
                                                                                                  kommentare={props.kommentare}
+                                                                                                 kommentarIdFürLöschen={props.kommentarIdFürLöschen}
+                                                                                                 setKommentarIdFürLöschen={props.setKommentarIdFürLöschen}
                                                                                                  setKommentare={props.setKommentare}
                                                                                                  benutzers={props.benutzers}
                                                                                                  aktuellerBenutzer={props.aktuellerBenutzer}/>)}

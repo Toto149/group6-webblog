@@ -9,6 +9,37 @@ export default function Beitrag(props){
 
 
 
+                //Diese Komponente soll einen einzelnen Beitrag des Web-blogs modellieren.
+                //Die Idee ist, dass diese Komponente Kommentare des Beitrags anzeigt und auf
+                // eine einzelne
+
+                //Dieser useState überprüft, ob der Kommentare-editier-Button gedrückt wurde.
+                const [wurdeEditGeklickt, setWurdeEditGeklickt ] = useState(false);
+
+
+                //Dieser useStat überprüft, ob der Beitrag editiert wurde und wenn ja, dann soll das Datum angepasst
+                // werden.
+                const [wurdeSubmitet, setWurdeSubmitet] = useState(false);
+
+                //Diese Funktion soll die Kategorien anzeigen.
+                const displayKategorien = (kategorien) => {
+
+                    /*
+                    let str = "Kategorien: ";
+                    for(let i = 0; i<kategorien.length; i++){
+                        if(i<kategorien.length-1) {
+                            str += kategorien[i] + ", ";
+                        } else {
+                            str += kategorien[i];
+                        }
+                    }
+
+                     */
+                    return kategorien;
+
+                };
+
+
     //Diese Komponente soll einen einzelnen Beitrag des Web-blogs modellieren.
     //Die Idee ist, dass diese Komponente Kommentare des Beitrags anzeigt und auf
     // eine einzelne
@@ -42,11 +73,15 @@ export default function Beitrag(props){
 
     const nutzerDerBeitrag = props.benutzers.filter(b => b.name === props.beitrag.nutzer);
 
-
-
     const handleDelete = () => {
 
-        props.setBeitraege(props.beitraege.filter(b => b.id !== props.beitrag.id));
+        const userConfirmed = window.confirm("Beitrag löschen?");
+        if (userConfirmed) {
+
+            props.setBeitraege(props.beitraege.filter(b => b.id !== props.beitrag.id));
+            // für DB
+            props.setBeitragIdFürLöschen(props.beitrag.id);
+        }
     }
     return (
 
@@ -148,6 +183,8 @@ export default function Beitrag(props){
                                      setKommentare={props.setKommentare}
                                      aktuellerBenutzer={props.aktuellerBenutzer}
                                      benutzers={props.benutzers}
+                                     kommentarIdFürLöschen={props.kommentarIdFürLöschen}
+                                     setKommentarIdFürLöschen={props.setKommentarIdFürLöschen}
                         />
                         }
 

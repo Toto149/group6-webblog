@@ -21,21 +21,44 @@ function App() {
     const [rollen, setRollen] = useState([]);
 
     const [beitraege, setBeitraege] = useState([]);
-    const [kommentare, setKommentare] = useState([])
+    const [kommentare, setKommentare] = useState([]);
+
+    const [beitragIdFürLöschen, setBeitragIdFürLöschen] = useState(null);
+    const [kommentarIdFürLöschen, setKommentarIdFürLöschen] = useState(null);
 
     const [benutzerDB, setBenutzerDB] = useState([]);
     const [rollenDB, setRollenDB] = useState([]);
     const [beitraegeDB, setBeitraegeDB] = useState([]);
     const [kommentareDB, setKommentareDB] = useState([]);
 
-    let copyBenutzers = [];
-    let copyRollen = [];
-    let copyBeitraege = [];
-    let copyKommentare = [];
 
     useEffect(() => {
         getDatenAusDB();
     }, []);
+
+    useEffect(() => {
+        if (beitragIdFürLöschen) deleteBeitrag();
+    }, [beitragIdFürLöschen]);
+
+
+    useEffect(() => {
+        if (kommentarIdFürLöschen) {
+            deleteKommentar();
+        }
+    }, [kommentarIdFürLöschen]);
+
+    useEffect(() => {
+        benutzerSpeichern();
+        //console.log(JSON.stringify(benutzers))
+    }, [benutzers]);
+
+    useEffect(() => {
+        beitraegeSpeichern();
+    }, [beitraege]);
+
+    useEffect(() => {
+        kommentareSpeichern();
+    }, [kommentare]);
 
     useEffect(() => {
         if (benutzerDB && rollenDB && benutzerDB.length > 0 && rollenDB.length > 0) {
@@ -47,12 +70,10 @@ function App() {
         }
         if (beitraegeDB && beitraegeDB.length > 0) {
             let beitraegeAusDB = beitraegeFüllen();
-            copyBeitraege = [...beitraegeAusDB];
             setBeitraege(beitraegeAusDB);
         }
         if (kommentareDB && kommentareDB.length > 0) {
             let kommentareAusDB = kommentareFüllen();
-            copyKommentare = [...kommentareAusDB];
             setKommentare(kommentareAusDB);
         }
 
@@ -156,6 +177,31 @@ function App() {
         return rollenAusDB;
     }
 
+
+    async function benutzerSpeichern() {
+        let benutzersInDB = [];
+
+        benutzers.map((Row) => {
+            const tempBenutzer = {
+                name: Row.name,
+                passwort: Row.passwort,
+                avatarURL: Row.avatar,
+                rolleName: Row.rolleName,
+            };
+
+            benutzersInDB.push(tempBenutzer);
+        })
+
+        const { data, error } = await supabase
+            .from('benutzer')
+            .upsert(benutzersInDB)
+            .select();
+
+        if (error) {
+            alert("Ich lehne aller Zeilen von 'benutzer' ab: " + error.message + " " + error.details);
+        }
+    }
+
     function beitraegeFüllen() {
         let beitraegeAusDB = [];
         beitraegeDB.forEach((beitragRow) => {
@@ -167,12 +213,40 @@ function App() {
                 "publizierungsDatum": beitragRow.publizierungsDatum,
                 "erstellungsDatum": beitragRow.erstellungsDatum,
                 "kommentare" : [],
-                "kategorien": [], //beitragRow.kategorien
+                "kategorien": beitragRow.kategorien,
                 "bildUrl": beitragRow.bildURL
             };
             beitraegeAusDB.push(tempBeitrag);
         });
         return beitraegeAusDB;
+    }
+
+    async function beitraegeSpeichern() {
+        let beitraegeInDB = [];
+
+        beitraege.map((Row) => {
+            const tempBeitrag = {
+                id: Row.id,
+                titel : Row.titel,
+                benutzerName : Row.nutzer,
+                inhalt: Row.inhalt,
+                publizierungsDatum: Row.publizierungsDatum,
+                erstellungsDatum: Row.erstellungsDatum,
+                kategorien: Row.kategorien,
+                bildURL: Row.bildUrl
+            };
+
+            beitraegeInDB.push(tempBeitrag);
+        })
+
+        const { data, error } = await supabase
+            .from('beitraege')
+            .upsert(beitraegeInDB)
+            .select();
+
+        if (error) {
+            alert("Ich lehne aller Zeilen von 'beitraege' ab: " + error.message + " " + error.details);
+        }
     }
 
     function kommentareFüllen() {
@@ -189,6 +263,53 @@ function App() {
             kommentareAusDB.push(tempKommentar);
         });
         return kommentareAusDB;
+    }
+
+    async function kommentareSpeichern() {
+        let kommentareInDB = [];
+        kommentare.map((Row) => {
+            const tempKommentar = {
+                id: Row.id,
+                benutzerName: Row.nutzer,
+                inhalt: Row.inhalt,
+                datum: Row.datum,
+                editDatum: Row.editDatum,
+                beitragsID: Row.beitragsId,
+            };
+            kommentareInDB.push(tempKommentar);
+        });
+
+
+        const { data, error } = await supabase
+            .from('kommentare')
+            .upsert(kommentareInDB)
+            .select();
+
+        if (error) {
+            alert("Ich lehne aller Zeilen von 'kommentare' ab: " + error.message + " " + error.details);
+        }
+    }
+
+    async function deleteKommentar(){
+        const { data, error } = await supabase
+            .from('kommentare')
+            .delete()
+            .eq('id', kommentarIdFürLöschen)
+
+        if (error) {
+            alert("Ich lehne DELETE vom Kommentar ab: " + error.details);
+        }
+    }
+
+    async function deleteBeitrag(){
+        const { data, error } = await supabase
+            .from('beitraege')
+            .delete()
+            .eq('id', beitragIdFürLöschen)
+
+        if (error) {
+            alert("Ich lehne DELETE vom Beitrag ab: " + error.details);
+        }
     }
 
     ////DB end
@@ -253,6 +374,10 @@ function App() {
                                 setKommentare={setKommentare}
                                 aktuellerBenutzer={aktuellerBenutzer}
                                 benutzers={benutzers}
+                                beitragIdFürLöschen={beitragIdFürLöschen}
+                                setBeitragIdFürLöschen={setBeitragIdFürLöschen}
+                                kommentarIdFürLöschen={kommentarIdFürLöschen}
+                                setKommentarIdFürLöschen={setKommentarIdFürLöschen}
                     />}
                 </div>
             </div>

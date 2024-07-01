@@ -12,7 +12,11 @@ export default function Beitraege({aktuellerBenutzer,
                                       setBeitraege,
                                       kommentare,
                                       setKommentare,
-                                        benutzers
+                                        benutzers,
+                                      beitragIdFürLöschen,
+                                      setBeitragIdFürLöschen,
+                                      kommentarIdFürLöschen,
+                                      setKommentarIdFürLöschen
                                   }){
 
 
@@ -49,14 +53,14 @@ export default function Beitraege({aktuellerBenutzer,
                         textAlign: "right",
                         marginRight: "10em"
                     }}>
-                    {aktuellerBenutzer?.rolle.kannBeitragVerfassen
-                        &&
+                    {(aktuellerBenutzer?.rolle.kannBeitragVerfassen === true)
+                        && (
                         <button
                             onClick={hantiereClick}
                             className="button is-dark ml-2">
 
                             <i className="fa fa-save"></i> &nbsp; Beitrag erstellen
-                        </button>
+                        </button>)
                     }
                     <button
                         onClick={hantiereClickAltZuNeu}
@@ -85,6 +89,10 @@ export default function Beitraege({aktuellerBenutzer,
                                          setKommentare={setKommentare}
                                          aktuellerBenutzer={aktuellerBenutzer}
                                          benutzers={benutzers}
+                                         beitragIdFürLöschen={beitragIdFürLöschen}
+                                         setBeitragIdFürLöschen={setBeitragIdFürLöschen}
+                                         kommentarIdFürLöschen={kommentarIdFürLöschen}
+                                         setKommentarIdFürLöschen={setKommentarIdFürLöschen}
                                 />)
                             }
                     </div>
