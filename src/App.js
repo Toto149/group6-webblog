@@ -27,6 +27,7 @@ function App() {
     const [beitraegeDB, setBeitraegeDB] = useState([]);
     const [kommentareDB, setKommentareDB] = useState([]);
 
+
     let copyBenutzers = [];
     let copyRollen = [];
     let copyBeitraege = [];
@@ -35,6 +36,18 @@ function App() {
     useEffect(() => {
         getDatenAusDB();
     }, []);
+
+    useEffect(() => {
+        //benutzerSpeichern();
+    }, [benutzers]);
+
+    useEffect(() => {
+        beitraegeSpeichern();
+    }, [beitraege]);
+
+    useEffect(() => {
+        kommentareSpeichern();
+    }, [kommentare]);
 
     useEffect(() => {
         if (benutzerDB && rollenDB && benutzerDB.length > 0 && rollenDB.length > 0) {
@@ -155,6 +168,31 @@ function App() {
         return rollenAusDB;
     }
 
+
+    async function benutzerSpeichern() {
+        let benutzersInDB = [];
+
+        benutzers.map((Row) => {
+            const tempBenutzer = {
+                name: Row.name,
+                passwort: Row.passwort,
+                avatarURL: Row.avatar,
+                rolleName: Row.rolleName,
+            };
+
+            benutzersInDB.push(tempBenutzer);
+        })
+
+        const { data, error } = await supabase
+            .from('benutzer')
+            .upsert(benutzersInDB)
+            .select();
+
+        if (error) {
+            alert("Ich lehne aller Zeilen von 'benutzer' ab: " + error.message + " " + error.details);
+        }
+    }
+
     function beitraegeFüllen() {
         let beitraegeAusDB = [];
         beitraegeDB.forEach((beitragRow) => {
@@ -166,12 +204,41 @@ function App() {
                 "publizierungsDatum": beitragRow.publizierungsDatum,
                 "erstellungsDatum": beitragRow.erstellungsDatum,
                 "kommentare" : [],
-                "kategorien": [], //beitragRow.kategorien
+                "kategorien": beitragRow.kategorien,
                 "bildUrl": beitragRow.bildURL
             };
             beitraegeAusDB.push(tempBeitrag);
         });
         return beitraegeAusDB;
+    }
+
+    async function beitraegeSpeichern() {
+        let beitraegeInDB = [];
+
+        beitraege.map((Row) => {
+            console.log('*')
+            const tempBeitrag = {
+                id: Row.id,
+                titel : Row.titel,
+                benutzerName : Row.nutzer,
+                inhalt: Row.inhalt,
+                publizierungsDatum: Row.publizierungsDatum,
+                erstellungsDatum: Row.erstellungsDatum,
+                kategorien: Row.kategorien,
+                bildURL: Row.bildUrl
+            };
+
+            beitraegeInDB.push(tempBeitrag);
+        })
+
+        const { data, error } = await supabase
+            .from('beitraege')
+            .upsert(beitraegeInDB)
+            .select();
+
+        if (error) {
+            alert("Ich lehne aller Zeilen von 'beitraege' ab: " + error.message + " " + error.details);
+        }
     }
 
     function kommentareFüllen() {
@@ -188,6 +255,31 @@ function App() {
             kommentareAusDB.push(tempKommentar);
         });
         return kommentareAusDB;
+    }
+
+    async function kommentareSpeichern() {
+        let kommentareInDB = [];
+        kommentare.map((Row) => {
+            const tempKommentar = {
+                id: Row.id,
+                benutzerName: Row.nutzer,
+                inhalt: Row.inhalt,
+                datum: Row.datum,
+                editDatum: Row.editDatum,
+                beitragsID: Row.beitragsId,
+            };
+            kommentareInDB.push(tempKommentar);
+        });
+
+
+        const { data, error } = await supabase
+            .from('kommentare')
+            .upsert(kommentareInDB)
+            .select();
+
+        if (error) {
+            alert("Ich lehne aller Zeilen von 'kommentare' ab: " + error.message + " " + error.details);
+        }
     }
 
     ////DB end

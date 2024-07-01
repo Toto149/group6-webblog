@@ -22,7 +22,7 @@ export default function BeitragBearbeitenFormular({
             ...beitrag,
             "titel" : lokalerTitel,
             "inhalt": lokalerTextInhalt,
-            "publizierungsDatum": new Date(),
+            "publizierungsDatum": Date.now(),
             "kategorien": [lokaleKategorie],
             "bildUrl": lokaleBildUrl,
         };
